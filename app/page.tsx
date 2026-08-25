@@ -61,9 +61,8 @@ export default function Home() {
 
       <section className="hero">
         <div className="hero-heading page-width" data-reveal>
-          <span className="hero-model-line"><i aria-hidden="true" /> Seedance 2.5 · On Wizstar</span>
-          <h1><span>Direct the Scene.</span><strong>Shape the Story.</strong></h1>
-          <p>Move from text, keyframes, or up to 50 multimodal references to as much as 30 seconds of directed video—inside Wizstar.</p>
+          <h1>Seedance 2.5 — AI Video Creation on Wizstar</h1>
+          <p>Create up to 30 seconds of directed video from text, keyframes, or as many as 50 image, video, and audio references—inside Wizstar.</p>
         </div>
 
         <div className="hero-workspace page-width" ref={heroRef} onPointerMove={moveHeroLight} data-reveal>

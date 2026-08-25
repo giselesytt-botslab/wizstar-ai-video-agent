@@ -29,4 +29,4 @@ Section order may stay aligned with the approved blueprint. Headlines, explanati
 
 ## Hero signature
 
-Primary line: “Direct the Scene. Shape the Story.” The first beat uses a cool white metallic treatment; the second uses Wizstar's cyan-to-blue-to-purple gradient. Keep the typography concise, directional, and premium rather than using a long descriptive model headline.
+The primary line must begin with “Seedance 2.5” and remain a single horizontal product headline on desktop. Follow the teammate page's typography: centered, 44px/600, and a static Wizstar blue-to-purple gradient. Never reduce the product name to a small eyebrow label.
