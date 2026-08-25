@@ -61,8 +61,9 @@ export default function Home() {
 
       <section className="hero">
         <div className="hero-heading page-width" data-reveal>
-          <h1>Turn References into Complete Video Stories with Seedance 2.5</h1>
-          <p>Direct up to 30 seconds of motion from a written scene, a pair of keyframes, or a multimodal reference pack—then carry the same model into Wizstar’s creator and Agent workflows.</p>
+          <span className="hero-model-line"><i aria-hidden="true" /> Seedance 2.5 · On Wizstar</span>
+          <h1><span>Direct the Scene.</span><strong>Shape the Story.</strong></h1>
+          <p>Move from text, keyframes, or up to 50 multimodal references to as much as 30 seconds of directed video—inside Wizstar.</p>
         </div>
 
         <div className="hero-workspace page-width" ref={heroRef} onPointerMove={moveHeroLight} data-reveal>

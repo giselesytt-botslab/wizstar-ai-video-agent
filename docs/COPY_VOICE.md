@@ -26,3 +26,7 @@ This page keeps the reference site's information architecture, but all customer-
 - “Create without limits”
 
 Section order may stay aligned with the approved blueprint. Headlines, explanations, calls to action, examples, and transitions must express Wizstar's own product logic.
+
+## Hero signature
+
+Primary line: “Direct the Scene. Shape the Story.” The first beat uses a cool white metallic treatment; the second uses Wizstar's cyan-to-blue-to-purple gradient. Keep the typography concise, directional, and premium rather than using a long descriptive model headline.
