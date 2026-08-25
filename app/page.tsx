@@ -15,12 +15,12 @@ const modeDetails = {
 } as const;
 
 const workShowcases = [
-  { eyebrow: "Reference to Video", title: "Reference-Led Narrative", description: "Combine image, video, and audio references to direct the look, motion, and sound of a scene.", tags: ["Up to 50 assets", "16:9"], tone: "cyan" },
-  { eyebrow: "E-commerce Agent", title: "Product Launch Film", description: "Use product images, a product URL, and selling points inside Wizstar’s E-commerce Agent workflow.", tags: ["Product assets", "9:16"], tone: "violet" },
-  { eyebrow: "Keyframe to Video", title: "Frame-to-Frame Motion", description: "Start with a required first frame and an optional end frame to direct the transition.", tags: ["First + end frame", "720P"], tone: "blue" },
-  { eyebrow: "Text to Video", title: "Text-Directed Scene", description: "Describe the subject, camera movement, pacing, and action from a written prompt.", tags: ["Prompt-led", "16:9"], tone: "magenta" },
-  { eyebrow: "Social Creative", title: "Vertical Campaign", description: "Create vertical 9:16 concepts for short-form placements with the available duration controls.", tags: ["9:16", "4–30 sec"], tone: "aqua" },
-  { eyebrow: "Longer Generation", title: "30-Second Brand Story", description: "Use up to 30 seconds to structure a clear setup, action, and closing moment.", tags: ["Up to 30 sec", "720P"], tone: "indigo" },
+  { eyebrow: "Reference to Video", title: "Fashion Editorial", description: "Carry a distinctive subject, styling language, and photographic mood into a directed moving sequence.", tags: ["Identity", "Style"], tone: "cyan", image: "/assets/demo/fashion-editorial.jpg", alt: "Blue-lit editorial fashion portrait used as a temporary visual direction reference", credit: "Demo photo: Sherman Trotz / Pexels" },
+  { eyebrow: "E-commerce Agent", title: "Luxury Product Film", description: "Turn product imagery and selling points into a polished launch concept with tactile detail and motion.", tags: ["Product", "Campaign"], tone: "violet", image: "/assets/demo/perfume-product.jpg", alt: "Luxury perfume product photo used as a temporary visual direction reference", credit: "Demo photo: Carol EspiAldon / Pexels" },
+  { eyebrow: "Keyframe to Video", title: "Culinary Story", description: "Build atmosphere and human action around a real service moment, from preparation to final presentation.", tags: ["Food", "Lifestyle"], tone: "blue", image: "/assets/demo/chef-culinary.jpg", alt: "Chef plating a dish used as a temporary visual direction reference", credit: "Demo photo: Anthony Osuna / Pexels" },
+  { eyebrow: "Text to Video", title: "Destination Film", description: "Direct scale, camera movement, and pacing for travel stories that feel expansive and cinematic.", tags: ["Travel", "Landscape"], tone: "magenta", image: "/assets/demo/travel-landscape.jpg", alt: "Aerial coastal landscape used as a temporary visual direction reference", credit: "Demo photo: Ali Akdemir / Pexels" },
+  { eyebrow: "Social Creative", title: "Movement Campaign", description: "Shape expressive human motion into energetic vertical work made for short-form placements.", tags: ["Dance", "9:16"], tone: "aqua", image: "/assets/demo/contemporary-dance.jpg", alt: "Contemporary dancer in motion used as a temporary visual direction reference", credit: "Demo photo: Israyosoy S. / Pexels" },
+  { eyebrow: "Longer Generation", title: "Architecture Journey", description: "Use a longer timeline to reveal space, material, symmetry, and movement through a designed environment.", tags: ["Architecture", "30 sec"], tone: "indigo", image: "/assets/demo/modern-architecture.jpg", alt: "Modern architectural interior used as a temporary visual direction reference", credit: "Demo photo: Markus Winkler / Pexels" },
 ] as const;
 
 const footerColumns = [
@@ -107,9 +107,10 @@ export default function Home() {
             <a className="generate" href={referenceUrl}>Create a video on Wizstar</a>
           </section>
 
-          <div className="hero-media" aria-label="Seedance 2.5 example video placeholder">
-            <div className="media-label"><span>Featured Seedance 2.5 work</span><small>Selected launch film will appear here</small></div>
-            <button type="button" aria-label="Video preview placeholder">▶</button>
+          <div className="hero-media" aria-label="Temporary visual direction for a future Seedance 2.5 featured video">
+            <img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary dance campaign visual used as a temporary direction reference" />
+            <div className="media-label"><span>Movement Without Limits</span><small>Demo visual direction · approved Seedance case pending</small></div>
+            <button type="button" aria-label="Preview treatment demonstration">▶</button>
             <div className="media-meta"><span>30 sec</span><span>720P</span><span>16:9</span></div>
           </div>
         </div>
@@ -119,12 +120,13 @@ export default function Home() {
         <div className="section-heading" data-reveal>
           <span className="section-kicker">Work Showcase</span>
           <h2>See Seedance 2.5 in Action</h2>
-          <p>Explore the scenes and production workflows you can build on Wizstar—from product campaigns to reference-led narratives.</p>
+          <p>Explore a broad visual direction for the work users can build on Wizstar—from product campaigns and fashion to food, travel, movement, and space.</p>
           <a href={referenceUrl}>Start creating on Wizstar <Arrow /></a>
         </div>
+        <p className="demo-disclaimer" data-reveal>Visual direction preview for product review. Replace with approved Seedance 2.5 outputs before launch.</p>
         <div className="creation-marquee" aria-label="Seedance 2.5 work showcase" data-reveal>
-          <div className="creation-track">{[...workShowcases, ...workShowcases].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`top-${index}`}><div className="showcase-visual"><span>{item.eyebrow}</span><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
-          <div className="creation-track reverse-track">{[...workShowcases.slice().reverse(), ...workShowcases.slice().reverse()].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`bottom-${index}`}><div className="showcase-visual"><span>{item.eyebrow}</span><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
+          <div className="creation-track">{[...workShowcases, ...workShowcases].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`top-${index}`}><div className="showcase-visual" title={item.credit}><img src={item.image} alt={item.alt} /><span>{item.eyebrow}</span><b>DEMO VISUAL</b><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
+          <div className="creation-track reverse-track">{[...workShowcases.slice().reverse(), ...workShowcases.slice().reverse()].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`bottom-${index}`}><div className="showcase-visual" title={item.credit}><img src={item.image} alt={item.alt} /><span>{item.eyebrow}</span><b>DEMO VISUAL</b><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
         </div>
       </section>
 
@@ -186,9 +188,9 @@ export default function Home() {
       <section className="insights page-width" id="insights">
         <div className="section-heading" data-reveal><span className="section-kicker">Wizstar field notes</span><h2>Learn the Craft Behind Better AI Video</h2><p>Practical guides for choosing a mode, directing a longer sequence, and connecting Seedance 2.5 to real creative work.</p><a href="https://wizstar.com/blog">Visit the Wizstar blog <Arrow /></a></div>
         <div className="article-grid" data-reveal>
-          <article><div className="article-cover"><span>DIRECTING GUIDE</span></div><small>Guide in progress</small><h3>How to Structure a 30-Second AI Video Brief</h3><p>A beat-by-beat framework for turning one idea into a complete moving sequence.</p></article>
-          <article><div className="article-cover"><span>MODE GUIDE</span></div><small>Guide in progress</small><h3>Reference, Keyframe, or Text: Where Should You Start?</h3><p>A practical way to match the material in hand with the right creation mode.</p></article>
-          <article><div className="article-cover"><span>WORKFLOW GUIDE</span></div><small>Guide in progress</small><h3>From Product Inputs to a Video Concept in Wizstar</h3><p>How product URLs, images, selling points, and Seedance 2.5 meet inside Agent workflows.</p></article>
+          <article><div className="article-cover"><img src="/assets/demo/modern-architecture.jpg" alt="Modern architecture demo cover" /><span>DIRECTING GUIDE</span></div><small>Guide in progress</small><h3>How to Structure a 30-Second AI Video Brief</h3><p>A beat-by-beat framework for turning one idea into a complete moving sequence.</p></article>
+          <article><div className="article-cover"><img src="/assets/demo/fashion-editorial.jpg" alt="Editorial fashion demo cover" /><span>MODE GUIDE</span></div><small>Guide in progress</small><h3>Reference, Keyframe, or Text: Where Should You Start?</h3><p>A practical way to match the material in hand with the right creation mode.</p></article>
+          <article><div className="article-cover"><img src="/assets/demo/perfume-product.jpg" alt="Luxury product demo cover" /><span>WORKFLOW GUIDE</span></div><small>Guide in progress</small><h3>From Product Inputs to a Video Concept in Wizstar</h3><p>How product URLs, images, selling points, and Seedance 2.5 meet inside Agent workflows.</p></article>
         </div>
       </section>
 
