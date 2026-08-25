@@ -24,3 +24,4 @@
 - Adapted three interaction ideas from the supplied studio reference: edge-faded work marquees, layered premium CTA shadows, and a final-CTA cursor trail built only from existing Wizstar product screenshots.
 - Restored an unmistakable dedicated Seedance 2.5 core-features chapter with an original headline, four verified capability highlights, and the existing five detailed product-advantage stories beneath it.
 - Rebuilt the header as a floating translucent glass navigation bar and replaced the sparse footer with the teammate page's complete Wizstar brand, social, Product, Solution, Company, and Resources structure.
+- Integrated the glass navigation into the top page edge to match the teammate layout: static in normal flow, full-width glass backdrop, constrained inner content, and no floating radius or outer gap.
