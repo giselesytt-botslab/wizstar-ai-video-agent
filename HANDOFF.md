@@ -1,5 +1,11 @@
 # Handoff
 
+## Safe rollback
+
+- Stable pre-interaction version: Git tag `baseline-openart-framework-v1`
+- Experimental interaction work: branch `feature/future-interactions`
+- The stable checkpoint must remain intact until the owner approves the interaction direction.
+
 ## Ready
 
 - Responsive desktop/mobile framework
