@@ -18,3 +18,4 @@
 - Rewrote the complete customer-facing page in a Wizstar-specific, director-first voice; removed reference-derived headings, replaced pending feature and FAQ slots with verified product content, and added a copy-voice handoff guide.
 - Rebuilt the Hero title as a concise two-beat brand statement using Geist typography, a metallic first line, an animated Wizstar cyan-blue-purple gradient, and responsive mobile scaling.
 - Corrected the Hero to a prominent horizontal headline beginning with “Seedance 2.5,” using the teammate page's restrained 44px/600 static Wizstar gradient treatment.
+- Added a cinematic future-polish layer with spatial aura, perspective grid, slow headline spectrum, product-spec capsules, luminous workspace framing, and a restrained media scan effect.

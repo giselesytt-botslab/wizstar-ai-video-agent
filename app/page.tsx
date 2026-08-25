@@ -63,6 +63,11 @@ export default function Home() {
         <div className="hero-heading page-width" data-reveal>
           <h1>Seedance 2.5 — AI Video Creation on Wizstar</h1>
           <p>Create up to 30 seconds of directed video from text, keyframes, or as many as 50 image, video, and audio references—inside Wizstar.</p>
+          <div className="hero-specs" aria-label="Seedance 2.5 highlights">
+            <span>Up to 30s</span>
+            <span>50 references</span>
+            <span>Multimodal direction</span>
+          </div>
         </div>
 
         <div className="hero-workspace page-width" ref={heroRef} onPointerMove={moveHeroLight} data-reveal>
