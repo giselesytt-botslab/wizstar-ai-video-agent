@@ -45,6 +45,7 @@ export default defineConfig(async () => {
 
   return {
     server: {
+      host: "0.0.0.0",
       allowedHosts: ["wizstar-seedance25-review.loca.lt"],
       ...(isCodexSeatbeltSandbox
         ? { watch: { useFsEvents: false, usePolling: true } }
