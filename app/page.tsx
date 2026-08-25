@@ -23,6 +23,13 @@ const workShowcases = [
   { eyebrow: "Longer Generation", title: "30-Second Brand Story", description: "Use up to 30 seconds to structure a clear setup, action, and closing moment.", tags: ["Up to 30 sec", "720P"], tone: "indigo" },
 ] as const;
 
+const footerColumns = [
+  { title: "Product", links: [["AI Avatar", "https://wizstar.com/official/ai-avatar"], ["AI Video Generator", "https://wizstar.com/official/video-generator"], ["Viral Video Recreation", "https://wizstar.com/tools/viral_video_recreation"], ["AI Product Video", "https://wizstar.com/tools/ai_product_video"], ["AI Image Generator", "https://wizstar.com/image?mode=general"], ["AI Video Translation", "https://wizstar.com/tools/ai_video_translation"], ["AI Avatar Turbo", "https://wizstar.com/tools/ai_avatar_turbo"], ["E-commerce Agent", "https://wizstar.com/agent?mode=ecommerce"], ["Creative Agent", "https://wizstar.com/agent?mode=creative"], ["Novel to Script", "https://wizstar.com/drama?mode=conversion"], ["Script Translation", "https://wizstar.com/drama?mode=translation"]] },
+  { title: "Solution", links: [["Sales", "https://wizstar.com/official/enterprise/sales"], ["Marketing", "https://wizstar.com/official/enterprise/marketing"], ["Social Ads", "https://wizstar.com/official/enterprise/social-ads"], ["Learning & Development", "https://wizstar.com/official/enterprise/learning-development"], ["Localization", "https://wizstar.com/official/enterprise/localization"], ["Offline Services", "https://wizstar.com/official/enterprise/off-market-services"], ["E-Commerce", "https://wizstar.com/official/enterprise/e-commerce"], ["Real Estate", "https://wizstar.com/official/enterprise/real-estate-property"], ["Financial Services", "https://wizstar.com/official/enterprise/financial-services"], ["Local Services", "https://wizstar.com/official/enterprise/local-services"]] },
+  { title: "Company", links: [["For Enterprise", "https://wizstar.com/official/enterprise"], ["Contact Sales", "https://calendly.com/wizstar-solutions/15"], ["API", "https://wizstar.com/official/api"], ["Pricing", "https://wizstar.com/official/pricing"], ["Terms", "https://wizstar.com/agreement?key=service_agreement"], ["Privacy", "https://wizstar.com/agreement?key=privacy_agreement"]] },
+  { title: "Resources", links: [["Blog", "https://wizstar.com/blog"], ["Content Partner Program", "https://wizstar.ai/activitypages/cpp"]] },
+] as const;
+
 export default function Home() {
   const [mode, setMode] = useState<keyof typeof modeDetails>("Reference");
   const heroRef = useRef<HTMLDivElement>(null);
@@ -207,7 +214,23 @@ export default function Home() {
 
       <section className="final-cta" onPointerMove={spawnCtaFrame}><div className="final-cta-content page-width" data-reveal><h2>Bring Your Next Video Brief to Wizstar</h2><p>Begin with a reference pack, a pair of keyframes, or a scene written from scratch.</p><a href={referenceUrl}>Open Seedance 2.5 <Arrow /></a></div></section>
 
-      <footer className="site-footer page-width"><a className="brand" href="https://wizstar.com/"><img src="/assets/wizstar-logo.png" alt="Wizstar" /></a><p>Direct ideas, source material, and product inputs through one AI creation workspace.</p><div><a href="https://wizstar.com/official/pricing">Pricing</a><a href="https://wizstar.com/official/api">API</a><a href="https://wizstar.com/blog">Blog</a></div></footer>
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <a className="brand" href="https://wizstar.com/" aria-label="Wizstar home"><img src="/assets/wizstar-logo.png" alt="Wizstar" /></a>
+            <p>The AI creation platform that turns ideas into polished visuals in minutes.</p>
+            <div className="socials" aria-label="Wizstar social channels">
+              <a href="https://x.com/WizstarAI" aria-label="X"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z" /></svg></a>
+              <a href="https://www.youtube.com/@Wizstar_official" aria-label="YouTube"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21.58 7.19a2.73 2.73 0 0 0-1.92-1.93C17.97 4.8 12 4.8 12 4.8s-5.97 0-7.66.46a2.73 2.73 0 0 0-1.92 1.93A28.43 28.43 0 0 0 2 12a28.43 28.43 0 0 0 .42 4.81 2.73 2.73 0 0 0 1.92 1.93c1.69.46 7.66.46 7.66.46s5.97 0 7.66-.46a2.73 2.73 0 0 0 1.92-1.93A28.43 28.43 0 0 0 22 12a28.43 28.43 0 0 0-.42-4.81ZM10 15.2V8.8l5.2 3.2L10 15.2Z" /></svg></a>
+              <a href="https://www.tiktok.com/@wizstar_ai" aria-label="TikTok"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16.72 3c.34 2.02 1.51 3.22 3.47 3.35v3.02a7.3 7.3 0 0 1-3.42-1.02v6.39c0 3.24-1.97 5.26-5.14 5.26A4.85 4.85 0 0 1 6.7 15.2a4.87 4.87 0 0 1 5.66-4.77v3.09a2.06 2.06 0 0 0-2.67 1.97 2.02 2.02 0 0 0 2.07 1.98c1.17 0 1.94-.7 1.94-2.18V3h3.02Z" /></svg></a>
+              <a href="https://www.instagram.com/wizstarai/" aria-label="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.95 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg></a>
+            </div>
+          </div>
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {footerColumns.map((column) => <div key={column.title}><h3>{column.title}</h3>{column.links.map(([label, href]) => <a href={href} key={label}>{label}</a>)}</div>)}
+          </nav>
+        </div>
+      </footer>
     </main>
   );
 }
