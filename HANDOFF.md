@@ -12,7 +12,7 @@
 
 - 3–6 approved Seedance 2.5 videos
 - Inputs, prompts, and settings for each case
-- Official Wizstar logo (the current `W` is temporary)
+- Final confirmation that the current official Wizstar logo asset is the preferred production variant
 - Final language and copy approval
 - Credit-price confirmation before publishing any price
 
