@@ -26,6 +26,8 @@ const workShowcases = [
 export default function Home() {
   const [mode, setMode] = useState<keyof typeof modeDetails>("Reference");
   const heroRef = useRef<HTMLDivElement>(null);
+  const trailLastFrame = useRef(0);
+  const trailIndex = useRef(0);
   const currentMode = modeDetails[mode];
 
   useEffect(() => {
@@ -41,6 +43,27 @@ export default function Home() {
     const bounds = event.currentTarget.getBoundingClientRect();
     event.currentTarget.style.setProperty("--pointer-x", `${event.clientX - bounds.left}px`);
     event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - bounds.top}px`);
+  };
+
+  const spawnCtaFrame = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType === "touch" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const now = performance.now();
+    if (now - trailLastFrame.current < 95) return;
+    trailLastFrame.current = now;
+
+    const target = event.currentTarget;
+    const bounds = target.getBoundingClientRect();
+    const frame = document.createElement("span");
+    const frameAssets = ["/assets/wizstar-seedance-generator.png", "/assets/wizstar-home-agents.png"];
+    const index = trailIndex.current++;
+    frame.className = "cta-trail-frame";
+    frame.setAttribute("aria-hidden", "true");
+    frame.style.left = `${event.clientX - bounds.left}px`;
+    frame.style.top = `${event.clientY - bounds.top}px`;
+    frame.style.backgroundImage = `url(${frameAssets[index % frameAssets.length]})`;
+    frame.style.setProperty("--trail-rotate", `${[-7, 5, -3, 8][index % 4]}deg`);
+    target.appendChild(frame);
+    window.setTimeout(() => frame.remove(), 1050);
   };
 
   return (
@@ -176,7 +199,7 @@ export default function Home() {
         <div className="faq-list"><details open><summary>What are the three ways to begin a Seedance 2.5 video?</summary><p>Wizstar’s AI Video Generator offers Reference to Video, Keyframe to Video, and Text to Video, so you can begin with source assets, defined frames, or a written scene.</p></details><details><summary>What belongs in a Reference mode source pack?</summary><p>You can combine image, video, and audio references and include as many as 50 multimodal assets in the inspected Wizstar interface.</p></details><details><summary>Which output controls can I set?</summary><p>Reference and Text modes offer 4–30 second durations, 480P or 720P, 9:16 or 16:9, and 1–4 outputs. Keyframe mode follows the uploaded frame dimensions rather than offering a separate ratio picker.</p></details><details><summary>Can I call Seedance 2.5 through a dedicated API?</summary><p>The currently inspected API area does not verify a model-specific Seedance 2.5 endpoint, so this page sends creators to Wizstar’s working creation interfaces.</p></details><details><summary>How long can one generation run?</summary><p>Reference and Text modes currently offer 4, 10, 15, 20, 25, and 30-second duration choices.</p></details><details><summary>What does Keyframe mode require?</summary><p>A first frame is required. An end frame is optional, and the uploaded frame dimensions determine the result rather than a separate ratio setting.</p></details><details><summary>Where else can I select Seedance 2.5 in Wizstar?</summary><p>The model is also available in E-commerce Agent and Creative Agent workflows for product-led and broader creative briefs.</p></details><details><summary>Which mode should I choose for my brief?</summary><p>Choose Reference when the result should follow source material, Keyframe when the beginning or ending is defined, and Text when the scene starts from a written direction.</p></details></div>
       </section>
 
-      <section className="final-cta"><div className="page-width" data-reveal><h2>Bring Your Next Video Brief to Wizstar</h2><p>Begin with a reference pack, a pair of keyframes, or a scene written from scratch.</p><a href={referenceUrl}>Open Seedance 2.5 <Arrow /></a></div></section>
+      <section className="final-cta" onPointerMove={spawnCtaFrame}><div className="final-cta-content page-width" data-reveal><h2>Bring Your Next Video Brief to Wizstar</h2><p>Begin with a reference pack, a pair of keyframes, or a scene written from scratch.</p><a href={referenceUrl}>Open Seedance 2.5 <Arrow /></a></div></section>
 
       <footer className="site-footer page-width"><a className="brand" href="https://wizstar.com/"><img src="/assets/wizstar-logo.png" alt="Wizstar" /></a><p>Direct ideas, source material, and product inputs through one AI creation workspace.</p><div><a href="https://wizstar.com/official/pricing">Pricing</a><a href="https://wizstar.com/official/api">API</a><a href="https://wizstar.com/blog">Blog</a></div></footer>
     </main>
