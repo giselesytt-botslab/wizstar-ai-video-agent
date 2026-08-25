@@ -83,3 +83,7 @@
 /* Close the Hero gap after removing the redundant capability capsules. */
 .hero-workspace{margin-top:28px}
 @media(max-width:680px){.hero-workspace{margin-top:24px}}
+
+/* Slightly tighter chapter rhythm after framework approval. */
+.community,.features,.how,.use-cases,.tips,.faq,.insights,.testimonials{padding-top:96px;padding-bottom:96px}
+@media(max-width:680px){.community,.features,.how,.use-cases,.tips,.faq,.insights,.testimonials{padding-top:70px;padding-bottom:70px}}
