@@ -56,5 +56,5 @@
 @media(max-width:680px){.hero:after{top:410px;background-size:42px 42px}.hero-heading h1:after{bottom:-10px}.hero-specs{margin-top:22px;gap:6px}.hero-specs span{padding:0 9px;font-size:8px}.hero-workspace{margin-top:38px}}
 
 /* Owner review: larger product title, no underline ornament. */
-.hero-heading h1{font-size:clamp(48px,4.5vw,60px)}.hero-heading h1:after{display:none}
+.hero-heading{width:min(1320px,calc(100% - 32px))}.hero-heading h1{max-width:none;width:100%;font-size:clamp(48px,4.5vw,60px);overflow:visible}.hero-heading h1:after{display:none}
 @media(max-width:680px){.hero-heading h1{font-size:36px}}

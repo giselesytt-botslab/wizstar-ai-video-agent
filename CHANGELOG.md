@@ -20,3 +20,4 @@
 - Corrected the Hero to a prominent horizontal headline beginning with “Seedance 2.5,” using the teammate page's restrained 44px/600 static Wizstar gradient treatment.
 - Added a cinematic future-polish layer with spatial aura, perspective grid, slow headline spectrum, product-spec capsules, luminous workspace framing, and a restrained media scan effect.
 - Enlarged the Seedance 2.5 Hero headline and removed its decorative gradient underline after owner review.
+- Shortened the Hero title to “Seedance 2.5 — AI Video Generator” and widened its title area so the full enlarged headline remains visible.
