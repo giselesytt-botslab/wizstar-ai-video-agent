@@ -21,6 +21,7 @@ Open `http://localhost:3000`.
 - `materials/prompts/` — generation prompts
 - `materials/references/` — screenshots and references
 - `docs/PRODUCT_FACTS.md` — verified claims and boundaries
+- `docs/PAGE_BLUEPRINT.md` — non-removable OpenArt-based section structure
 - `docs/ASSET_INVENTORY.md` — asset status
 - `HANDOFF.md` — teammate handoff checklist
 - `CHANGELOG.md` — human-readable history

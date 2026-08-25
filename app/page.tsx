@@ -75,6 +75,14 @@ export default function Home() {
           <div className="feature-media modes-media"><div><b>Reference</b><b>Keyframe</b><b>Text</b></div><small>Three modes in one video workspace</small></div>
           <div className="feature-copy"><span className="feature-number">03</span><h3>Three Ways to Start</h3><p>Build from a complete reference pack, direct motion between keyframes, or create from text alone.</p><a href={keyframeUrl}>Try it now <Arrow /></a></div>
         </article>
+        <article className="feature-row reverse pending-row">
+          <div className="feature-media pending-media"><span>04</span><small>Approved product demonstration goes here</small></div>
+          <div className="feature-copy"><span className="feature-number">04 · Product fact pending</span><h3>Verified Capability Slot</h3><p>This section is reserved because the OpenArt reference contains a fourth feature chapter. Final copy and media will be added only after the matching Wizstar capability is verified.</p><a href={referenceUrl}>Open Seedance 2.5 <Arrow /></a></div>
+        </article>
+        <article className="feature-row pending-row">
+          <div className="feature-media pending-media"><span>05</span><small>Approved product demonstration goes here</small></div>
+          <div className="feature-copy"><span className="feature-number">05 · Product fact pending</span><h3>Verified Capability Slot</h3><p>This fifth feature chapter stays in the framework. It will not receive a marketing claim until product confirms the fact and supplies appropriate evidence.</p><a href={referenceUrl}>Open Seedance 2.5 <Arrow /></a></div>
+        </article>
       </section>
 
       <section className="how page-width" id="how-it-works">
@@ -98,12 +106,31 @@ export default function Home() {
 
       <section className="tips page-width">
         <div className="section-heading centered"><h2>Tips for Better Results</h2></div>
-        <div className="tip-grid"><article><span>01</span><h3>Write in clear beats</h3><p>Separate setup, action, transition, and ending so the longer sequence has an intentional structure.</p></article><article><span>02</span><h3>Name each reference</h3><p>Use reference mentions in the prompt to say what each uploaded asset should control.</p></article><article><span>03</span><h3>Match the mode to the brief</h3><p>Choose keyframes for defined endpoints, references for continuity, and text for open exploration.</p></article></div>
+        <div className="tip-grid"><article><span>01</span><h3>Write in clear beats</h3><p>Separate setup, action, transition, and ending so the longer sequence has an intentional structure.</p></article><article><span>02</span><h3>Name each reference</h3><p>Use reference mentions in the prompt to say what each uploaded asset should control.</p></article><article><span>03</span><h3>Match the mode to the brief</h3><p>Choose keyframes for defined endpoints, references for continuity, and text for open exploration.</p></article><article><span>04</span><h3>Guidance slot</h3><p>Reserved for a fourth verified best-practice tip from the Wizstar product team.</p></article></div>
+      </section>
+
+      <section className="insights page-width" id="insights">
+        <div className="section-heading"><h2>Get Insights from Experts Blog</h2><p>Reserved for Seedance 2.5 guides, comparisons, and practical use-case articles from Wizstar.</p><a href="https://wizstar.com/blog">Read more <Arrow /></a></div>
+        <div className="article-grid">
+          <article><div className="article-cover"><span>ARTICLE 01</span></div><small>Publication date</small><h3>Seedance 2.5 article title</h3><p>Editorial slot for a verified Wizstar guide or product story.</p></article>
+          <article><div className="article-cover"><span>ARTICLE 02</span></div><small>Publication date</small><h3>Seedance 2.5 article title</h3><p>Editorial slot for a verified comparison or prompting guide.</p></article>
+          <article><div className="article-cover"><span>ARTICLE 03</span></div><small>Publication date</small><h3>Seedance 2.5 article title</h3><p>Editorial slot for a verified workflow or use-case article.</p></article>
+        </div>
+      </section>
+
+      <section className="testimonials" id="testimonials">
+        <div className="page-width"><div className="section-heading centered"><h2>Loved by Creators</h2><p>This chapter is retained for approved Wizstar customer feedback.</p></div></div>
+        <div className="quote-track" aria-label="Testimonial placeholders">
+          <article><span>“</span><p>Approved creator testimonial will appear here.</p><small>Creator name · Source</small></article>
+          <article><span>“</span><p>Approved creator testimonial will appear here.</p><small>Creator name · Source</small></article>
+          <article><span>“</span><p>Approved creator testimonial will appear here.</p><small>Creator name · Source</small></article>
+          <article><span>“</span><p>Approved creator testimonial will appear here.</p><small>Creator name · Source</small></article>
+        </div>
       </section>
 
       <section className="faq page-width" id="faq">
         <div className="section-heading centered"><h2>Frequently Asked Questions</h2></div>
-        <div className="faq-list"><details open><summary>Which Seedance 2.5 modes are available on Wizstar?</summary><p>Reference to Video, Keyframe to Video, and Text to Video are available in AI Video Generator. Seedance 2.5 is also selectable in E-commerce and Creative Agent workflows.</p></details><details><summary>What can I upload in Reference to Video?</summary><p>The inspected Wizstar interface supports image, video, and audio references, up to 50 multimodal assets.</p></details><details><summary>What settings are available?</summary><p>Reference and Text modes offer 4–30 second durations, 480P or 720P, 9:16 or 16:9, and 1–4 outputs. Keyframe mode uses the uploaded frame dimensions rather than a separate ratio picker.</p></details><details><summary>Is there a dedicated Seedance 2.5 API?</summary><p>The currently inspected API area does not verify a model-specific Seedance 2.5 endpoint, so this page links to Wizstar’s working creation tools.</p></details></div>
+        <div className="faq-list"><details open><summary>Which Seedance 2.5 modes are available on Wizstar?</summary><p>Reference to Video, Keyframe to Video, and Text to Video are available in AI Video Generator. Seedance 2.5 is also selectable in E-commerce and Creative Agent workflows.</p></details><details><summary>What can I upload in Reference to Video?</summary><p>The inspected Wizstar interface supports image, video, and audio references, up to 50 multimodal assets.</p></details><details><summary>What settings are available?</summary><p>Reference and Text modes offer 4–30 second durations, 480P or 720P, 9:16 or 16:9, and 1–4 outputs. Keyframe mode uses the uploaded frame dimensions rather than a separate ratio picker.</p></details><details><summary>Is there a dedicated Seedance 2.5 API?</summary><p>The currently inspected API area does not verify a model-specific Seedance 2.5 endpoint, so this page links to Wizstar’s working creation tools.</p></details><details><summary>Product FAQ slot 05</summary><p>Reserved for a verified Wizstar product question and answer.</p></details><details><summary>Product FAQ slot 06</summary><p>Reserved for a verified Wizstar product question and answer.</p></details><details><summary>Product FAQ slot 07</summary><p>Reserved for a verified Wizstar product question and answer.</p></details><details><summary>Product FAQ slot 08</summary><p>Reserved for a verified Wizstar product question and answer.</p></details></div>
       </section>
 
       <section className="final-cta"><div className="page-width"><h2>Create with Seedance 2.5 on Wizstar</h2><p>Start with references, keyframes, or a written idea.</p><a href={referenceUrl}>Get Started for Free <Arrow /></a></div></section>
