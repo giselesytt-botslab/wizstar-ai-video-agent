@@ -4,7 +4,7 @@ The OpenArt Seedance 2.5 page is the required content-framework reference. UI, m
 
 1. Global navigation
 2. Hero: title, summary, generator, output video
-3. Community Creations
+3. Work Showcase — the Community-equivalent chapter, reframed as curated Seedance 2.5 scenarios because Wizstar does not currently have a community surface
 4. Key Features of Seedance 2.5 — five feature chapters
 5. How to Use Seedance 2.5 — three steps
 6. Built for the Full Scene, Not Just the Shot — four use-case/workflow chapters

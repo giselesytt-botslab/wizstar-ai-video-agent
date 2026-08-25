@@ -14,7 +14,14 @@ const modeDetails = {
   Text: { title: "Start from a written scene", hint: "Describe subject · camera · motion · pacing", settings: ["15s", "720P", "9:16", "1 Output"] },
 } as const;
 
-const creationLabels = ["Multimodal narrative", "Character continuity", "Product storytelling", "Long-form scene", "Camera direction", "Reference-led motion"];
+const workShowcases = [
+  { eyebrow: "Reference to Video", title: "Reference-Led Narrative", description: "Combine image, video, and audio references to direct the look, motion, and sound of a scene.", tags: ["Up to 50 assets", "16:9"], tone: "cyan" },
+  { eyebrow: "E-commerce Agent", title: "Product Launch Film", description: "Use product images, a product URL, and selling points inside Wizstar’s E-commerce Agent workflow.", tags: ["Product assets", "9:16"], tone: "violet" },
+  { eyebrow: "Keyframe to Video", title: "Frame-to-Frame Motion", description: "Start with a required first frame and an optional end frame to direct the transition.", tags: ["First + end frame", "720P"], tone: "blue" },
+  { eyebrow: "Text to Video", title: "Text-Directed Scene", description: "Describe the subject, camera movement, pacing, and action from a written prompt.", tags: ["Prompt-led", "16:9"], tone: "magenta" },
+  { eyebrow: "Social Creative", title: "Vertical Campaign", description: "Create vertical 9:16 concepts for short-form placements with the available duration controls.", tags: ["9:16", "4–30 sec"], tone: "aqua" },
+  { eyebrow: "Longer Generation", title: "30-Second Brand Story", description: "Use up to 30 seconds to structure a clear setup, action, and closing moment.", tags: ["Up to 30 sec", "720P"], tone: "indigo" },
+] as const;
 
 export default function Home() {
   const [mode, setMode] = useState<keyof typeof modeDetails>("Reference");
@@ -78,15 +85,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="community page-width" id="creations">
+      <section className="community page-width" id="showcase">
         <div className="section-heading" data-reveal>
-          <h2>Community Creations</h2>
-          <p>See how creators use Seedance 2.5 for longer narratives, reference-led scenes, and commercial video production.</p>
-          <a href={referenceUrl}>Create with Seedance 2.5 <Arrow /></a>
+          <span className="section-kicker">Work Showcase</span>
+          <h2>See Seedance 2.5 in Action</h2>
+          <p>Explore the scenes and production workflows you can build on Wizstar—from product campaigns to reference-led narratives.</p>
+          <a href={referenceUrl}>Start creating on Wizstar <Arrow /></a>
         </div>
-        <div className="creation-marquee" data-reveal>
-          <div className="creation-track">{[...creationLabels, ...creationLabels].map((label, index) => <article key={`top-${index}`}><span>{String((index % creationLabels.length) + 1).padStart(2,"0")}</span><b>{label}</b><em>▶</em></article>)}</div>
-          <div className="creation-track reverse-track">{[...creationLabels.slice().reverse(), ...creationLabels.slice().reverse()].map((label, index) => <article key={`bottom-${index}`}><span>{String((index % creationLabels.length) + 1).padStart(2,"0")}</span><b>{label}</b><em>▶</em></article>)}</div>
+        <div className="creation-marquee" aria-label="Seedance 2.5 work showcase" data-reveal>
+          <div className="creation-track">{[...workShowcases, ...workShowcases].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`top-${index}`}><div className="showcase-visual"><span>{item.eyebrow}</span><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
+          <div className="creation-track reverse-track">{[...workShowcases.slice().reverse(), ...workShowcases.slice().reverse()].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`bottom-${index}`}><div className="showcase-visual"><span>{item.eyebrow}</span><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
         </div>
       </section>
 
