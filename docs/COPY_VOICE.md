@@ -29,6 +29,6 @@ Section order may stay aligned with the approved blueprint. Headlines, explanati
 
 ## Hero signature
 
-The primary line must begin with “Seedance 2.5” and remain a single horizontal product headline on desktop. Follow the teammate page's typography: centered, 44px/600, and a Wizstar blue-to-purple gradient. Never reduce the product name to a small eyebrow label.
+The primary line must begin with “Seedance 2.5” and remain a single horizontal product headline on desktop. Use a centered, prominent 48–60px/600 treatment with a Wizstar blue-to-purple gradient. Never reduce the product name to a small eyebrow label, and do not place a decorative underline beneath it.
 
 Visual polish may add a slow-moving brand-spectrum highlight, spatial glow, and restrained interface-light effects. The motion must preserve headline contrast and should feel cinematic rather than decorative.
