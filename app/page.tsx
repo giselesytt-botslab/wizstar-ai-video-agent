@@ -127,7 +127,13 @@ export default function Home() {
       </section>
 
       <section className="features page-width" id="features">
-        <div className="section-heading centered" data-reveal><span className="section-kicker">Direct with more control</span><h2>More Ways to Shape the Story Before You Generate</h2><p>Choose the right source material, give the sequence room to develop, and prepare an output that fits the job.</p></div>
+        <div className="section-heading centered feature-heading" data-reveal><span className="section-kicker">Seedance 2.5 Core Features</span><h2>More Story. More Source Material. More Control.</h2><p>Seedance 2.5 gives creators a longer timeline, a richer multimodal reference pack, and multiple ways to direct how an idea moves from source material to finished video on Wizstar.</p></div>
+        <div className="feature-summary" aria-label="Seedance 2.5 capability overview" data-reveal>
+          <article><strong>30s</strong><span>Room for a complete narrative arc</span><small>4, 10, 15, 20, 25, or 30 seconds</small></article>
+          <article><strong>50</strong><span>Multimodal references in one brief</span><small>Images, video, and audio</small></article>
+          <article><strong>3</strong><span>Ways to begin the scene</span><small>Reference, Keyframe, or Text</small></article>
+          <article><strong>1–4</strong><span>Outputs from one direction</span><small>Available in Reference and Text modes</small></article>
+        </div>
 
         <article className="feature-row" data-reveal>
           <div className="feature-media duration-media"><span>00:30</span><div className="scrubber"><i /></div><small>A longer timeline for a complete sequence</small></div>

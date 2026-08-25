@@ -22,3 +22,4 @@
 - Enlarged the Seedance 2.5 Hero headline and removed its decorative gradient underline after owner review.
 - Shortened the Hero title to “Seedance 2.5 — AI Video Generator” and widened its title area so the full enlarged headline remains visible.
 - Adapted three interaction ideas from the supplied studio reference: edge-faded work marquees, layered premium CTA shadows, and a final-CTA cursor trail built only from existing Wizstar product screenshots.
+- Restored an unmistakable dedicated Seedance 2.5 core-features chapter with an original headline, four verified capability highlights, and the existing five detailed product-advantage stories beneath it.
