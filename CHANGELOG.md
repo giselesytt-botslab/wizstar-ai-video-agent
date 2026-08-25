@@ -13,3 +13,4 @@
 - Locked the OpenArt-based page blueprint and restored every required chapter, including Expert Blog and Loved by Creators.
 - Started an optional interaction redesign on `feature/future-interactions`, protected by the `baseline-openart-framework-v1` rollback tag.
 - Added live Hero mode switching, pointer-responsive lighting, dual-direction creation marquees, stacked feature chapters, scroll reveals, hover motion, and reduced-motion support.
+- Audited the teammate page, OpenArt reference, and Wizstar generator side by side; aligned the header logo size, official gradient, pill sign-in button, navigation chevrons, and Seedance model mark with Wizstar's current brand UI.

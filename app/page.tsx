@@ -43,9 +43,9 @@ export default function Home() {
           <img src="/assets/wizstar-logo.png" alt="Wizstar" />
         </a>
         <nav className="main-nav" aria-label="Main navigation">
-          <a href="https://wizstar.com/home">Products <small>⌄</small></a>
-          <a href="https://wizstar.com/official/enterprise">Enterprise <small>⌄</small></a>
-          <a href="https://wizstar.com/blog">Resources <small>⌄</small></a>
+          <a href="https://wizstar.com/home">Products <small className="nav-chevron" aria-hidden="true" /></a>
+          <a href="https://wizstar.com/official/enterprise">Enterprise <small className="nav-chevron" aria-hidden="true" /></a>
+          <a href="https://wizstar.com/blog">Resources <small className="nav-chevron" aria-hidden="true" /></a>
           <a href="https://wizstar.com/official/pricing">Pricing</a>
           <a href="https://wizstar.com/official/api">API</a>
         </nav>
@@ -63,7 +63,7 @@ export default function Home() {
             <div className="mode-tabs" aria-label="Generation modes">
               {(Object.keys(modeDetails) as Array<keyof typeof modeDetails>).map((item) => <button className={mode === item ? "active" : ""} type="button" key={item} onClick={() => setMode(item)}>{item}</button>)}
             </div>
-            <div className="model-select"><i aria-hidden="true" /><div><small>Model</small><strong>Seedance 2.5</strong></div><span>⌄</span></div>
+            <div className="model-select"><img className="model-mark" src="/assets/seedance-model-mark.svg" alt="" /><div><small>Model</small><strong>Seedance 2.5</strong></div><span className="select-chevron" aria-hidden="true" /></div>
             <div className="upload-box" key={mode}><b>＋</b><span>{currentMode.title}</span><small>{currentMode.hint}</small></div>
             <div className="prompt-box"><span>Describe the video you want to generate...</span><small>0 / 2000</small></div>
             <div className="settings">{currentMode.settings.map((setting) => <span key={setting}>{setting}</span>)}</div>
