@@ -24,8 +24,23 @@ test("server-renders the complete Seedance 2.5 landing page", async () => {
   assert.match(html, /<meta name="robots" content="noindex, nofollow"/);
   assert.match(html, /rel="canonical" href="https:\/\/wizstar\.com\/ai-model\/seedance-2-5"/);
   assert.match(html, /Seedance 2\.5 Questions and Answers/);
-  assert.match(html, /What can I upload in Seedance 2\.5 Reference to Video\?/);
+  assert.match(html, /Can I use multiple references for Seedance 2\.5 image to video\?/);
   assert.match(html, /application\/ld\+json/);
+});
+
+test("covers the verified keyword cluster through useful page modules", async () => {
+  const response = await render();
+  const html = await response.text();
+
+  assert.match(html, /Seedance 2\.5 AI Video Generator/);
+  assert.match(html, /Create Videos Up to 30 Seconds/);
+  assert.match(html, /Image to Video with Multiple References/);
+  assert.match(html, /Keyframe to Video with First and Last Frames/);
+  assert.match(html, /Reference to Video/);
+  assert.match(html, /Seedance 2\.5 Text to Video/);
+  assert.match(html, /type="file"/);
+  assert.match(html, /multiple=""/);
+  assert.match(html, /<textarea[^>]+aria-label="Video prompt"/);
 });
 
 test("serves the landing page at its production SEO path", async () => {

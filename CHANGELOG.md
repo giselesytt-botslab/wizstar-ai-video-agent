@@ -2,6 +2,8 @@
 
 ## 2026-08-26
 
+- Grouped the nine verified keyword candidates under one Seedance 2.5 AI Video Generator intent and strengthened the weak `image to video` and `multiple references` coverage without keyword stuffing.
+- Upgraded the Hero setup from a visual-only shell to a working local interaction: up to 50 reference files, separate first/last frame selection, an editable prompt, and an honest handoff to the production Wizstar generator.
 - Reworked the page around the single core topic “Seedance 2.5 AI Video Generator” while preserving the full OpenArt-inspired chapter order and established Wizstar visual system.
 - Replaced reference-derived language with original, fact-checked Wizstar copy covering Reference, Keyframe, Text, Agent, duration, reference-count, format, and output workflows.
 - Split interactive Hero behavior into a small client component so the primary landing-page content remains server rendered.

@@ -33,8 +33,8 @@ const faqItems = [
     answer: "Wizstar currently presents three Seedance 2.5 workflows: Reference to Video, Keyframe to Video, and Text to Video. Reference mode is suited to briefs built from existing source material. Keyframe mode begins with a required first frame and can include an optional end frame. Text mode begins with a written description of the scene.",
   },
   {
-    question: "What can I upload in Seedance 2.5 Reference to Video?",
-    answer: "Reference to Video can accept image, video, and audio inputs, with up to 50 references in one brief. A useful prompt should state what each source is meant to control, such as subject identity, styling, camera movement, motion, atmosphere, or sound direction. The final result still depends on the quality and compatibility of the supplied material.",
+    question: "Can I use multiple references for Seedance 2.5 image to video?",
+    answer: "Yes. Seedance 2.5 Reference to Video on Wizstar can accept up to 50 image, video, and audio references in one brief. A useful prompt should state what each source is meant to control, such as subject identity, styling, camera movement, motion, atmosphere, or sound direction. The final result still depends on the quality and compatibility of the supplied material.",
   },
   {
     question: "How long can Seedance 2.5 videos be on Wizstar?",
@@ -145,11 +145,11 @@ export default function Home() {
         </article>
         <article className="feature-row reverse" data-reveal>
           <div className="feature-media reference-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Editorial portrait demo visual for multimodal reference control" /><div className="reference-stack"><div className="reference-card">Image</div><div className="reference-card">Video</div><div className="reference-card">Audio</div></div><small>One brief, a richer source pack</small></div>
-          <div className="feature-copy"><span className="feature-number">02</span><h3>Reference to Video with Up to 50 Inputs</h3><p>Bring together as many as 50 image, video, and audio references, then tell Seedance 2.5 what each source should contribute to the result.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">02</span><h3>Image to Video with Multiple References</h3><p>Use Seedance 2.5 Reference to Video with as many as 50 image, video, and audio references, then tell the model what each source should contribute to the result.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
         </article>
         <article className="feature-row" data-reveal>
           <div className="feature-media modes-media"><img src="/assets/wizstar-seedance-generator.png" alt="Seedance 2.5 modes inside the Wizstar AI Video Generator" /><div><b>Reference</b><b>Keyframe</b><b>Text</b></div><small>Three modes in one video workspace</small></div>
-          <div className="feature-copy"><span className="feature-number">03</span><h3>Start with Reference, Keyframe, or Text</h3><p>Build from a source-rich reference pack, animate from a required first frame toward an optional end frame, or begin with a written scene.</p><a href={keyframeUrl}>Open Keyframe to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">03</span><h3>Keyframe to Video with First and Last Frames</h3><p>Build from a source-rich reference pack, animate from a required first frame toward an optional last frame, or begin with a written scene in Text to Video.</p><a href={keyframeUrl}>Open Keyframe to Video <Arrow /></a></div>
         </article>
         <article className="feature-row reverse" data-reveal>
           <div className="feature-media output-media"><img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary movement demo visual for vertical and widescreen delivery" /><div><b>4–30 sec</b><b>480P / 720P</b><b>9:16 / 16:9</b><b>1–4 outputs</b></div><small>Available controls in Reference and Text modes</small></div>
@@ -173,9 +173,9 @@ export default function Home() {
       <section className="use-cases page-width" id="workflows">
         <div className="section-heading centered" data-reveal><span className="section-kicker">Choose the workflow</span><h2>Seedance 2.5 Workflows for Different Creative Briefs</h2><p>Work directly in AI Video Generator or bring Seedance 2.5 into a wider Wizstar production flow.</p></div>
         <div className="use-grid" data-reveal>
-          <article><div className="workflow-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Fashion editorial reference workflow demo" /></div><span>Reference mode</span><h3>Build from a Reference Pack</h3><p>Combine up to 50 image, video, and audio sources in one directed brief.</p><a href={referenceUrl}>Enter Reference mode <Arrow /></a></article>
-          <article><div className="workflow-media"><img src="/assets/demo/modern-architecture.jpg" alt="Architecture keyframe workflow demo" /></div><span>Keyframe mode</span><h3>Animate Between Key Moments</h3><p>Anchor the beginning with a required first frame and add an optional ending frame.</p><a href={keyframeUrl}>Enter Keyframe mode <Arrow /></a></article>
-          <article><div className="workflow-media"><img src="/assets/demo/travel-landscape.jpg" alt="Travel text to video workflow demo" /></div><span>Text mode</span><h3>Direct a Scene from Words</h3><p>Write the subject, action, camera, and pacing, then choose the available output controls.</p><a href={textUrl}>Enter Text mode <Arrow /></a></article>
+          <article><div className="workflow-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Fashion editorial reference workflow demo" /></div><span>Reference mode</span><h3>Build Image to Video from Multiple References</h3><p>Combine up to 50 image, video, and audio sources in one directed brief.</p><a href={referenceUrl}>Enter Reference to Video <Arrow /></a></article>
+          <article><div className="workflow-media"><img src="/assets/demo/modern-architecture.jpg" alt="Architecture keyframe workflow demo" /></div><span>Keyframe mode</span><h3>Set the First and Last Frame</h3><p>Anchor Keyframe to Video with a required first frame and an optional last frame.</p><a href={keyframeUrl}>Enter Keyframe to Video <Arrow /></a></article>
+          <article><div className="workflow-media"><img src="/assets/demo/travel-landscape.jpg" alt="Travel text to video workflow demo" /></div><span>Text mode</span><h3>Create with Seedance 2.5 Text to Video</h3><p>Write the subject, action, camera, and pacing, then choose the available output controls.</p><a href={textUrl}>Enter Text to Video <Arrow /></a></article>
           <article><div className="workflow-media"><img src="/assets/demo/perfume-product.jpg" alt="Product campaign Agent workflow demo" /></div><span>Wizstar Agents</span><h3>Turn Inputs into Campaign Work</h3><p>Use Seedance 2.5 with product inputs in E-commerce Agent or broader material in Creative Agent.</p><a href="https://wizstar.com/home">See the Agent workflows <Arrow /></a></article>
         </div>
       </section>

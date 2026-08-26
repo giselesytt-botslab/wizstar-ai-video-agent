@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type PointerEvent } from "react";
 
 const modeDetails = {
   Reference: {
-    title: "Build a reference pack",
-    hint: "Image · Video · Audio · up to 50",
+    title: "Add multiple references",
+    hint: "Image · Video · Audio · up to 50 references",
     settings: ["10s", "720P", "9:16", "1 Output"],
     url: "https://wizstar.com/tools/ai_video_generator?tab=reference2video&model=seedance2.5",
     cta: "Open Reference to Video",
@@ -41,7 +41,25 @@ export function RevealObserver() {
 
 export function HeroWorkspace() {
   const [mode, setMode] = useState<keyof typeof modeDetails>("Reference");
+  const [referenceFiles, setReferenceFiles] = useState<File[]>([]);
+  const [firstFrame, setFirstFrame] = useState<File | null>(null);
+  const [endFrame, setEndFrame] = useState<File | null>(null);
+  const [prompt, setPrompt] = useState("");
   const currentMode = modeDetails[mode];
+
+  const changeMode = (nextMode: keyof typeof modeDetails) => {
+    setMode(nextMode);
+    setPrompt("");
+  };
+
+  const chooseReferences = (event: ChangeEvent<HTMLInputElement>) => {
+    setReferenceFiles(Array.from(event.target.files ?? []).slice(0, 50));
+  };
+
+  const continueToWizstar = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    window.location.assign(currentMode.url);
+  };
 
   const moveHeroLight = (event: PointerEvent<HTMLDivElement>) => {
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -51,7 +69,7 @@ export function HeroWorkspace() {
 
   return (
     <div className="hero-workspace page-width" onPointerMove={moveHeroLight} data-reveal>
-      <section className="creator" aria-label="Seedance 2.5 AI video generator preview">
+      <form className="creator" aria-label="Seedance 2.5 AI video generator setup" onSubmit={continueToWizstar}>
         <div className="mode-tabs" aria-label="Seedance 2.5 generation modes">
           {(Object.keys(modeDetails) as Array<keyof typeof modeDetails>).map((item) => (
             <button
@@ -59,7 +77,7 @@ export function HeroWorkspace() {
               type="button"
               key={item}
               aria-pressed={mode === item}
-              onClick={() => setMode(item)}
+              onClick={() => changeMode(item)}
             >
               {item}
             </button>
@@ -70,15 +88,39 @@ export function HeroWorkspace() {
           <div><small>Model</small><strong>Seedance 2.5</strong></div>
           <span className="select-chevron" aria-hidden="true" />
         </div>
-        <div className="upload-box" key={mode}>
-          <b>＋</b><span>{currentMode.title}</span><small>{currentMode.hint}</small>
-        </div>
+        {mode === "Reference" && (
+          <label className={`upload-box interactive-upload ${referenceFiles.length ? "has-files" : ""}`} key={mode}>
+            <input type="file" accept="image/*,video/*,audio/*" multiple onChange={chooseReferences} />
+            <b>{referenceFiles.length ? `${referenceFiles.length}/50` : "＋"}</b>
+            <span>{referenceFiles.length ? "Multiple references selected" : currentMode.title}</span>
+            <small>{referenceFiles.length ? referenceFiles.slice(0, 2).map((file) => file.name).join(" · ") : currentMode.hint}</small>
+          </label>
+        )}
+        {mode === "Keyframe" && (
+          <div className="upload-box keyframe-upload" key={mode}>
+            <label>
+              <input type="file" accept="image/*" onChange={(event) => setFirstFrame(event.target.files?.[0] ?? null)} />
+              <b>{firstFrame ? "✓" : "＋"}</b><span>First Frame</span><small>{firstFrame?.name ?? "Required"}</small>
+            </label>
+            <label>
+              <input type="file" accept="image/*" onChange={(event) => setEndFrame(event.target.files?.[0] ?? null)} />
+              <b>{endFrame ? "✓" : "＋"}</b><span>Last Frame</span><small>{endFrame?.name ?? "Optional"}</small>
+            </label>
+          </div>
+        )}
+        {mode === "Text" && (
+          <div className="upload-box text-start" key={mode}>
+            <b>✦</b><span>{currentMode.title}</span><small>{currentMode.hint}</small>
+          </div>
+        )}
         <div className="prompt-box">
-          <span>Direct the subject, camera, action, and pacing...</span><small>0 / 2000</small>
+          <textarea aria-label="Video prompt" maxLength={2000} value={prompt} onChange={(event) => setPrompt(event.target.value)} placeholder="Direct the subject, camera, action, and pacing..." />
+          <small>{prompt.length} / 2000</small>
         </div>
         <div className="settings">{currentMode.settings.map((setting) => <span key={setting}>{setting}</span>)}</div>
-        <a className="generate" href={currentMode.url}>{currentMode.cta}</a>
-      </section>
+        <button className="generate" type="submit">{currentMode.cta}</button>
+        <small className="handoff-note">Set up the brief here, then continue in Wizstar to generate.</small>
+      </form>
 
       <div className="hero-media" aria-label="Temporary visual direction for a future Seedance 2.5 featured video">
         <img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary dance campaign visual used as a temporary direction reference" />

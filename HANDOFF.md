@@ -4,6 +4,7 @@
 
 - Stable pre-interaction version: Git tag `baseline-openart-framework-v1`
 - Stable pre-SEO-content version: Git tag `pre-seo-content-pass-2026-08-26`
+- Stable pre-keyword/tool pass: Git tag `pre-keyword-tool-pass-2026-08-26`
 - Experimental interaction work: branch `feature/future-interactions`
 - The stable checkpoint must remain intact until the owner approves the interaction direction.
 
@@ -15,6 +16,7 @@
 - Creations, feature stories, workflows, how-to, use cases, FAQ, final CTA
 - Fact and asset tracking documents
 - Server-rendered SEO copy, eight visible FAQ answers, and matching JSON-LD
+- Nine-term semantic cluster coverage with an interactive Hero setup for references, frames, and prompts
 - Canonical production route: `/ai-model/seedance-2-5`
 - Preview deployments default to `noindex`; set `NEXT_PUBLIC_ALLOW_INDEXING=true` only on the approved wizstar.com production deployment
 
