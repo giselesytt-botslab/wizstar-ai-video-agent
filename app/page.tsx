@@ -26,7 +26,7 @@ const footerColumns = [
 const faqItems = [
   {
     question: "What is the Seedance 2.5 AI Video Generator on Wizstar?",
-    answer: "It is Wizstar’s web-based workspace for creating Seedance 2.5 videos. You can start with a text description, animate from a required first frame toward an optional end frame, or direct a larger reference pack. The page connects each workflow to the corresponding Seedance 2.5 mode inside Wizstar’s AI Video Generator.",
+    answer: "It is Wizstar’s web-based workspace for creating Seedance 2.5 videos with audio. You can start with a text description, animate from a required first frame toward an optional end frame, or direct a larger reference pack. The page connects each workflow to the corresponding Seedance 2.5 mode inside Wizstar’s AI Video Generator.",
   },
   {
     question: "Which Seedance 2.5 creation modes are available on Wizstar?",
@@ -41,12 +41,12 @@ const faqItems = [
     answer: "Reference and Text modes currently show duration choices of 4, 10, 15, 20, 25, or 30 seconds. These modes also display 480P and 720P resolution choices, 9:16 and 16:9 aspect ratios, and one to four outputs. Available controls can change, so confirm the settings shown in the generator before starting a production job.",
   },
   {
-    question: "How does Seedance 2.5 Keyframe to Video work?",
+    question: "How do I use first and last frames in Seedance 2.5 Keyframe to Video?",
     answer: "Keyframe to Video uses a first frame as the required visual starting point. You may also add an end frame when the final composition needs to be defined. The prompt then explains the action, camera behavior, transition, and pacing between those moments. Unlike Reference and Text modes, the frame dimensions guide the output shape rather than a separate ratio selector.",
   },
   {
     question: "Does Seedance 2.5 on Wizstar generate audio?",
-    answer: "Audio can be included as source material in the Reference to Video workflow. This page does not promise native audio generation because that output capability has not been verified in the current Wizstar interface. If sound is essential to a project, review the active generator controls and test the intended workflow before committing to final delivery requirements.",
+    answer: "Yes. Seedance 2.5 on Wizstar can generate videos with sound in Reference to Video, Keyframe to Video, and Text to Video modes. Reference mode can also accept audio as part of a multimodal source pack, so the prompt can direct both the visual sequence and its sound. Choose the workflow that matches the material already available for your brief.",
   },
   {
     question: "Is Seedance 2.5 free to use on Wizstar?",
@@ -63,7 +63,7 @@ const softwareApplicationSchema = {
   "@type": "WebApplication",
   name: "Seedance 2.5 AI Video Generator on Wizstar",
   url: canonicalUrl,
-  description: "Create Seedance 2.5 videos from text, keyframes, or up to 50 image, video, and audio references in Wizstar.",
+  description: "Create Seedance 2.5 videos with audio from text, keyframes, or up to 50 image, video, and audio references in Wizstar.",
   applicationCategory: "MultimediaApplication",
   operatingSystem: "Web browser",
   offers: { "@type": "Offer", url: "https://wizstar.com/official/pricing", category: "Paid access; current credits and pricing may vary" },
@@ -111,9 +111,15 @@ export default function Home() {
       <section className="hero">
         <div className="hero-heading page-width" data-reveal>
           <h1>Seedance 2.5 AI Video Generator</h1>
-          <p>Create videos from text, a first frame with an optional end frame, or up to 50 image, video, and audio references inside Wizstar.</p>
+          <p>Create videos with audio from text, a first frame with an optional end frame, or up to 50 image, video, and audio references inside Wizstar.</p>
         </div>
         <HeroWorkspace />
+        <nav className="mode-jump-nav page-width" aria-label="Explore Seedance 2.5 creation modes">
+          <a href="#reference-to-video">Reference to Video</a>
+          <a href="#keyframe-to-video">Keyframe to Video</a>
+          <a href="#text-to-video">Text to Video</a>
+          <a href="#thirty-second-video">30-Second Video with Audio</a>
+        </nav>
       </section>
 
       <section className="community page-width" id="showcase">
@@ -133,27 +139,27 @@ export default function Home() {
       <section className="features page-width" id="features">
         <div className="section-heading centered feature-heading" data-reveal><span className="section-kicker">Seedance 2.5 Core Features</span><h2>What You Can Create with Seedance 2.5</h2><p>Choose a starting point, direct the source material, and prepare the result for the channel where it will be used.</p></div>
         <div className="feature-summary" aria-label="Seedance 2.5 capability overview" data-reveal>
-          <article><strong>30s</strong><span>Room for a complete narrative arc</span><small>4, 10, 15, 20, 25, or 30 seconds</small></article>
+          <article><strong>30s</strong><span>Longer video with sound</span><small>4, 10, 15, 20, 25, or 30 seconds</small></article>
           <article><strong>50</strong><span>Multimodal references in one brief</span><small>Images, video, and audio</small></article>
           <article><strong>3</strong><span>Ways to begin the scene</span><small>Reference, Keyframe, or Text</small></article>
           <article><strong>1–4</strong><span>Outputs from one direction</span><small>Available in Reference and Text modes</small></article>
         </div>
 
-        <article className="feature-row" data-reveal>
+        <article className="feature-row" id="thirty-second-video" data-reveal>
           <div className="feature-media duration-media"><img src="/assets/demo/travel-landscape.jpg" alt="Travel landscape demo visual for a longer narrative" /><span>00:30</span><div className="scrubber"><i /></div><small>From opening frame to a complete journey</small></div>
-          <div className="feature-copy"><span className="feature-number">01</span><h3>Create Videos Up to 30 Seconds</h3><p>Reference and Text modes offer 4, 10, 15, 20, 25, or 30 seconds, giving a brief room to move from setup through action to a clear finish.</p><a href={textUrl}>Open Text to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">01</span><h2>Seedance 2.5 30-Second Videos with Audio</h2><p>Create a video with sound in Reference, Keyframe, or Text mode. Reference and Text modes offer 4, 10, 15, 20, 25, or 30 seconds, giving the idea room to move from setup through action to a clear finish.</p><a href={textUrl}>Open Text to Video <Arrow /></a></div>
         </article>
-        <article className="feature-row reverse" data-reveal>
+        <article className="feature-row reverse" id="reference-to-video" data-reveal>
           <div className="feature-media reference-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Editorial portrait demo visual for multimodal reference control" /><div className="reference-stack"><div className="reference-card">Image</div><div className="reference-card">Video</div><div className="reference-card">Audio</div></div><small>One brief, a richer source pack</small></div>
-          <div className="feature-copy"><span className="feature-number">02</span><h3>Image to Video with Multiple References</h3><p>Use Seedance 2.5 Reference to Video with as many as 50 image, video, and audio references, then tell the model what each source should contribute to the result.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">02</span><h2>Seedance 2.5 Reference to Video with Multiple References</h2><p>Build image to video with as many as 50 image, video, and audio references, then tell Seedance 2.5 what each source should contribute to the visuals, motion, or sound.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
         </article>
-        <article className="feature-row" data-reveal>
+        <article className="feature-row" id="keyframe-to-video" data-reveal>
           <div className="feature-media modes-media"><img src="/assets/wizstar-seedance-generator.png" alt="Seedance 2.5 modes inside the Wizstar AI Video Generator" /><div><b>Reference</b><b>Keyframe</b><b>Text</b></div><small>Three modes in one video workspace</small></div>
-          <div className="feature-copy"><span className="feature-number">03</span><h3>Keyframe to Video with First and Last Frames</h3><p>Build from a source-rich reference pack, animate from a required first frame toward an optional last frame, or begin with a written scene in Text to Video.</p><a href={keyframeUrl}>Open Keyframe to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">03</span><h2>Seedance 2.5 Keyframe to Video</h2><p>Use a required first frame and an optional last frame to define the visual endpoints, then direct the action, transition, camera, pacing, and sound between them.</p><a href={keyframeUrl}>Open Keyframe to Video <Arrow /></a></div>
         </article>
-        <article className="feature-row reverse" data-reveal>
+        <article className="feature-row reverse" id="text-to-video" data-reveal>
           <div className="feature-media output-media"><img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary movement demo visual for vertical and widescreen delivery" /><div><b>4–30 sec</b><b>480P / 720P</b><b>9:16 / 16:9</b><b>1–4 outputs</b></div><small>Available controls in Reference and Text modes</small></div>
-          <div className="feature-copy"><span className="feature-number">04</span><h3>Prepare Each Video for Its Destination</h3><p>In Reference and Text modes, choose the available duration, resolution, aspect ratio, and output count for the placement you are creating.</p><a href={referenceUrl}>Set up an output <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">04</span><h2>Seedance 2.5 Text to Video</h2><p>Start with a written scene and direct its subject, action, camera, pacing, and sound. Then choose the available duration, resolution, aspect ratio, and output count for the placement you are creating.</p><a href={textUrl}>Open Text to Video <Arrow /></a></div>
         </article>
         <article className="feature-row" data-reveal>
           <div className="feature-media agent-media"><img src="/assets/wizstar-home-agents.png" alt="Wizstar E-commerce and Creative Agent interface" /><div><b>E-commerce Agent</b><span>Product URL · images · selling points</span></div><div><b>Creative Agent</b><span>Text · images · video</span></div><small>Seedance 2.5 is selectable in both Agent workflows</small></div>

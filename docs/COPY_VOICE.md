@@ -9,7 +9,7 @@ This page keeps the reference site's information architecture, but all customer-
 1. Director-first: describe subject, camera, action, pacing, source material, and delivery.
 2. Workflow-aware: connect Seedance 2.5 to Reference, Keyframe, Text, E-commerce Agent, and Creative Agent.
 3. Concrete over promotional: use verified controls and inputs instead of broad superiority claims.
-4. Fact-locked: do not claim region editing, native audio generation, 1080P/4K, real-time speed, fixed credit prices, or a dedicated model API without new verification.
+4. Fact-locked: the three Seedance 2.5 modes support videos with sound; do not claim region editing, 1080P/4K, real-time speed, fixed credit prices, or a dedicated model API without new verification.
 5. Clearly sourced: customer quotes and case results require attribution; placeholders must never look like real testimonials.
 
 ## Reference phrases not to reuse

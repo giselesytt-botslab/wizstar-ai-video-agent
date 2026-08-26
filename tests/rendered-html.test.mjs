@@ -33,9 +33,9 @@ test("covers the verified keyword cluster through useful page modules", async ()
   const html = await response.text();
 
   assert.match(html, /Seedance 2\.5 AI Video Generator/);
-  assert.match(html, /Create Videos Up to 30 Seconds/);
-  assert.match(html, /Image to Video with Multiple References/);
-  assert.match(html, /Keyframe to Video with First and Last Frames/);
+  assert.match(html, /Seedance 2\.5 30-Second Videos with Audio/);
+  assert.match(html, /Seedance 2\.5 Reference to Video with Multiple References/);
+  assert.match(html, /Seedance 2\.5 Keyframe to Video/);
   assert.match(html, /Reference to Video/);
   assert.match(html, /Seedance 2\.5 Text to Video/);
   assert.match(html, /type="file"/);
@@ -58,6 +58,10 @@ test("keeps product claims inside the verified fact boundary", async () => {
   assert.match(html, /4, 10, 15, 20, 25, or 30 seconds/i);
   assert.match(html, /first frame as the required visual starting point/i);
   assert.doesNotMatch(html, /free Seedance 2\.5 AI Video Generator/i);
-  assert.doesNotMatch(html, /native audio generation[^<]{0,30}(included|available|supported)/i);
+  assert.match(html, /generate videos with sound in Reference to Video, Keyframe to Video, and Text to Video modes/);
+  assert.match(html, /id="reference-to-video"/);
+  assert.match(html, /id="keyframe-to-video"/);
+  assert.match(html, /id="text-to-video"/);
+  assert.match(html, /id="thirty-second-video"/);
   assert.doesNotMatch(html, /4K generation/i);
 });

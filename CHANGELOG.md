@@ -1,5 +1,7 @@
 # Changelog
 
+- Reworked the page around one primary SEO theme with dedicated H2 sections and anchors for 30-second video with audio, Reference to Video, Keyframe to Video, and Text to Video. Updated the verified product facts and FAQ to confirm sound generation across all three modes.
+
 ## 2026-08-26
 
 - Grouped the nine verified keyword candidates under one Seedance 2.5 AI Video Generator intent and strengthened the weak `image to video` and `multiple references` coverage without keyword stuffing.
