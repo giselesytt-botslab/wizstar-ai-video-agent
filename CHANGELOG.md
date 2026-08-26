@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-26
+
+- Reworked the page around the single core topic “Seedance 2.5 AI Video Generator” while preserving the full OpenArt-inspired chapter order and established Wizstar visual system.
+- Replaced reference-derived language with original, fact-checked Wizstar copy covering Reference, Keyframe, Text, Agent, duration, reference-count, format, and output workflows.
+- Split interactive Hero behavior into a small client component so the primary landing-page content remains server rendered.
+- Added eight fully visible factual FAQs and matching FAQPage, WebApplication, and BreadcrumbList structured data.
+- Added canonical, Open Graph, Twitter, robots, and sitemap metadata plus the production route `/ai-model/seedance-2-5`.
+- Protected preview deployments with `noindex, nofollow`; production indexing requires an explicit environment switch.
+- Replaced stale starter tests with rendered-HTML and product-claim boundary tests.
+
 ## 2026-08-25
 
 - Created the local landing-page project.

@@ -1,18 +1,11 @@
-"use client";
-
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { FinalCta, HeroWorkspace, RevealObserver } from "./landing-interactions";
 
 const referenceUrl = "https://wizstar.com/tools/ai_video_generator?tab=reference2video&model=seedance2.5";
 const keyframeUrl = "https://wizstar.com/tools/ai_video_generator?tab=keyframe2video&model=seedance2.5";
 const textUrl = "https://wizstar.com/tools/ai_video_generator?tab=text2video&model=seedance2.5";
+const canonicalUrl = "https://wizstar.com/ai-model/seedance-2-5";
 
 const Arrow = () => <span aria-hidden="true">→</span>;
-
-const modeDetails = {
-  Reference: { title: "Build a reference pack", hint: "Image · Video · Audio · up to 50", settings: ["10s", "720P", "9:16", "1 Output"] },
-  Keyframe: { title: "Define the first and final moment", hint: "First frame required · End frame optional", settings: ["15s", "720P", "Frame ratio", "1 Output"] },
-  Text: { title: "Direct the scene in words", hint: "Subject · camera · motion · pacing", settings: ["15s", "720P", "9:16", "1 Output"] },
-} as const;
 
 const workShowcases = [
   { eyebrow: "Reference to Video", title: "Fashion Editorial", description: "Carry a distinctive subject, styling language, and photographic mood into a directed moving sequence.", tags: ["Identity", "Style"], tone: "cyan", image: "/assets/demo/fashion-editorial.jpg", alt: "Blue-lit editorial fashion portrait used as a temporary visual direction reference", credit: "Demo photo: Sherman Trotz / Pexels" },
@@ -30,51 +23,77 @@ const footerColumns = [
   { title: "Resources", links: [["Blog", "https://wizstar.com/blog"], ["Content Partner Program", "https://wizstar.ai/activitypages/cpp"]] },
 ] as const;
 
+const faqItems = [
+  {
+    question: "What is the Seedance 2.5 AI Video Generator on Wizstar?",
+    answer: "It is Wizstar’s web-based workspace for creating Seedance 2.5 videos. You can start with a text description, animate from a required first frame toward an optional end frame, or direct a larger reference pack. The page connects each workflow to the corresponding Seedance 2.5 mode inside Wizstar’s AI Video Generator.",
+  },
+  {
+    question: "Which Seedance 2.5 creation modes are available on Wizstar?",
+    answer: "Wizstar currently presents three Seedance 2.5 workflows: Reference to Video, Keyframe to Video, and Text to Video. Reference mode is suited to briefs built from existing source material. Keyframe mode begins with a required first frame and can include an optional end frame. Text mode begins with a written description of the scene.",
+  },
+  {
+    question: "What can I upload in Seedance 2.5 Reference to Video?",
+    answer: "Reference to Video can accept image, video, and audio inputs, with up to 50 references in one brief. A useful prompt should state what each source is meant to control, such as subject identity, styling, camera movement, motion, atmosphere, or sound direction. The final result still depends on the quality and compatibility of the supplied material.",
+  },
+  {
+    question: "How long can Seedance 2.5 videos be on Wizstar?",
+    answer: "Reference and Text modes currently show duration choices of 4, 10, 15, 20, 25, or 30 seconds. These modes also display 480P and 720P resolution choices, 9:16 and 16:9 aspect ratios, and one to four outputs. Available controls can change, so confirm the settings shown in the generator before starting a production job.",
+  },
+  {
+    question: "How does Seedance 2.5 Keyframe to Video work?",
+    answer: "Keyframe to Video uses a first frame as the required visual starting point. You may also add an end frame when the final composition needs to be defined. The prompt then explains the action, camera behavior, transition, and pacing between those moments. Unlike Reference and Text modes, the frame dimensions guide the output shape rather than a separate ratio selector.",
+  },
+  {
+    question: "Does Seedance 2.5 on Wizstar generate audio?",
+    answer: "Audio can be included as source material in the Reference to Video workflow. This page does not promise native audio generation because that output capability has not been verified in the current Wizstar interface. If sound is essential to a project, review the active generator controls and test the intended workflow before committing to final delivery requirements.",
+  },
+  {
+    question: "Is Seedance 2.5 free to use on Wizstar?",
+    answer: "Seedance 2.5 should not be treated as an unlimited free generator. Any available introductory credits may be insufficient for a complete Seedance 2.5 generation, and usage costs can change. Review Wizstar’s current pricing and the credit amount displayed on the Generate button before submitting a job, especially when choosing longer durations or multiple outputs.",
+  },
+  {
+    question: "Is there a dedicated Seedance 2.5 API on Wizstar?",
+    answer: "A dedicated Seedance 2.5 API endpoint has not been verified for this page. Wizstar provides general API information, while the confirmed Seedance 2.5 experience is available through the web-based video generator and selected Agent workflows. Teams that need programmatic access should check the current API documentation or contact Wizstar before designing an integration around this model.",
+  },
+] as const;
+
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Seedance 2.5 AI Video Generator on Wizstar",
+  url: canonicalUrl,
+  description: "Create Seedance 2.5 videos from text, keyframes, or up to 50 image, video, and audio references in Wizstar.",
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Web browser",
+  offers: { "@type": "Offer", url: "https://wizstar.com/official/pricing", category: "Paid access; current credits and pricing may vary" },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Wizstar", item: "https://wizstar.com/" },
+    { "@type": "ListItem", position: 2, name: "AI Video Generator", item: "https://wizstar.com/official/video-generator" },
+    { "@type": "ListItem", position: 3, name: "Seedance 2.5 AI Video Generator", item: canonicalUrl },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })),
+};
+
+const safeJsonLd = (value: object) => JSON.stringify(value).replace(/</g, "\\u003c");
+
 export default function Home() {
-  const [mode, setMode] = useState<keyof typeof modeDetails>("Reference");
-  const heroRef = useRef<HTMLDivElement>(null);
-  const trailLastFrame = useRef(0);
-  const trailIndex = useRef(0);
-  const currentMode = modeDetails[mode];
-
-  useEffect(() => {
-    const nodes = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("is-visible");
-    }), { threshold: 0.14, rootMargin: "0px 0px -5%" });
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
-  const moveHeroLight = (event: PointerEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX - bounds.left}px`);
-    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - bounds.top}px`);
-  };
-
-  const spawnCtaFrame = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType === "touch" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const now = performance.now();
-    if (now - trailLastFrame.current < 95) return;
-    trailLastFrame.current = now;
-
-    const target = event.currentTarget;
-    const bounds = target.getBoundingClientRect();
-    const frame = document.createElement("span");
-    const frameAssets = ["/assets/wizstar-seedance-generator.png", "/assets/wizstar-home-agents.png"];
-    const index = trailIndex.current++;
-    frame.className = "cta-trail-frame";
-    frame.setAttribute("aria-hidden", "true");
-    frame.style.left = `${event.clientX - bounds.left}px`;
-    frame.style.top = `${event.clientY - bounds.top}px`;
-    frame.style.backgroundImage = `url(${frameAssets[index % frameAssets.length]})`;
-    frame.style.setProperty("--trail-rotate", `${[-7, 5, -3, 8][index % 4]}deg`);
-    target.appendChild(frame);
-    window.setTimeout(() => frame.remove(), 1050);
-  };
-
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(softwareApplicationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
+      <RevealObserver />
       <header className="site-header">
         <a className="brand" href="https://wizstar.com/" aria-label="Wizstar home">
           <img src="/assets/wizstar-logo.png" alt="Wizstar" />
@@ -91,36 +110,17 @@ export default function Home() {
 
       <section className="hero">
         <div className="hero-heading page-width" data-reveal>
-          <h1>Seedance 2.5 — AI Video Generator</h1>
-          <p>Create up to 30 seconds of directed video from text, keyframes, or as many as 50 image, video, and audio references—inside Wizstar.</p>
+          <h1>Seedance 2.5 AI Video Generator</h1>
+          <p>Create videos from text, a first frame with an optional end frame, or up to 50 image, video, and audio references inside Wizstar.</p>
         </div>
-
-        <div className="hero-workspace page-width" ref={heroRef} onPointerMove={moveHeroLight} data-reveal>
-          <section className="creator" aria-label="Seedance 2.5 generator preview">
-            <div className="mode-tabs" aria-label="Generation modes">
-              {(Object.keys(modeDetails) as Array<keyof typeof modeDetails>).map((item) => <button className={mode === item ? "active" : ""} type="button" key={item} onClick={() => setMode(item)}>{item}</button>)}
-            </div>
-            <div className="model-select"><img className="model-mark" src="/assets/seedance-model-mark.svg" alt="" /><div><small>Model</small><strong>Seedance 2.5</strong></div><span className="select-chevron" aria-hidden="true" /></div>
-            <div className="upload-box" key={mode}><b>＋</b><span>{currentMode.title}</span><small>{currentMode.hint}</small></div>
-            <div className="prompt-box"><span>Direct the subject, camera, action, and pacing...</span><small>0 / 2000</small></div>
-            <div className="settings">{currentMode.settings.map((setting) => <span key={setting}>{setting}</span>)}</div>
-            <a className="generate" href={referenceUrl}>Create a video on Wizstar</a>
-          </section>
-
-          <div className="hero-media" aria-label="Temporary visual direction for a future Seedance 2.5 featured video">
-            <img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary dance campaign visual used as a temporary direction reference" />
-            <div className="media-label"><span>Movement Without Limits</span><small>Demo visual direction · approved Seedance case pending</small></div>
-            <button type="button" aria-label="Preview treatment demonstration">▶</button>
-            <div className="media-meta"><span>30 sec</span><span>720P</span><span>16:9</span></div>
-          </div>
-        </div>
+        <HeroWorkspace />
       </section>
 
       <section className="community page-width" id="showcase">
         <div className="section-heading" data-reveal>
           <span className="section-kicker">Work Showcase</span>
-          <h2>See Seedance 2.5 in Action</h2>
-          <p>Explore a broad visual direction for the work users can build on Wizstar—from product campaigns and fashion to food, travel, movement, and space.</p>
+          <h2>Seedance 2.5 Video Examples for Real Creative Work</h2>
+          <p>Preview the range of work this page will demonstrate with approved Seedance 2.5 outputs—from product campaigns and fashion to food, travel, movement, and space.</p>
           <a href={referenceUrl}>Start creating on Wizstar <Arrow /></a>
         </div>
         <p className="demo-disclaimer" data-reveal>Visual direction preview for product review. Replace with approved Seedance 2.5 outputs before launch.</p>
@@ -131,7 +131,7 @@ export default function Home() {
       </section>
 
       <section className="features page-width" id="features">
-        <div className="section-heading centered feature-heading" data-reveal><span className="section-kicker">Seedance 2.5 Core Features</span><h2>More Story. More Source Material. More Control.</h2><p>Seedance 2.5 gives creators a longer timeline, a richer multimodal reference pack, and multiple ways to direct how an idea moves from source material to finished video on Wizstar.</p></div>
+        <div className="section-heading centered feature-heading" data-reveal><span className="section-kicker">Seedance 2.5 Core Features</span><h2>What You Can Create with Seedance 2.5</h2><p>Choose a starting point, direct the source material, and prepare the result for the channel where it will be used.</p></div>
         <div className="feature-summary" aria-label="Seedance 2.5 capability overview" data-reveal>
           <article><strong>30s</strong><span>Room for a complete narrative arc</span><small>4, 10, 15, 20, 25, or 30 seconds</small></article>
           <article><strong>50</strong><span>Multimodal references in one brief</span><small>Images, video, and audio</small></article>
@@ -141,28 +141,28 @@ export default function Home() {
 
         <article className="feature-row" data-reveal>
           <div className="feature-media duration-media"><img src="/assets/demo/travel-landscape.jpg" alt="Travel landscape demo visual for a longer narrative" /><span>00:30</span><div className="scrubber"><i /></div><small>From opening frame to a complete journey</small></div>
-          <div className="feature-copy"><span className="feature-number">01</span><h3>Give the Story Up to 30 Seconds</h3><p>Choose 4, 10, 15, 20, 25, or 30 seconds so the idea can move from setup to action and finish without being reduced to a single moment.</p><a href={textUrl}>Open Text to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">01</span><h3>Create Videos Up to 30 Seconds</h3><p>Reference and Text modes offer 4, 10, 15, 20, 25, or 30 seconds, giving a brief room to move from setup through action to a clear finish.</p><a href={textUrl}>Open Text to Video <Arrow /></a></div>
         </article>
         <article className="feature-row reverse" data-reveal>
           <div className="feature-media reference-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Editorial portrait demo visual for multimodal reference control" /><div className="reference-stack"><div className="reference-card">Image</div><div className="reference-card">Video</div><div className="reference-card">Audio</div></div><small>One brief, a richer source pack</small></div>
-          <div className="feature-copy"><span className="feature-number">02</span><h3>Direct with a Full Reference Pack</h3><p>Bring together as many as 50 image, video, and audio assets, then tell Seedance 2.5 what each source should contribute to the result.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">02</span><h3>Reference to Video with Up to 50 Inputs</h3><p>Bring together as many as 50 image, video, and audio references, then tell Seedance 2.5 what each source should contribute to the result.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
         </article>
         <article className="feature-row" data-reveal>
           <div className="feature-media modes-media"><img src="/assets/wizstar-seedance-generator.png" alt="Seedance 2.5 modes inside the Wizstar AI Video Generator" /><div><b>Reference</b><b>Keyframe</b><b>Text</b></div><small>Three modes in one video workspace</small></div>
-          <div className="feature-copy"><span className="feature-number">03</span><h3>Start from the Material You Already Have</h3><p>Use a complete reference pack, animate between defined key moments, or begin with nothing more than a written scene.</p><a href={keyframeUrl}>Compare the three modes <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">03</span><h3>Start with Reference, Keyframe, or Text</h3><p>Build from a source-rich reference pack, animate from a required first frame toward an optional end frame, or begin with a written scene.</p><a href={keyframeUrl}>Open Keyframe to Video <Arrow /></a></div>
         </article>
         <article className="feature-row reverse" data-reveal>
           <div className="feature-media output-media"><img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary movement demo visual for vertical and widescreen delivery" /><div><b>4–30 sec</b><b>480P / 720P</b><b>9:16 / 16:9</b><b>1–4 outputs</b></div><small>Available controls in Reference and Text modes</small></div>
-          <div className="feature-copy"><span className="feature-number">04</span><h3>Shape the Delivery for Each Channel</h3><p>In Reference and Text modes, choose the duration, resolution, aspect ratio, and output count that fit the placement you are creating for.</p><a href={referenceUrl}>Set up an output <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">04</span><h3>Prepare Each Video for Its Destination</h3><p>In Reference and Text modes, choose the available duration, resolution, aspect ratio, and output count for the placement you are creating.</p><a href={referenceUrl}>Set up an output <Arrow /></a></div>
         </article>
         <article className="feature-row" data-reveal>
           <div className="feature-media agent-media"><img src="/assets/wizstar-home-agents.png" alt="Wizstar E-commerce and Creative Agent interface" /><div><b>E-commerce Agent</b><span>Product URL · images · selling points</span></div><div><b>Creative Agent</b><span>Text · images · video</span></div><small>Seedance 2.5 is selectable in both Agent workflows</small></div>
-          <div className="feature-copy"><span className="feature-number">05</span><h3>Take Seedance Beyond the Generator</h3><p>Select Seedance 2.5 inside Wizstar’s E-commerce Agent for product-led briefs or Creative Agent for broader creative production.</p><a href="https://wizstar.com/home">Explore Wizstar Agents <Arrow /></a></div>
+          <div className="feature-copy"><span className="feature-number">05</span><h3>Use Seedance 2.5 in Wizstar Agents</h3><p>Select Seedance 2.5 inside Wizstar’s E-commerce Agent for product-led briefs or Creative Agent for broader creative production.</p><a href="https://wizstar.com/home">Explore Wizstar Agents <Arrow /></a></div>
         </article>
       </section>
 
       <section className="how page-width" id="how-it-works">
-        <div className="section-heading centered" data-reveal><span className="section-kicker">From input to output</span><h2>Three Moves from Source Material to Video</h2><p>Choose a starting point, give every input a clear job, and tune the delivery for where the video will live.</p></div>
+        <div className="section-heading centered" data-reveal><span className="section-kicker">From input to output</span><h2>Create with Seedance 2.5 in Three Steps</h2><p>Choose a starting point, give every input a clear job, and tune the delivery for where the video will live.</p></div>
         <div className="steps" data-reveal>
           <article><div className="step-image product-shot"><img src="/assets/wizstar-seedance-generator.png" alt="Seedance 2.5 model selected in Wizstar AI Video Generator" /></div><span>Move 01</span><h3>Pick the Right Starting Point</h3><p>Choose Reference, Keyframe, or Text based on the material already available for the brief.</p></article>
           <article><div className="step-image step-reference"><img src="/assets/demo/chef-culinary.jpg" alt="Chef scene used to demonstrate directing multiple inputs" /><div><span>@Image 1</span><span>@Video 1</span><span>@Audio 1</span></div></div><span>Move 02</span><h3>Give Every Input a Job</h3><p>Upload what the mode needs, then direct the subject, movement, camera, and pacing in the prompt.</p></article>
@@ -171,7 +171,7 @@ export default function Home() {
       </section>
 
       <section className="use-cases page-width" id="workflows">
-        <div className="section-heading centered" data-reveal><span className="section-kicker">Choose the workflow</span><h2>One Model, Four Ways to Move an Idea Forward</h2><p>Work directly in AI Video Generator or bring Seedance 2.5 into a wider Wizstar production flow.</p></div>
+        <div className="section-heading centered" data-reveal><span className="section-kicker">Choose the workflow</span><h2>Seedance 2.5 Workflows for Different Creative Briefs</h2><p>Work directly in AI Video Generator or bring Seedance 2.5 into a wider Wizstar production flow.</p></div>
         <div className="use-grid" data-reveal>
           <article><div className="workflow-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Fashion editorial reference workflow demo" /></div><span>Reference mode</span><h3>Build from a Reference Pack</h3><p>Combine up to 50 image, video, and audio sources in one directed brief.</p><a href={referenceUrl}>Enter Reference mode <Arrow /></a></article>
           <article><div className="workflow-media"><img src="/assets/demo/modern-architecture.jpg" alt="Architecture keyframe workflow demo" /></div><span>Keyframe mode</span><h3>Animate Between Key Moments</h3><p>Anchor the beginning with a required first frame and add an optional ending frame.</p><a href={keyframeUrl}>Enter Keyframe mode <Arrow /></a></article>
@@ -181,12 +181,12 @@ export default function Home() {
       </section>
 
       <section className="tips page-width">
-        <div className="section-heading centered" data-reveal><span className="section-kicker">Write like a director</span><h2>Give Seedance 2.5 a Brief It Can Follow</h2></div>
+        <div className="section-heading centered" data-reveal><span className="section-kicker">Write like a director</span><h2>How to Direct Better Seedance 2.5 Videos</h2></div>
         <div className="tip-grid"><article><div className="tip-media"><img src="/assets/demo/contemporary-dance.jpg" alt="Movement sequence demo" /></div><span>01</span><h3>Plan a sequence, not a still</h3><p>Write the setup, action, transition, and ending as separate beats so the full duration has a clear arc.</p></article><article><div className="tip-media"><img src="/assets/demo/chef-culinary.jpg" alt="Directed culinary scene demo" /></div><span>02</span><h3>Tell each reference what to control</h3><p>Mention uploaded assets directly and connect each one to a subject, look, motion cue, or sound direction.</p></article><article><div className="tip-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Reference mode editorial demo" /></div><span>03</span><h3>Choose the mode before the brief</h3><p>Use references for a source-rich brief, keyframes for defined endpoints, and text when the scene begins in words.</p></article><article><div className="tip-media"><img src="/assets/demo/travel-landscape.jpg" alt="Destination format demo" /></div><span>04</span><h3>Design for the destination</h3><p>Decide whether the result needs 9:16 or 16:9, then select the available duration and output settings around that placement.</p></article></div>
       </section>
 
       <section className="insights page-width" id="insights">
-        <div className="section-heading" data-reveal><span className="section-kicker">Wizstar field notes</span><h2>Learn the Craft Behind Better AI Video</h2><p>Practical guides for choosing a mode, directing a longer sequence, and connecting Seedance 2.5 to real creative work.</p><a href="https://wizstar.com/blog">Visit the Wizstar blog <Arrow /></a></div>
+        <div className="section-heading" data-reveal><span className="section-kicker">Wizstar field notes</span><h2>Seedance 2.5 Guides and Creative Resources</h2><p>Practical guides for choosing a mode, directing a longer sequence, and connecting Seedance 2.5 to real creative work.</p><a href="https://wizstar.com/blog">Visit the Wizstar blog <Arrow /></a></div>
         <div className="article-grid" data-reveal>
           <article><div className="article-cover"><img src="/assets/demo/modern-architecture.jpg" alt="Modern architecture demo cover" /><span>DIRECTING GUIDE</span></div><small>Guide in progress</small><h3>How to Structure a 30-Second AI Video Brief</h3><p>A beat-by-beat framework for turning one idea into a complete moving sequence.</p></article>
           <article><div className="article-cover"><img src="/assets/demo/fashion-editorial.jpg" alt="Editorial fashion demo cover" /><span>MODE GUIDE</span></div><small>Guide in progress</small><h3>Reference, Keyframe, or Text: Where Should You Start?</h3><p>A practical way to match the material in hand with the right creation mode.</p></article>
@@ -195,7 +195,7 @@ export default function Home() {
       </section>
 
       <section className="testimonials" id="testimonials">
-        <div className="page-width"><div className="section-heading centered" data-reveal><span className="section-kicker">Creator voices</span><h2>Real Feedback, Clearly Sourced</h2><p>Verified feedback from Wizstar creators will appear here with names and sources attached—never invented, never anonymous.</p></div></div>
+        <div className="page-width"><div className="section-heading centered" data-reveal><span className="section-kicker">Creator voices</span><h2>What Wizstar Creators Say</h2><p>Verified feedback from Wizstar creators will appear here with names and sources attached—never invented, never anonymous.</p></div></div>
         <div className="quote-track" aria-label="Testimonial placeholders" data-reveal>
           <article><span>“</span><p>Verified feedback about reference-led creation is reserved for this card.</p><small>Creator attribution pending</small></article>
           <article><span>“</span><p>Verified feedback about longer video direction is reserved for this card.</p><small>Creator attribution pending</small></article>
@@ -205,11 +205,13 @@ export default function Home() {
       </section>
 
       <section className="faq page-width" id="faq">
-        <div className="section-heading centered" data-reveal><span className="section-kicker">Seedance 2.5 on Wizstar</span><h2>What to Know Before You Create</h2></div>
-        <div className="faq-list"><details open><summary>What are the three ways to begin a Seedance 2.5 video?</summary><p>Wizstar’s AI Video Generator offers Reference to Video, Keyframe to Video, and Text to Video, so you can begin with source assets, defined frames, or a written scene.</p></details><details><summary>What belongs in a Reference mode source pack?</summary><p>You can combine image, video, and audio references and include as many as 50 multimodal assets in the inspected Wizstar interface.</p></details><details><summary>Which output controls can I set?</summary><p>Reference and Text modes offer 4–30 second durations, 480P or 720P, 9:16 or 16:9, and 1–4 outputs. Keyframe mode follows the uploaded frame dimensions rather than offering a separate ratio picker.</p></details><details><summary>Can I call Seedance 2.5 through a dedicated API?</summary><p>The currently inspected API area does not verify a model-specific Seedance 2.5 endpoint, so this page sends creators to Wizstar’s working creation interfaces.</p></details><details><summary>How long can one generation run?</summary><p>Reference and Text modes currently offer 4, 10, 15, 20, 25, and 30-second duration choices.</p></details><details><summary>What does Keyframe mode require?</summary><p>A first frame is required. An end frame is optional, and the uploaded frame dimensions determine the result rather than a separate ratio setting.</p></details><details><summary>Where else can I select Seedance 2.5 in Wizstar?</summary><p>The model is also available in E-commerce Agent and Creative Agent workflows for product-led and broader creative briefs.</p></details><details><summary>Which mode should I choose for my brief?</summary><p>Choose Reference when the result should follow source material, Keyframe when the beginning or ending is defined, and Text when the scene starts from a written direction.</p></details></div>
+        <div className="section-heading centered" data-reveal><span className="section-kicker">Seedance 2.5 on Wizstar</span><h2>Seedance 2.5 Questions and Answers</h2></div>
+        <div className="faq-list">
+          {faqItems.map((item) => <article className="faq-item" key={item.question}><h3>{item.question}</h3><p>{item.answer}</p></article>)}
+        </div>
       </section>
 
-      <section className="final-cta" onPointerMove={spawnCtaFrame}><div className="final-cta-content page-width" data-reveal><h2>Bring Your Next Video Brief to Wizstar</h2><p>Begin with a reference pack, a pair of keyframes, or a scene written from scratch.</p><a href={referenceUrl}>Open Seedance 2.5 <Arrow /></a></div></section>
+      <FinalCta />
 
       <footer className="site-footer">
         <div className="footer-inner">

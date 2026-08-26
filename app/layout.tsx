@@ -4,10 +4,33 @@ import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://wizstar.com";
+const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 
 export const metadata: Metadata = {
-  title: "Seedance 2.5 on Wizstar | Reference, Keyframe & Text to Video",
-  description: "Direct Seedance 2.5 videos from text, keyframes, or up to 50 multimodal references, with creator and Agent workflows built into Wizstar.",
+  metadataBase: new URL(siteUrl),
+  title: "Seedance 2.5 AI Video Generator — Create Videos Up to 30s | Wizstar",
+  description: "Create Seedance 2.5 videos from text, keyframes, or up to 50 image, video, and audio references. Explore each workflow and start creating on Wizstar.",
+  alternates: { canonical: "/ai-model/seedance-2-5" },
+  robots: {
+    index: allowIndexing,
+    follow: allowIndexing,
+    googleBot: { index: allowIndexing, follow: allowIndexing },
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Wizstar",
+    url: "/ai-model/seedance-2-5",
+    title: "Seedance 2.5 AI Video Generator on Wizstar",
+    description: "Create up to 30-second Seedance 2.5 videos from text, keyframes, or multimodal references.",
+    images: [{ url: "/assets/wizstar-seedance-generator.png", width: 1440, height: 900, alt: "Seedance 2.5 AI Video Generator on Wizstar" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Seedance 2.5 AI Video Generator on Wizstar",
+    description: "Create up to 30-second Seedance 2.5 videos from text, keyframes, or multimodal references.",
+    images: ["/assets/wizstar-seedance-generator.png"],
+  },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 

@@ -3,6 +3,7 @@
 ## Safe rollback
 
 - Stable pre-interaction version: Git tag `baseline-openart-framework-v1`
+- Stable pre-SEO-content version: Git tag `pre-seo-content-pass-2026-08-26`
 - Experimental interaction work: branch `feature/future-interactions`
 - The stable checkpoint must remain intact until the owner approves the interaction direction.
 
@@ -13,6 +14,9 @@
 - Hero generator preview and working CTA links
 - Creations, feature stories, workflows, how-to, use cases, FAQ, final CTA
 - Fact and asset tracking documents
+- Server-rendered SEO copy, eight visible FAQ answers, and matching JSON-LD
+- Canonical production route: `/ai-model/seedance-2-5`
+- Preview deployments default to `noindex`; set `NEXT_PUBLIC_ALLOW_INDEXING=true` only on the approved wizstar.com production deployment
 
 ## Needed next
 
@@ -21,6 +25,7 @@
 - Final confirmation that the current official Wizstar logo asset is the preferred production variant
 - Final language and copy approval
 - Credit-price confirmation before publishing any price
+- Final approved canonical URL and production indexing approval
 
 ## Review
 
