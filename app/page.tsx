@@ -1,4 +1,5 @@
 import { FinalCta, HeroWorkspace, RevealObserver } from "./landing-interactions";
+import { SiteHeader } from "./site-header";
 
 const referenceUrl = "https://wizstar.com/tools/ai_video_generator?tab=reference2video&model=seedance2.5";
 const keyframeUrl = "https://wizstar.com/tools/ai_video_generator?tab=keyframe2video&model=seedance2.5";
@@ -94,19 +95,7 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
       <RevealObserver />
-      <header className="site-header">
-        <a className="brand" href="https://wizstar.com/" aria-label="Wizstar home">
-          <img src="/assets/wizstar-logo.png" alt="Wizstar" />
-        </a>
-        <nav className="main-nav" aria-label="Main navigation">
-          <a href="https://wizstar.com/home">Products <small className="nav-chevron" aria-hidden="true" /></a>
-          <a href="https://wizstar.com/official/enterprise">Enterprise <small className="nav-chevron" aria-hidden="true" /></a>
-          <a href="https://wizstar.com/blog">Resources <small className="nav-chevron" aria-hidden="true" /></a>
-          <a href="https://wizstar.com/official/pricing">Pricing</a>
-          <a href="https://wizstar.com/official/api">API</a>
-        </nav>
-        <a className="sign-in" href="https://wizstar.com/?login=1">Sign in</a>
-      </header>
+      <SiteHeader />
 
       <section className="hero">
         <div className="hero-heading page-width" data-reveal>
