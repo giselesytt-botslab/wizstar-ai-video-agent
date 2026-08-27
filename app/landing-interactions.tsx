@@ -122,11 +122,8 @@ export function HeroWorkspace() {
         <small className="handoff-note">Set up the brief here, then continue in Wizstar to generate.</small>
       </form>
 
-      <div className="hero-media" aria-label="Temporary visual direction for a future Seedance 2.5 featured video">
-        <img src="/assets/demo/contemporary-dance.jpg" alt="Contemporary dance campaign visual used as a temporary direction reference" />
-        <div className="media-label"><span>Movement Without Limits</span><small>Demo visual direction · approved Seedance case pending</small></div>
-        <button type="button" aria-label="Preview treatment demonstration">▶</button>
-        <div className="media-meta"><span>30 sec</span><span>720P</span><span>16:9</span></div>
+      <div className="hero-media" aria-label="Seedance 2.5 featured cinematic multi-scene video reel">
+        <video src="/assets/seedance-showcase-01.mp4" muted loop autoPlay playsInline preload="auto" />
       </div>
     </div>
   );

@@ -8,12 +8,12 @@ const canonicalUrl = "https://wizstar.com/ai-model/seedance-2-5";
 const Arrow = () => <span aria-hidden="true">→</span>;
 
 const workShowcases = [
-  { eyebrow: "Reference to Video", title: "Fashion Editorial", description: "Carry a distinctive subject, styling language, and photographic mood into a directed moving sequence.", tags: ["Identity", "Style"], tone: "cyan", image: "/assets/demo/fashion-editorial.jpg", alt: "Blue-lit editorial fashion portrait used as a temporary visual direction reference", credit: "Demo photo: Sherman Trotz / Pexels" },
-  { eyebrow: "E-commerce Agent", title: "Luxury Product Film", description: "Turn product imagery and selling points into a polished launch concept with tactile detail and motion.", tags: ["Product", "Campaign"], tone: "violet", image: "/assets/demo/perfume-product.jpg", alt: "Luxury perfume product photo used as a temporary visual direction reference", credit: "Demo photo: Carol EspiAldon / Pexels" },
-  { eyebrow: "Keyframe to Video", title: "Culinary Story", description: "Build atmosphere and human action around a real service moment, from preparation to final presentation.", tags: ["Food", "Lifestyle"], tone: "blue", image: "/assets/demo/chef-culinary.jpg", alt: "Chef plating a dish used as a temporary visual direction reference", credit: "Demo photo: Anthony Osuna / Pexels" },
-  { eyebrow: "Text to Video", title: "Destination Film", description: "Direct scale, camera movement, and pacing for travel stories that feel expansive and cinematic.", tags: ["Travel", "Landscape"], tone: "magenta", image: "/assets/demo/travel-landscape.jpg", alt: "Aerial coastal landscape used as a temporary visual direction reference", credit: "Demo photo: Ali Akdemir / Pexels" },
-  { eyebrow: "Social Creative", title: "Movement Campaign", description: "Shape expressive human motion into energetic vertical work made for short-form placements.", tags: ["Dance", "9:16"], tone: "aqua", image: "/assets/demo/contemporary-dance.jpg", alt: "Contemporary dancer in motion used as a temporary visual direction reference", credit: "Demo photo: Israyosoy S. / Pexels" },
-  { eyebrow: "Longer Generation", title: "Architecture Journey", description: "Use a longer timeline to reveal space, material, symmetry, and movement through a designed environment.", tags: ["Architecture", "30 sec"], tone: "indigo", image: "/assets/demo/modern-architecture.jpg", alt: "Modern architectural interior used as a temporary visual direction reference", credit: "Demo photo: Markus Winkler / Pexels" },
+  { eyebrow: "Cinematic Action", title: "Arctic Hockey Under the Aurora", description: "Stage a playful ice-hockey face-off between an explorer and a polar bear beneath sweeping aurora light.", tags: ["Arctic", "Character action"], tone: "cyan", media: "video", src: "/assets/seedance-hero-main.mp4", alt: "An explorer and a polar bear playing ice hockey under the northern lights", badge: "SEEDANCE 2.5 VIDEO", credit: "Seedance 2.5 generated showcase" },
+  { eyebrow: "Action Creative", title: "Alpine Descent", description: "Follow a skier at speed with a close action camera, crisp mountain light, and a convincing sense of downhill momentum.", tags: ["Ski", "Action camera"], tone: "aqua", media: "video", src: "/assets/seedance-showcase-02.mp4", alt: "A skier in an orange suit descending a bright alpine slope", badge: "SEEDANCE 2.5 VIDEO", credit: "Seedance 2.5 generated showcase" },
+  { eyebrow: "Reference to Video", title: "Fashion Editorial", description: "Carry a distinctive subject, styling language, and photographic mood into a directed moving sequence.", tags: ["Identity", "Style"], tone: "violet", media: "image", src: "/assets/demo/fashion-editorial.jpg", alt: "Blue-lit editorial fashion portrait used as a visual direction reference", badge: "VISUAL DIRECTION", credit: "Demo photo: Sherman Trotz / Pexels" },
+  { eyebrow: "E-commerce Agent", title: "Luxury Product Film", description: "Turn product imagery and selling points into a polished launch concept with tactile detail and motion.", tags: ["Product", "Campaign"], tone: "blue", media: "image", src: "/assets/demo/perfume-product.jpg", alt: "Luxury perfume product photo used as a visual direction reference", badge: "VISUAL DIRECTION", credit: "Demo photo: Carol EspiAldon / Pexels" },
+  { eyebrow: "Keyframe to Video", title: "Culinary Story", description: "Build atmosphere and human action around a real service moment, from preparation to final presentation.", tags: ["Food", "Lifestyle"], tone: "magenta", media: "image", src: "/assets/demo/chef-culinary.jpg", alt: "Chef plating a dish used as a visual direction reference", badge: "VISUAL DIRECTION", credit: "Demo photo: Anthony Osuna / Pexels" },
+  { eyebrow: "Text to Video", title: "Destination Film", description: "Direct scale, camera movement, and pacing for travel stories that feel expansive and cinematic.", tags: ["Travel", "Landscape"], tone: "indigo", media: "image", src: "/assets/demo/travel-landscape.jpg", alt: "Aerial coastal landscape used as a visual direction reference", badge: "VISUAL DIRECTION", credit: "Demo photo: Ali Akdemir / Pexels" },
 ] as const;
 
 const footerColumns = [
@@ -129,10 +129,10 @@ export default function Home() {
           <p>Preview the range of work this page will demonstrate with approved Seedance 2.5 outputs—from product campaigns and fashion to food, travel, movement, and space.</p>
           <a href={referenceUrl}>Start creating on Wizstar <Arrow /></a>
         </div>
-        <p className="demo-disclaimer" data-reveal>Visual direction preview for product review. Replace with approved Seedance 2.5 outputs before launch.</p>
+        <p className="demo-disclaimer" data-reveal>Two Seedance 2.5 motion studies are shown alongside four creative direction examples.</p>
         <div className="creation-marquee" aria-label="Seedance 2.5 work showcase" data-reveal>
-          <div className="creation-track">{[...workShowcases, ...workShowcases].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`top-${index}`}><div className="showcase-visual" title={item.credit}><img src={item.image} alt={item.alt} /><span>{item.eyebrow}</span><b>DEMO VISUAL</b><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
-          <div className="creation-track reverse-track">{[...workShowcases.slice().reverse(), ...workShowcases.slice().reverse()].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`bottom-${index}`}><div className="showcase-visual" title={item.credit}><img src={item.image} alt={item.alt} /><span>{item.eyebrow}</span><b>DEMO VISUAL</b><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
+          <div className="creation-track">{[...workShowcases, ...workShowcases].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`top-${index}`}><div className="showcase-visual" title={item.credit}>{item.media === "video" ? <video src={item.src} aria-label={item.alt} muted loop autoPlay playsInline preload="metadata" /> : <img src={item.src} alt={item.alt} />}<span>{item.eyebrow}</span><b>{item.badge}</b><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
+          <div className="creation-track reverse-track">{[...workShowcases.slice().reverse(), ...workShowcases.slice().reverse()].map((item, index) => <article className={`showcase-card tone-${item.tone}`} key={`bottom-${index}`}><div className="showcase-visual" title={item.credit}>{item.media === "video" ? <video src={item.src} aria-label={item.alt} muted loop autoPlay playsInline preload="metadata" /> : <img src={item.src} alt={item.alt} />}<span>{item.eyebrow}</span><b>{item.badge}</b><em aria-hidden="true">▶</em><small>SCENE {String((index % workShowcases.length) + 1).padStart(2,"0")}</small></div><div className="showcase-copy"><h3>{item.title}</h3><p>{item.description}</p><div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div>
         </div>
       </section>
 
@@ -150,11 +150,42 @@ export default function Home() {
           <div className="feature-copy"><span className="feature-number">01</span><h2>Seedance 2.5 30-Second Videos with Audio</h2><p>Create a video with sound in Reference, Keyframe, or Text mode. Reference and Text modes offer 4, 10, 15, 20, 25, or 30 seconds, giving the idea room to move from setup through action to a clear finish.</p><a href={textUrl}>Open Text to Video <Arrow /></a></div>
         </article>
         <article className="feature-row reverse" id="reference-to-video" data-reveal>
-          <div className="feature-media reference-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Editorial portrait demo visual for multimodal reference control" /><div className="reference-stack"><div className="reference-card">Image</div><div className="reference-card">Video</div><div className="reference-card">Audio</div></div><small>One brief, a richer source pack</small></div>
+          <div className="feature-media reference-media reference-case-study">
+            <div className="reference-inputs" aria-label="Three visual references used for this generation">
+              <div className="reference-case-heading"><span>INPUT</span><b>3 visual references</b></div>
+              <figure><img src="/assets/reference-prisoner-character.png" alt="Prisoner character turnaround reference" /><figcaption><b>01</b><span>Prisoner identity</span></figcaption></figure>
+              <figure><img src="/assets/reference-noble-character.png" alt="Noble character turnaround reference" /><figcaption><b>02</b><span>Noble identity</span></figcaption></figure>
+              <figure><img src="/assets/reference-dungeon-environment.png" alt="Medieval dungeon environment reference" /><figcaption><b>03</b><span>Dungeon setting</span></figcaption></figure>
+            </div>
+            <div className="reference-flow" aria-hidden="true"><i /><span>COMBINE</span><i /></div>
+            <div className="reference-output">
+              <div className="reference-case-heading"><span>OUTPUT</span><b>Generated video</b></div>
+              <video src="/assets/reference-dungeon-result.mp4" aria-label="Generated dungeon scene combining the two characters and environment references" muted loop autoPlay playsInline controls preload="metadata" />
+              <small>Identity + costume + environment in one directed scene</small>
+            </div>
+          </div>
           <div className="feature-copy"><span className="feature-number">02</span><h2>Seedance 2.5 Reference to Video with Multiple References</h2><p>Build image to video with as many as 50 image, video, and audio references, then tell Seedance 2.5 what each source should contribute to the visuals, motion, or sound.</p><a href={referenceUrl}>Open Reference to Video <Arrow /></a></div>
         </article>
         <article className="feature-row" id="keyframe-to-video" data-reveal>
-          <div className="feature-media modes-media"><img src="/assets/wizstar-seedance-generator.png" alt="Seedance 2.5 modes inside the Wizstar AI Video Generator" /><div><b>Reference</b><b>Keyframe</b><b>Text</b></div><small>Three modes in one video workspace</small></div>
+          <div className="feature-media keyframe-case-study">
+            <div className="keyframe-endpoints" aria-label="First and last frames used to direct this video">
+              <figure>
+                <span>FIRST FRAME</span>
+                <img src="/assets/keyframe-first-frame.png" alt="First frame showing a football player preparing to take a penalty kick" />
+                <figcaption><b>00:00</b><small>Set the opening shot</small></figcaption>
+              </figure>
+              <div className="keyframe-bridge" aria-hidden="true"><i /><span>DIRECT THE MOTION</span><b>→</b><i /></div>
+              <figure>
+                <span>LAST FRAME</span>
+                <img src="/assets/keyframe-last-frame.png" alt="Last frame showing the football player celebrating after scoring" />
+                <figcaption><small>Lock the ending</small><b>END</b></figcaption>
+              </figure>
+            </div>
+            <div className="keyframe-output">
+              <div><span>GENERATED SEQUENCE</span><b>First frame → action → last frame</b></div>
+              <video src="/assets/keyframe-football-result.mp4" aria-label="Generated football sequence moving from the supplied first frame to the supplied last frame" muted loop autoPlay playsInline controls preload="metadata" />
+            </div>
+          </div>
           <div className="feature-copy"><span className="feature-number">03</span><h2>Seedance 2.5 Keyframe to Video</h2><p>Use a required first frame and an optional last frame to define the visual endpoints, then direct the action, transition, camera, pacing, and sound between them.</p><a href={keyframeUrl}>Open Keyframe to Video <Arrow /></a></div>
         </article>
         <article className="feature-row reverse" id="text-to-video" data-reveal>
@@ -170,9 +201,9 @@ export default function Home() {
       <section className="how page-width" id="how-it-works">
         <div className="section-heading centered" data-reveal><span className="section-kicker">From input to output</span><h2>Create with Seedance 2.5 in Three Steps</h2><p>Choose a starting point, give every input a clear job, and tune the delivery for where the video will live.</p></div>
         <div className="steps" data-reveal>
-          <article><div className="step-image product-shot"><img src="/assets/wizstar-seedance-generator.png" alt="Seedance 2.5 model selected in Wizstar AI Video Generator" /></div><span>Move 01</span><h3>Pick the Right Starting Point</h3><p>Choose Reference, Keyframe, or Text based on the material already available for the brief.</p></article>
-          <article><div className="step-image step-reference"><img src="/assets/demo/chef-culinary.jpg" alt="Chef scene used to demonstrate directing multiple inputs" /><div><span>@Image 1</span><span>@Video 1</span><span>@Audio 1</span></div></div><span>Move 02</span><h3>Give Every Input a Job</h3><p>Upload what the mode needs, then direct the subject, movement, camera, and pacing in the prompt.</p></article>
-          <article><div className="step-image step-settings"><img src="/assets/demo/perfume-product.jpg" alt="Luxury product scene used to demonstrate output settings" /><div><b>10 sec</b><b>720P</b><b>9:16</b><b>1 Output</b></div></div><span>Move 03</span><h3>Set the Delivery</h3><p>Confirm the available duration, resolution, ratio, and output count before sending the brief to Seedance 2.5.</p></article>
+          <article><div className="step-image product-shot"><img src="/assets/seedance-step-01-real-ui.png" alt="Wizstar Reference to Video workspace with an uploaded product image, Seedance 2.5 selected, and output settings" /></div><span>Move 01</span><h3>Add Material and Set the Output</h3><p>Upload the source material, choose Seedance 2.5, then set duration, resolution, aspect ratio, and output count.</p></article>
+          <article><div className="step-image product-shot"><img src="/assets/seedance-step-02-real-prompt.png" alt="Detailed Seedance 2.5 prompt directing product identity, camera movement, lighting, pacing, and sound" /></div><span>Move 02</span><h3>Direct the Video with a Detailed Prompt</h3><p>Assign the reference a job, then describe subject continuity, action, camera, lighting, pacing, atmosphere, and sound.</p></article>
+          <article><div className="step-image product-shot"><img src="/assets/seedance-step-03-real-output.png" alt="Large generated Seedance 2.5 result showing a cinematic cobalt-blue perfume commercial" /></div><span>Move 03</span><h3>Generate and Review the Result</h3><p>Review the full output at a useful size, then refine the brief or continue creating in Wizstar.</p></article>
         </div>
       </section>
 
@@ -186,9 +217,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="tips page-width">
+      <section className="tips page-width" id="direct-better">
         <div className="section-heading centered" data-reveal><span className="section-kicker">Write like a director</span><h2>How to Direct Better Seedance 2.5 Videos</h2></div>
-        <div className="tip-grid"><article><div className="tip-media"><img src="/assets/demo/contemporary-dance.jpg" alt="Movement sequence demo" /></div><span>01</span><h3>Plan a sequence, not a still</h3><p>Write the setup, action, transition, and ending as separate beats so the full duration has a clear arc.</p></article><article><div className="tip-media"><img src="/assets/demo/chef-culinary.jpg" alt="Directed culinary scene demo" /></div><span>02</span><h3>Tell each reference what to control</h3><p>Mention uploaded assets directly and connect each one to a subject, look, motion cue, or sound direction.</p></article><article><div className="tip-media"><img src="/assets/demo/fashion-editorial.jpg" alt="Reference mode editorial demo" /></div><span>03</span><h3>Choose the mode before the brief</h3><p>Use references for a source-rich brief, keyframes for defined endpoints, and text when the scene begins in words.</p></article><article><div className="tip-media"><img src="/assets/demo/travel-landscape.jpg" alt="Destination format demo" /></div><span>04</span><h3>Design for the destination</h3><p>Decide whether the result needs 9:16 or 16:9, then select the available duration and output settings around that placement.</p></article></div>
+        <div className="tip-grid"><article><div className="tip-media"><img src="/assets/tip-plan-sequence.png" alt="Four-beat cinematic sequence progressing from a rainy alley to a rooftop ending" /></div><span>01</span><h3>Plan a sequence, not a still</h3><p>Write the setup, action, transition, and ending as separate beats so the full duration has a clear arc.</p></article><article><div className="tip-media"><img src="/assets/tip-reference-control.png" alt="Character, vehicle, and environment references combining into one directed desert scene" /></div><span>02</span><h3>Tell each reference what to control</h3><p>Mention uploaded assets directly and connect each one to a subject, look, motion cue, or sound direction.</p></article><article><div className="tip-media"><img src="/assets/tip-choose-mode.png" alt="Reference, first and last frame, and text-led video creation modes shown as three distinct briefs" /></div><span>03</span><h3>Choose the mode before the brief</h3><p>Use references for a source-rich brief, keyframes for defined endpoints, and text when the scene begins in words.</p></article><article><div className="tip-media"><img src="/assets/tip-design-destination.png" alt="The same street-food video composed intentionally for widescreen and vertical mobile delivery" /></div><span>04</span><h3>Design for the destination</h3><p>Decide whether the result needs 9:16 or 16:9, then select the available duration and output settings around that placement.</p></article></div>
       </section>
 
       <section className="insights page-width" id="insights">
@@ -213,7 +244,12 @@ export default function Home() {
       <section className="faq page-width" id="faq">
         <div className="section-heading centered" data-reveal><span className="section-kicker">Seedance 2.5 on Wizstar</span><h2>Seedance 2.5 Questions and Answers</h2></div>
         <div className="faq-list">
-          {faqItems.map((item) => <article className="faq-item" key={item.question}><h3>{item.question}</h3><p>{item.answer}</p></article>)}
+          {faqItems.map((item) => (
+            <details className="faq-item" key={item.question}>
+              <summary><span>{item.question}</span></summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
         </div>
       </section>
 
