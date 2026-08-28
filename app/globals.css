@@ -26,6 +26,7 @@
 .pending-media{background:linear-gradient(135deg,rgba(76,187,255,.08),rgba(168,127,255,.06)),#101116}.pending-media>span{font-size:100px;font-weight:650;color:rgba(255,255,255,.07)}.pending-row .feature-copy h3{color:#c9ccd2}
 .tip-grid{grid-template-columns:repeat(4,1fr)}.tip-grid article{min-height:270px;padding:28px 24px}.tip-grid h3{font-size:20px}
 .article-grid{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.article-cover{height:230px;margin-bottom:20px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;background:linear-gradient(145deg,rgba(76,187,255,.1),rgba(168,127,255,.06)),#111216;color:#6d7480;font-size:10px;letter-spacing:.12em}.article-grid>article>small{color:#6f7681}.article-grid h3{margin:10px 0;font-size:21px}.article-grid p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.article-grid article>a{display:block;height:100%;color:inherit}
 .testimonials{overflow:hidden}.quote-track{width:max-content;margin-top:48px;display:flex;gap:14px;transform:translateX(-90px)}.quote-track article{width:360px;min-height:210px;padding:28px;border:1px solid var(--line);border-radius:12px;background:#111216}.quote-track article>span{color:var(--blue);font-size:34px}.quote-track p{margin:22px 0 34px;font-size:17px;line-height:1.55}.quote-track small{color:#777e89}
 @media(max-width:900px){.tip-grid{grid-template-columns:repeat(2,1fr)}.tip-grid article:nth-child(2){border-right:0}.article-grid{grid-template-columns:1fr 1fr}.article-grid article:last-child{display:none}}
 @media(max-width:680px){.insights,.testimonials{padding:78px 0}.tip-grid{grid-template-columns:1fr}.article-grid{grid-template-columns:1fr}.article-grid article:last-child{display:block}.quote-track{transform:translateX(-20px)}.quote-track article{width:300px}}
@@ -40,7 +41,7 @@
 .creation-marquee{width:100vw;margin:48px 0 0 calc(50% - 50vw);display:grid;gap:14px;overflow:hidden;padding:3px 0}.creation-track{width:max-content;display:flex;gap:14px;animation:creation-flow 54s linear infinite}.reverse-track{animation-direction:reverse;animation-duration:61s}.creation-marquee:hover .creation-track{animation-play-state:paused}.showcase-card{width:430px;height:258px;position:relative;flex:none;overflow:hidden;display:grid;grid-template-columns:1.02fr .98fr;border:1px solid rgba(255,255,255,.11);border-radius:16px;background:#111216;box-shadow:0 18px 50px rgba(0,0,0,.22);transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s,filter .3s}.showcase-card:hover{transform:translateY(-4px) scale(1.012);border-color:rgba(76,187,255,.34);filter:brightness(1.1)}.showcase-visual{position:relative;overflow:hidden;padding:18px;background:radial-gradient(circle at 55% 46%,rgba(46,206,255,.32),transparent 28%),linear-gradient(145deg,#11293a,#101218 70%)}.showcase-visual:before{content:"";position:absolute;width:118px;height:118px;left:50%;top:48%;transform:translate(-50%,-50%) rotate(16deg);border:1px solid rgba(255,255,255,.24);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.015));box-shadow:0 18px 50px rgba(0,0,0,.25);backdrop-filter:blur(8px)}.showcase-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(to bottom,black,transparent)}.showcase-visual>span,.showcase-visual>small,.showcase-visual>em{position:relative;z-index:1}.showcase-visual>span{padding:6px 8px;display:inline-flex;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(5,8,12,.48);color:#d8f7ff;font-size:9px;letter-spacing:.06em}.showcase-visual>small{position:absolute;left:18px;bottom:16px;color:rgba(255,255,255,.5);font-size:8px;letter-spacing:.13em}.showcase-visual>em{position:absolute;left:50%;top:49%;width:42px;height:42px;display:grid;place-items:center;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.22);border-radius:50%;background:rgba(4,6,10,.58);color:#fff;font-size:10px;font-style:normal;box-shadow:0 8px 24px rgba(0,0,0,.25)}.showcase-copy{padding:24px 22px;display:flex;flex-direction:column}.showcase-copy h3{margin:0;font-size:20px;line-height:1.15;letter-spacing:-.025em}.showcase-copy p{margin:12px 0 0;color:#8f96a1;font-size:12px;line-height:1.55}.showcase-copy>div{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px}.showcase-copy>div span{padding:5px 7px;border:1px solid rgba(255,255,255,.09);border-radius:5px;color:#aab1bc;font-size:9px}.tone-violet .showcase-visual{background:radial-gradient(circle at 55% 46%,rgba(181,97,255,.33),transparent 28%),linear-gradient(145deg,#281735,#111218 70%)}.tone-blue .showcase-visual{background:radial-gradient(circle at 55% 46%,rgba(52,112,255,.38),transparent 28%),linear-gradient(145deg,#12234a,#101218 70%)}.tone-magenta .showcase-visual{background:radial-gradient(circle at 55% 46%,rgba(255,73,171,.3),transparent 28%),linear-gradient(145deg,#35142b,#111218 70%)}.tone-aqua .showcase-visual{background:radial-gradient(circle at 55% 46%,rgba(32,240,202,.3),transparent 28%),linear-gradient(145deg,#10332f,#101218 70%)}.tone-indigo .showcase-visual{background:radial-gradient(circle at 55% 46%,rgba(116,94,255,.34),transparent 28%),linear-gradient(145deg,#1f1b45,#101218 70%)}@keyframes creation-flow{to{transform:translateX(calc(-50% - 7px))}}
 .features{position:relative}.feature-row{position:sticky;top:92px;padding:40px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:rgba(12,13,17,.94);box-shadow:0 -16px 48px rgba(0,0,0,.4);backdrop-filter:blur(18px)}.feature-row:nth-of-type(2){top:102px}.feature-row:nth-of-type(3){top:112px}.feature-row:nth-of-type(4){top:122px}.feature-row:nth-of-type(5){top:132px}.feature-row:hover{border-color:rgba(76,187,255,.2)}
 .use-grid article,.article-grid article,.tip-grid article{transition:transform .35s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s}.use-grid article:hover{transform:translateY(-6px);border-color:rgba(76,187,255,.24);background:#15171d}.tip-grid article:hover{background:rgba(76,187,255,.035)}.article-grid article:hover{transform:translateY(-5px)}.article-grid article:hover .article-cover{border-color:rgba(76,187,255,.24);filter:brightness(1.1)}
-.quote-track{animation:quote-flow 34s linear infinite}.quote-track:hover{animation-play-state:paused}@keyframes quote-flow{to{transform:translateX(calc(-25% - 100px))}}
+.quote-track{animation:quote-flow 34s linear infinite;will-change:transform}.quote-track:hover{animation-play-state:paused}@keyframes quote-flow{to{transform:translateX(calc(-50% - 7px))}}
 .final-cta a{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}.final-cta a:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 46px rgba(71,124,255,.26)}
 @media(max-width:900px){.feature-row,.feature-row:nth-of-type(n){position:relative;top:auto;padding:26px}.showcase-card{width:390px;height:244px}}
 @media(max-width:680px){[data-reveal]{filter:none;transform:translateY(18px)}.hero-workspace:before{display:none}.creation-track{animation-duration:58s}.showcase-card{width:326px;height:232px;grid-template-columns:.92fr 1.08fr}.showcase-copy{padding:19px 16px}.showcase-copy h3{font-size:17px}.showcase-copy p{font-size:10px}.showcase-visual{padding:14px}.showcase-visual>small{left:14px;bottom:13px}.feature-row{padding:16px;border-radius:16px}.quote-track{animation:none}}
@@ -63,6 +64,19 @@
 /* MotionSites-inspired interaction mechanics, translated into Wizstar's product system. */
 .creation-marquee{mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}.showcase-card{box-shadow:0 18px 50px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.045)}.sign-in,.generate,.final-cta a{box-shadow:0 1px 2px rgba(3,12,30,.2),0 6px 18px rgba(44,115,255,.16),0 18px 38px rgba(61,70,255,.1),inset 0 1px 0 rgba(255,255,255,.48),inset 0 -1px 0 rgba(25,50,166,.35);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s,filter .25s}.sign-in:hover,.generate:hover,.final-cta a:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 2px 4px rgba(3,12,30,.2),0 10px 26px rgba(44,115,255,.22),0 22px 48px rgba(101,71,255,.14),inset 0 1px 0 rgba(255,255,255,.58),inset 0 -1px 0 rgba(25,50,166,.4)}.sign-in:active,.generate:active,.final-cta a:active{transform:translateY(0) scale(.985)}.final-cta{position:relative;isolation:isolate;overflow:hidden;min-height:440px;display:grid;place-items:center}.final-cta:before{content:"";position:absolute;z-index:-1;width:780px;height:420px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 45%,rgba(57,200,255,.18),transparent 42%),radial-gradient(circle at 68% 52%,rgba(160,91,255,.18),transparent 44%);filter:blur(32px)}.final-cta-content{position:relative;z-index:3}.cta-trail-frame{--trail-rotate:0deg;position:absolute;z-index:1;width:144px;height:92px;left:0;top:0;overflow:hidden;transform:translate(-50%,-50%) rotate(var(--trail-rotate)) scale(.82);border:1px solid rgba(153,206,255,.35);border-radius:12px;background-position:left top;background-size:cover;box-shadow:0 18px 44px rgba(0,0,0,.48),0 0 30px rgba(74,145,255,.14),inset 0 1px 0 rgba(255,255,255,.22);pointer-events:none;animation:cta-frame-drift 1.05s cubic-bezier(.22,1,.36,1) forwards}.cta-trail-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(99,225,255,.14),transparent 44%,rgba(180,102,255,.14));box-shadow:inset 0 0 24px rgba(88,133,255,.12)}@keyframes cta-frame-drift{0%{opacity:0;transform:translate(-50%,-44%) rotate(var(--trail-rotate)) scale(.68);filter:blur(5px)}18%{opacity:.86;filter:blur(0)}100%{opacity:0;transform:translate(-50%,-78%) rotate(var(--trail-rotate)) scale(.94);filter:blur(2px)}}
 @media(max-width:680px){.creation-marquee{mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}.final-cta{min-height:400px}.cta-trail-frame{display:none}}
+
+/* Let the final CTA flow naturally from the FAQ above into the footer below. */
+.final-cta{
+  background:
+    radial-gradient(circle at 50% 8%,rgba(71,145,255,.15),transparent 48%),
+    linear-gradient(180deg,#08090b 0%,#0b0c10 20%,#0b0c10 82%,#0a0b0f 100%);
+}
+@media (min-width:681px){
+  .final-cta{
+    min-height:410px;
+    padding-bottom:95px;
+  }
+}
 
 /* Dedicated Seedance 2.5 capability chapter. */
 .feature-heading{max-width:900px}.feature-heading .section-kicker{display:inline-flex;padding:7px 11px;border:1px solid rgba(80,200,255,.2);border-radius:999px;background:rgba(76,187,255,.055);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 0 30px rgba(76,187,255,.05)}.feature-heading h2{margin-top:8px;color:transparent;background:linear-gradient(104deg,#f3f8ff 4%,#91e5ff 36%,#8294ff 65%,#c18cff 94%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 28px rgba(83,142,255,.12))}.feature-summary{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.feature-summary article{min-height:184px;position:relative;overflow:hidden;padding:24px 22px;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:linear-gradient(145deg,rgba(76,187,255,.055),rgba(168,127,255,.025) 58%,rgba(255,255,255,.018)),#101116;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 18px 54px rgba(0,0,0,.22);transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s}.feature-summary article:before{content:"";position:absolute;width:110px;height:110px;right:-42px;top:-44px;border-radius:50%;background:radial-gradient(circle,rgba(81,201,255,.18),transparent 68%);filter:blur(8px)}.feature-summary article:nth-child(even):before{background:radial-gradient(circle,rgba(174,107,255,.2),transparent 68%)}.feature-summary article:hover{transform:translateY(-6px);border-color:rgba(92,194,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 28px 70px rgba(0,0,0,.3),0 0 36px rgba(76,187,255,.045)}.feature-summary strong{color:transparent;background:linear-gradient(110deg,#b9f4ff,#5abfff 42%,#aa83ff);-webkit-background-clip:text;background-clip:text;font-family:var(--font-geist-sans),Arial,sans-serif;font-size:48px;font-weight:650;line-height:1;letter-spacing:-.055em}.feature-summary span{margin-top:24px;color:#e7eaf0;font-size:15px;font-weight:600;line-height:1.35}.feature-summary small{margin-top:8px;color:#777f8c;font-size:10px;line-height:1.45}.feature-summary+.feature-row{margin-top:76px}
@@ -100,6 +114,47 @@
 /* Close the Hero gap after removing the redundant capability capsules. */
 .hero-workspace{margin-top:28px}
 @media(max-width:680px){.hero-workspace{margin-top:24px}}
+
+/* Keep the OpenArt-inspired setup focused on the decisions needed to start. */
+.creator{display:flex;flex-direction:column}.prompt-box{flex:1;min-height:142px}.generate{margin-top:12px}.settings,.handoff-note{display:none}
+
+/* Showcase videos stay compact in motion and expand to their native widescreen frame on hover. */
+.creation-marquee{padding:34px 0;overflow:hidden}
+.creation-track{overflow:visible}
+.showcase-card{width:430px;aspect-ratio:16/9;height:auto;overflow:visible;isolation:isolate}
+.showcase-visual{overflow:hidden;border-radius:15px 0 0 15px;transition:inset .3s cubic-bezier(.22,1,.36,1),border-radius .3s,box-shadow .3s}
+.showcase-card:hover{z-index:20;transform:translateY(-6px) scale(1.16);filter:none}
+.showcase-card:hover .showcase-visual{position:absolute;z-index:5;inset:0;border-radius:15px;background:#050609;box-shadow:0 28px 80px rgba(0,0,0,.62),0 0 0 1px rgba(93,190,255,.3)}
+.showcase-card:hover .showcase-copy{opacity:0;pointer-events:none}
+.showcase-visual>video{object-fit:cover;background:#050609}
+.showcase-card:hover .showcase-visual>video{transform:none;object-fit:contain;filter:none}
+.showcase-copy{min-width:0;overflow:hidden;transition:opacity .18s ease}
+.showcase-copy h3,.showcase-copy p{overflow-wrap:anywhere}
+.showcase-visual>em{display:none}
+.showcase-visual>b{display:none}
+.hero-media .sound-toggle{inset:auto 14px auto auto}
+.showcase-visual .sound-toggle{inset:14px 12px auto auto}
+@media(max-width:680px){.creation-marquee{padding:20px 0}.showcase-card:hover{transform:translateY(-3px) scale(1.04)}}
+
+/* Audio is opt-in so the page remains quiet until the viewer asks for sound. */
+.sound-video{position:relative;width:100%;height:100%;min-width:0;min-height:0}
+.sound-video>video{display:block;width:100%;height:100%;object-fit:cover;background:#050609}
+.hero-media>.sound-video{position:absolute;inset:0}
+.hero-media>.sound-video>video{object-fit:contain}
+.showcase-visual>.sound-video{position:absolute;z-index:0;inset:0}
+.showcase-visual>.sound-video>video{object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1),filter .35s ease}
+.showcase-card:hover .showcase-visual>.sound-video>video{object-fit:contain;transform:none;filter:none}
+.sound-toggle{position:absolute !important;z-index:8;inset:14px 14px auto auto !important;width:40px;height:32px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.28);border-radius:9px;background:rgba(6,9,14,.7);color:#fff;cursor:pointer;backdrop-filter:blur(12px);box-shadow:0 6px 18px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.15);transition:transform .2s,background .2s,border-color .2s}
+.sound-toggle:hover{transform:scale(1.08);background:rgba(22,30,46,.84);border-color:rgba(112,221,255,.65)}
+.sound-toggle span{position:relative;width:13px;height:11px;display:block;border-left:2px solid currentColor;border-top:2px solid transparent;border-bottom:2px solid transparent}
+.sound-toggle span:before{content:"";position:absolute;left:-1px;top:2px;width:6px;height:7px;background:currentColor;clip-path:polygon(0 28%,100% 0,100% 100%,0 72%)}
+.sound-toggle span:after{content:")))";position:absolute;left:7px;top:-5px;color:currentColor;font-size:8px;letter-spacing:-2px;opacity:.9}
+.sound-toggle.is-muted span:after{content:""}
+.showcase-visual .sound-toggle{inset:14px 14px auto auto !important}
+.showcase-card:hover .showcase-visual .sound-toggle{opacity:1}
+.reference-output>.sound-video,.keyframe-output>.sound-video{height:auto;aspect-ratio:16/9}
+.reference-output>.sound-video>video,.keyframe-output>.sound-video>video{height:100%;object-fit:cover}
+@media(max-width:680px){.sound-toggle{inset:10px 10px auto auto !important;width:36px;height:30px}.showcase-visual .sound-toggle{inset:10px 10px auto auto !important}}
 
 /* Slightly tighter chapter rhythm after framework approval. */
 .community,.features,.how,.use-cases,.tips,.faq,.insights,.testimonials{padding-top:96px;padding-bottom:96px}
@@ -195,6 +250,64 @@
   .feature-row:nth-of-type(n){margin-top:38px;padding:16px}
 }
 
+/* Feature chapters keep their framed page-turn stack; remove only the inner media shell. */
+.features > .feature-row,
+.features > .feature-row:nth-of-type(n){
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  background:rgba(12,13,17,.94);
+  box-shadow:0 -16px 48px rgba(0,0,0,.4);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  overflow:visible;
+}
+.features > .feature-row:hover{border-color:rgba(76,187,255,.2)}
+.features > .feature-row > .feature-media{border:0}
+.features > .feature-row:nth-of-type(1){z-index:1}
+.features > .feature-row:nth-of-type(2){z-index:2}
+.features > .feature-row:nth-of-type(3){z-index:3}
+.features > .feature-row:nth-of-type(4){z-index:4}
+.features > .feature-row:nth-of-type(5){z-index:5}
+@media(min-width:901px){
+  .features > .feature-row,
+  .features > .feature-row:nth-of-type(n){
+    height:auto;
+    min-height:650px;
+  }
+  .features > .feature-row:last-of-type{align-items:start;margin-top:-20px}
+  .features > .feature-row:last-of-type .feature-copy{padding-top:88px}
+}
+
+/* Seedance model mark: keep the original dark square field with corrected bar colors. */
+.model-mark{width:40px;height:40px;padding:4px;border-radius:7px;background:#20242b}
+
+/* Keep the mode links as a simple inline navigation row without a surrounding panel. */
+.mode-jump-nav{border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;padding:12px 0}
+
+/* Let major page parts flow into one another without divider rules. */
+.community,.features,.how,.use-cases,.tips,.faq,.insights,.testimonials,.site-footer{border-top:0}
+@media(max-width:680px){
+  .features > .feature-row{border-radius:16px}
+}
+
+/* Expanded feature chapters: keep all five cards in normal document flow. */
+.features > .feature-row,
+.features > .feature-row:nth-of-type(n){
+  position:relative;
+  top:auto;
+  height:auto;
+  min-height:650px;
+  margin-top:32px;
+  overflow:visible;
+}
+.features > .feature-row:first-of-type,
+.feature-summary + .feature-row{
+  margin-top:64px;
+}
+.features > .feature-row:last-of-type{
+  margin-top:32px;
+}
+
 /* Approved motion assets use the same cinematic framing as the existing image layers. */
 .hero-media>video{
   position:absolute;
@@ -244,14 +357,17 @@
   filter:saturate(1.08) contrast(1.03);
 }
 @media(max-width:1280px){
-  .hero-workspace{width:min(100% - 48px,1180px);min-height:0;grid-template-columns:1fr;gap:18px}
-  .hero-media{grid-row:1;aspect-ratio:16/9}
-  .creator{grid-row:2;width:min(560px,100%);margin:0 auto}
+  .hero-workspace{width:min(100% - 48px,1180px);min-height:0;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:18px}
+  .hero-media{grid-row:auto;aspect-ratio:16/9}
+  .creator{grid-row:auto;width:auto;margin:0}
 }
 @media(max-width:680px){
   .hero-workspace{width:min(100% - 28px,1180px)}
-  .creator{width:100%}
+  .creator{width:auto}
 }
+
+/* Keep the creator and preview side by side at every viewport width. */
+.hero-workspace:after{display:none !important}
 
 /* Three-step product renders share one responsive 16:9 frame. */
 .steps .step-image{height:auto;aspect-ratio:1672/941}
@@ -327,4 +443,767 @@
   .brand,.brand img{width:104px}
   .sign-in{min-width:72px;height:36px;padding:0 12px;font-size:12px}
   .mobile-menu-toggle{width:36px;height:36px}
+}
+
+/* The showcase is a real scroll surface: auto motion and user navigation share one seamless track. */
+.creation-marquee{
+  width:100vw;
+  margin:48px 0 0 calc(50% - 50vw);
+  padding:34px 0 46px;
+  display:grid;
+  gap:16px;
+  overflow:visible;
+  mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+}
+.creation-row{width:100%;padding:0;display:block;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab}
+.creation-row::-webkit-scrollbar{display:none}
+.creation-row.is-dragging{cursor:grabbing;user-select:none}
+.creation-track{width:max-content;display:flex;gap:16px;padding:0 4vw 10px;animation:none !important}
+.showcase-card{width:430px;height:auto;aspect-ratio:16/9;flex:none;overflow:visible}
+.showcase-card:hover{transform:translateY(-6px) scale(1.16);z-index:20;filter:none}
+.showcase-card:hover .showcase-visual{position:absolute;z-index:5;inset:0;border-radius:15px;background:#050609;box-shadow:0 28px 80px rgba(0,0,0,.62),0 0 0 1px rgba(93,190,255,.3)}
+.showcase-card:hover .showcase-copy{opacity:0;pointer-events:none}
+.showcase-card:hover .showcase-visual>.sound-video>video{object-fit:contain}
+.sound-toggle{width:38px !important;height:38px !important;padding:0 !important;border-radius:50% !important;display:grid !important;place-items:center !important}
+.sound-toggle svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sound-toggle:hover{transform:scale(1.08)}
+.hero-media .sound-toggle,.showcase-visual .sound-toggle{inset:14px 14px auto auto !important}
+.showcase-visual .sound-toggle{opacity:0;pointer-events:none;visibility:hidden;transition:opacity .2s ease,transform .2s ease,background .2s,border-color .2s,visibility .2s}
+.showcase-card:hover .showcase-visual .sound-toggle,.showcase-card:focus-within .showcase-visual .sound-toggle{opacity:.96;pointer-events:auto;visibility:visible}
+.showcase-card:hover .showcase-visual .sound-toggle:not(.is-muted){opacity:1;background:rgba(39,153,214,.32);border-color:rgba(112,221,255,.75)}
+@media(max-width:680px){
+  .creation-marquee{margin-top:30px;padding:20px 0 34px;gap:12px}
+  .creation-row{padding:0}
+  .creation-track{gap:12px;padding-left:20px;padding-right:20px}
+  .showcase-card{width:326px}
+  .showcase-card:hover{transform:translateY(-3px) scale(1.04)}
+  .sound-toggle{width:34px !important;height:34px !important}
+  .hero-media .sound-toggle,.showcase-visual .sound-toggle{inset:10px 10px auto auto !important}
+}
+
+/* Final showcase treatment: restore the first approved hover scale without cropping the video. */
+.creation-marquee{
+  overflow:visible;
+  mask-image:none !important;
+  -webkit-mask-image:none !important;
+}
+.creation-row{
+  /* The row is still the horizontal scroll surface; padding keeps the hover layer inside its clip box. */
+  padding:32px 0 34px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+}
+.creation-row::-webkit-scrollbar{display:none}
+.creation-track{padding:0 4vw 2px}
+.showcase-card{
+  width:430px;
+  height:auto;
+  aspect-ratio:16/9;
+  overflow:visible;
+  transform-origin:center center;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s,filter .3s;
+}
+.showcase-card:hover{
+  z-index:20;
+  transform:translateY(-5px) scale(1.16);
+  border-color:rgba(255,255,255,.11);
+  filter:none;
+}
+.showcase-card:hover .showcase-visual{
+  position:absolute;
+  z-index:5;
+  inset:0;
+  width:auto;
+  height:auto;
+  padding:0;
+  overflow:hidden;
+  border-radius:15px;
+  background:#050609;
+  box-shadow:0 28px 80px rgba(0,0,0,.62);
+}
+.showcase-card:hover .showcase-visual>.sound-video,
+.showcase-card:hover .showcase-visual>.sound-video>video{
+  width:100%;
+  height:100%;
+}
+.showcase-card:hover .showcase-visual>.sound-video>video{
+  object-fit:cover !important;
+  object-position:center;
+  transform:none;
+  filter:none;
+}
+.showcase-card:hover .showcase-copy{opacity:0;pointer-events:none}
+.showcase-visual .sound-toggle{
+  inset:14px 14px auto auto !important;
+  opacity:0;
+  pointer-events:none;
+  visibility:hidden;
+}
+.showcase-card:hover .showcase-visual>span{
+  top:14px;
+}
+.showcase-card:hover .showcase-visual .sound-toggle,
+.showcase-card:focus-within .showcase-visual .sound-toggle{
+  opacity:.96;
+  pointer-events:auto;
+  visibility:visible;
+}
+@media(max-width:680px){
+  .creation-row{padding:16px 0 18px}
+  .creation-track{padding:0 20px 2px}
+  .showcase-card{width:326px}
+  .showcase-card:hover{transform:translateY(-3px) scale(1.04)}
+  .showcase-visual .sound-toggle{inset:10px 10px auto auto !important}
+  .showcase-card:hover .showcase-visual>span{top:10px}
+}
+
+/* Keep the expanded visual from swallowing the sound control's pointer hit. */
+.showcase-visual::before,
+.showcase-visual::after{pointer-events:none !important}
+.showcase-visual{pointer-events:none}
+.showcase-visual .sound-toggle{pointer-events:auto !important}
+
+/* Keep the resting label tucked into the upper-left corner without moving the expanded view. */
+.showcase-card:not(:hover) .showcase-visual>span{
+  left:-6px;
+  top:-6px;
+}
+
+/* Align the expanded label and sound control on one upper guide. */
+.showcase-card:hover .showcase-visual>span{
+  left:14px;
+  top:8px;
+}
+.showcase-card:hover .showcase-visual .sound-toggle{
+  inset:8px 14px auto auto !important;
+}
+
+/* Keep three complete showcase cards in view on desktop while preserving a usable mobile card size. */
+@media(min-width:681px){
+  .showcase-card{width:clamp(240px,calc((100vw - 8vw - 32px) / 3),640px)}
+}
+
+/* Give the two-column card enough vertical room for its copy when the preview window narrows. */
+@media (min-width:681px) and (max-width:1100px){
+  .showcase-card{aspect-ratio:auto;min-height:240px}
+  .showcase-copy{padding:18px 16px;overflow:visible}
+  .showcase-copy h3{font-size:17px;line-height:1.18}
+  .showcase-copy p{margin-top:8px;font-size:10px;line-height:1.48}
+  .showcase-copy>div{gap:4px}
+  .showcase-copy>div span{padding:4px 6px;font-size:8px}
+}
+@media (max-width:680px){
+  .showcase-card{aspect-ratio:auto;min-height:240px}
+  .showcase-copy{overflow:visible}
+}
+
+/* Responsive showcase tags: wrap inside narrow cards, then switch to a
+   single horizontal row once the card itself has enough room. */
+.showcase-card{container-type:inline-size}
+.showcase-copy{
+  min-width:0;
+  overflow:visible;
+  padding-bottom:26px;
+}
+.showcase-copy>div{
+  min-width:0;
+  align-items:center;
+  row-gap:6px;
+}
+.showcase-copy>div span{
+  display:inline-flex;
+  flex:0 0 auto;
+  white-space:nowrap;
+}
+.showcase-copy p,
+.showcase-copy>div{
+  width:100%;
+  margin-left:0;
+  margin-right:0;
+  align-self:stretch;
+  text-align:left;
+}
+.showcase-copy>div{
+  justify-content:flex-start;
+  margin-left:-2px;
+  width:calc(100% + 2px);
+}
+@container (min-width:400px){
+  .showcase-copy>div{
+    flex-wrap:nowrap;
+    gap:6px;
+  }
+  .showcase-copy>div span{
+    padding:4px;
+    font-size:9px;
+  }
+}
+
+/* Pull the two marquee rows together while retaining enough row padding for
+   the card hover scale to remain fully visible. */
+.creation-marquee{gap:0}
+.creation-row{padding-top:22px;padding-bottom:22px}
+@media(max-width:680px){
+  .creation-row{padding-top:10px;padding-bottom:10px}
+}
+
+/* Keep the next feature module visually connected to the marquee instead of
+   leaving a full section of empty padding between them. */
+.creation-marquee{padding-bottom:8px}
+.creation-marquee{margin-top:20px}
+.community{padding-bottom:0}
+@media(max-width:680px){
+  .creation-marquee{padding-bottom:6px}
+  .creation-marquee{margin-top:14px}
+  .community{padding-bottom:0}
+}
+
+/* The duration card carries one focused signal only: a live countdown inside
+   the video, centered along its top edge. */
+.duration-media .duration-countdown{
+  position:absolute;
+  z-index:3;
+  top:22px;
+  left:50%;
+  margin:0;
+  transform:translateX(-50%);
+  color:#fff;
+  font-family:var(--font-geist-mono),monospace;
+  font-size:clamp(38px,4vw,58px);
+  font-weight:650;
+  line-height:1;
+  letter-spacing:.02em;
+  text-shadow:0 6px 24px rgba(0,0,0,.7);
+  white-space:nowrap;
+}
+@media(max-width:680px){
+  .duration-media .duration-countdown{top:14px;font-size:42px}
+}
+
+/* Let the duration example use the video's own 16:9 footprint. The media
+   column no longer imposes a second inner frame or crops the source. */
+#thirty-second-video .duration-media{
+  height:auto;
+  min-height:0;
+  display:block;
+  overflow:visible;
+  background:transparent;
+}
+#thirty-second-video .duration-video{
+  width:100%;
+  height:auto;
+  aspect-ratio:auto;
+  overflow:visible;
+}
+#thirty-second-video .duration-video>.sound-video{
+  width:100%;
+  height:auto;
+  aspect-ratio:16 / 9;
+}
+#thirty-second-video .duration-video video{
+  width:100%;
+  height:auto;
+  aspect-ratio:16 / 9;
+  object-fit:contain;
+}
+
+@media (min-width:901px){
+  #thirty-second-video.feature-row{
+    grid-template-columns:minmax(0,1.24fr) minmax(300px,.76fr);
+    gap:48px;
+  }
+  #thirty-second-video .feature-copy{
+    max-width:560px;
+  }
+}
+
+/* Scale the complete hero workspace as one unit so the preview never shrinks on its own. */
+@media (max-width:1380px){
+  .hero-workspace{
+    width:1380px !important;
+    max-width:none;
+    grid-template-columns:320px 1060px;
+    zoom:.85;
+  }
+}
+
+/* Keep the second and third chapters as clean media layouts, without nested card treatments. */
+#reference-to-video .reference-case-study,
+#keyframe-to-video .keyframe-case-study{
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+#reference-to-video .reference-inputs figure,
+#keyframe-to-video .keyframe-endpoints figure,
+#keyframe-to-video .keyframe-output{
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+#reference-to-video .reference-case-heading span,
+#keyframe-to-video .keyframe-endpoints figure > span{
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+#reference-to-video .reference-output video,
+#keyframe-to-video .keyframe-output video{
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+/* Restore the compact outlined treatment for the blue media labels only. */
+#reference-to-video .reference-case-heading span{
+  padding:6px 10px;
+  border:1px solid rgba(79,202,255,.34);
+  border-radius:999px;
+  background:rgba(73,192,255,.12);
+  box-shadow:0 0 18px rgba(73,192,255,.08);
+}
+#keyframe-to-video .keyframe-endpoints figure > span,
+#keyframe-to-video .keyframe-output > div span{
+  padding:5px 8px;
+  border:1px solid rgba(105,217,255,.3);
+  border-radius:999px;
+  background:rgba(5,10,17,.66);
+  box-shadow:none;
+}
+
+@media (max-width:1100px){
+  .hero-workspace{zoom:.72}
+}
+@media (max-width:900px){
+  .hero-workspace{zoom:.59}
+}
+@media (max-width:760px){
+  .hero-workspace{zoom:.49}
+}
+@media (max-width:680px){
+  .hero-workspace{zoom:.42}
+}
+
+/* Final hero alignment: keep the heading as two intentional lines and stretch
+   both workspace columns to the same grid row height. */
+.hero-heading h1{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:3px;
+  white-space:normal;
+}
+.hero-heading h1 > span,
+.hero-heading h1 > strong{
+  display:block;
+}
+.hero-workspace{
+  align-items:stretch;
+}
+.hero-workspace > .creator,
+.hero-workspace > .hero-media{
+  align-self:stretch;
+  height:auto;
+}
+.hero-workspace > .hero-media{
+  aspect-ratio:16 / 9;
+}
+.hero-workspace > .creator:hover,
+.hero-workspace > .hero-media:hover{
+  transform:none;
+}
+
+/* Match both hero title lines to the approved gradient treatment. */
+.hero-heading h1 > span{
+  color:transparent;
+  background:linear-gradient(104deg,#c9fbff 0%,#55ddff 24%,#3987ff 54%,#776dff 72%,#d486ff 96%);
+  background-size:180% auto;
+  background-position:0 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  filter:drop-shadow(0 0 25px rgba(69,158,255,.16));
+  animation:hero-title-flow 9s ease-in-out infinite;
+}
+
+/* Hero sound control: fixed, larger, and anchored to the lower-right corner. */
+.hero-media .sound-toggle{
+  inset:auto 12px 12px auto !important;
+  width:52px !important;
+  height:52px !important;
+  border-radius:50% !important;
+}
+.hero-media .sound-toggle svg{
+  width:23px;
+  height:23px;
+}
+.hero-media .sound-toggle{
+  transform:none !important;
+}
+.hero-media .sound-toggle:hover{
+  transform:none;
+}
+@media(max-width:680px){
+  .hero-media .sound-toggle{
+    inset:auto 8px 8px auto !important;
+    width:46px !important;
+    height:46px !important;
+  }
+  .hero-media .sound-toggle svg{
+    width:20px;
+    height:20px;
+  }
+}
+
+/* Give the complete hero more breathing room on wider screens. */
+@media(min-width:681px){
+  .hero-heading{
+    width:min(1180px,calc(100% - 112px));
+  }
+  .hero-workspace{
+    width:min(1280px,calc(100% - 112px));
+  }
+  .mode-jump-nav{
+    width:min(1280px,calc(100% - 112px));
+  }
+}
+@media (min-width:1101px) and (max-width:1380px){
+  .hero-workspace{
+    width:1380px !important;
+    zoom:.78;
+  }
+}
+@media (min-width:901px) and (max-width:1100px){
+  .hero-workspace{
+    width:1380px !important;
+    zoom:.64;
+  }
+}
+@media (min-width:761px) and (max-width:900px){
+  .hero-workspace{
+    width:1380px !important;
+    zoom:.54;
+  }
+}
+
+/* Hero mode links are compact glass buttons that lead to the live workflows. */
+.mode-jump-nav{
+  gap:10px;
+  padding:14px 0;
+}
+.mode-jump-nav a{
+  min-height:38px;
+  padding:0 17px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(126,190,255,.18);
+  border-radius:10px;
+  background:linear-gradient(145deg,rgba(76,187,255,.11),rgba(168,127,255,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 20px rgba(0,0,0,.18);
+  color:#c6d5e8;
+  font-size:12px;
+  font-weight:550;
+  white-space:nowrap;
+  transition:color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.mode-jump-nav a:hover,
+.mode-jump-nav a:focus-visible{
+  color:#f4f9ff;
+  border-color:rgba(105,211,255,.42);
+  background:linear-gradient(145deg,rgba(76,187,255,.2),rgba(168,127,255,.15));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 12px 28px rgba(32,111,191,.2);
+  transform:translateY(-2px);
+  outline:none;
+}
+@media(max-width:680px){
+  .mode-jump-nav{gap:7px;padding:10px 0}
+  .mode-jump-nav a{min-height:34px;padding:0 11px;font-size:10px}
+}
+
+/* Keep the hero video uncropped and remove the outer media frame. */
+.hero-media{
+  border:0;
+  box-shadow:none;
+  overflow:hidden;
+}
+.hero-media > .sound-video,
+.hero-media > .sound-video > video{
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+}
+.hero-media > .sound-video > video{
+  object-fit:contain !important;
+  object-position:center;
+  transform:none !important;
+}
+
+/* Feature media framing: show complete source assets without extra borders. */
+.features > .feature-row .feature-media{
+  border:0;
+  border-radius:16px;
+}
+.features > .feature-row .feature-media .sound-video,
+.features > .feature-row .feature-media .sound-video > video{
+  border:0;
+  border-radius:14px;
+}
+
+/* Cards 01-04 use complete 16:9 media frames with proportional containment. */
+.features > .feature-row:nth-of-type(-n+4) .duration-video,
+.features > .feature-row:nth-of-type(-n+4) .feature-video-frame,
+.features > .feature-row:nth-of-type(-n+4) .reference-output > .sound-video,
+.features > .feature-row:nth-of-type(-n+4) .keyframe-output > .sound-video{
+  width:100%;
+  max-width:100%;
+  height:auto;
+  aspect-ratio:16 / 9;
+  overflow:hidden;
+  margin:0;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+}
+.features > .feature-row:nth-of-type(-n+4) .duration-video > .sound-video,
+.features > .feature-row:nth-of-type(-n+4) .feature-video-frame > .sound-video{
+  width:100%;
+  height:100%;
+}
+.features > .feature-row:nth-of-type(3) .keyframe-endpoints img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+}
+.features > .feature-row:nth-of-type(-n+4) .duration-video video,
+.features > .feature-row:nth-of-type(-n+4) .feature-video-frame video,
+.features > .feature-row:nth-of-type(-n+4) .reference-output video,
+.features > .feature-row:nth-of-type(-n+4) .keyframe-output video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+}
+
+/* Reference inputs are 16:9 too, with no crop or nested frame treatment. */
+#reference-to-video .reference-inputs figure{
+  aspect-ratio:16 / 9;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+  box-shadow:none;
+}
+#reference-to-video .reference-inputs img{
+  width:100%;
+  height:100%;
+  aspect-ratio:16 / 9;
+  display:block;
+  overflow:hidden;
+  object-fit:contain;
+  object-position:center;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+  clip-path:inset(0 round 14px);
+}
+
+/* The fifth card keeps the vertical source ratio while fitting the media column. */
+.features > .feature-row:last-of-type .agent-video-frame{
+  width:auto;
+  max-width:100%;
+  height:100%;
+  max-height:100%;
+  aspect-ratio:auto;
+  margin:0 auto;
+  overflow:hidden;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+  box-shadow:none;
+}
+.features > .feature-row:last-of-type .agent-video-frame > .sound-video,
+.features > .feature-row:last-of-type .agent-video-frame video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  border:0;
+  border-radius:14px;
+  background:transparent;
+}
+
+/* Apply the rounded clipping to every visible media element, not only its wrapper. */
+.features > .feature-row .feature-media figure,
+.features > .feature-row .feature-media .sound-video,
+.features > .feature-row .feature-media img,
+.features > .feature-row .feature-media video{
+  margin:0;
+  border-radius:14px !important;
+}
+.features > .feature-row .feature-media img,
+.features > .feature-row .feature-media video{
+  clip-path:inset(0 round 14px);
+}
+
+/* Keep the FAQ heading on one line when the desktop layout has room. */
+#faq .section-heading{
+  width:100%;
+  max-width:none;
+}
+#faq .section-heading h2{
+  white-space:nowrap;
+  font-size:clamp(36px,4.1vw,56px);
+}
+@media(max-width:680px){
+  #faq .section-heading h2{
+    white-space:normal;
+  }
+}
+
+/* Reference input photos: clip the actual white image canvas to rounded corners. */
+#reference-to-video .reference-inputs figure,
+#reference-to-video .reference-inputs figure > img{
+  overflow:hidden !important;
+  border-radius:16px !important;
+  clip-path:inset(0 round 16px);
+}
+
+/* Keyframe card: give the copy more room while scaling all three media assets together. */
+@media (min-width:901px){
+  #keyframe-to-video{
+    grid-template-columns:minmax(0,1.08fr) minmax(320px,.82fr);
+    gap:36px;
+  }
+  #keyframe-to-video .keyframe-case-study{
+    width:100%;
+    padding:10px;
+    gap:8px;
+  }
+  #keyframe-to-video .keyframe-endpoints{
+    grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);
+    gap:8px;
+  }
+  #keyframe-to-video .keyframe-endpoints figure,
+  #keyframe-to-video .keyframe-output{
+    width:100%;
+  }
+  #keyframe-to-video .keyframe-output{
+    padding:6px;
+  }
+  #keyframe-to-video .feature-copy{
+    align-self:start;
+    padding-top:78px;
+  }
+}
+
+/* Fifth card: remove the preset media canvas and let the vertical video size itself. */
+.features > .feature-row:last-of-type .agent-media{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:auto;
+  min-height:0;
+  padding:0;
+  overflow:visible;
+  background:transparent;
+}
+.features > .feature-row:last-of-type .agent-media::after{
+  display:none;
+}
+.features > .feature-row:last-of-type .agent-video-frame,
+.features > .feature-row:last-of-type .agent-video-frame > .sound-video{
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:560px;
+  aspect-ratio:auto;
+}
+.features > .feature-row:last-of-type .agent-video-frame video{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:560px;
+  object-fit:contain;
+  object-position:center;
+}
+
+@media (min-width:901px){
+  .features > .feature-row:last-of-type{
+    grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+    gap:48px;
+  }
+  .features > .feature-row:last-of-type .agent-video-frame{
+    margin-top:38px;
+  }
+}
+
+/* Text to Video: give the landscape source more room while keeping the
+   copy close by and preserving the video's native 16:9 proportions. */
+@media (min-width:901px){
+  #text-to-video.feature-row{
+    grid-template-columns:minmax(0,.66fr) minmax(0,1.34fr);
+    gap:12px;
+  }
+  #text-to-video .feature-media{
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:16 / 9;
+    align-self:center;
+  }
+  #text-to-video .feature-video-frame,
+  #text-to-video .feature-video-frame > .sound-video,
+  #text-to-video .feature-video-frame video{
+    width:100%;
+    height:100%;
+  }
+  #text-to-video .feature-video-frame video{
+    object-fit:contain;
+    object-position:center;
+  }
+}
+
+/* Text to Video preview: show the source video without the dark feature mask. */
+#text-to-video .feature-media:after{
+  display:none !important;
+}
+
+/* CTA trail assets are all presented in a consistent 16:9 frame. */
+.cta-trail-frame{
+  width:160px;
+  height:90px;
+  background-position:center;
+  border:0;
+  box-shadow:none;
+}
+
+/* Keep a subtle footer-colored seam between the CTA and footer on desktop. */
+@media (min-width:681px){
+  .site-footer{
+    margin-top:0;
+    border-top:14px solid #0a0b0f;
+  }
+  .site-footer > .footer-inner{
+    padding-top:0;
+  }
+}
+
+/* Bring each testimonial's main comment closer to its quote mark. */
+.quote-track article p{
+  margin-top:10px;
 }

@@ -9,7 +9,7 @@ const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Seedance 2.5 AI Video Generator — Create 30s Videos with Audio | Wizstar",
+  title: "Seedance 2.5 AI Video Generator - 30-Second Videos from Text & Images | Wizstar",
   description: "Create Seedance 2.5 videos with audio from text, first and last frames, or up to 50 image, video, and audio references on Wizstar.",
   alternates: { canonical: "/ai-model/seedance-2-5" },
   robots: {

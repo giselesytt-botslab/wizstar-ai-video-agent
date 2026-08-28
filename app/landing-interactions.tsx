@@ -1,28 +1,77 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent } from "react";
+
+export type ShowcaseItem = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  tags: readonly string[];
+  tone: string;
+  src: string;
+  alt: string;
+  credit?: string;
+};
+
+type RailSyncState = {
+  activeIndex: number | null;
+  lastScroll: [number, number];
+  rows: [HTMLDivElement | null, HTMLDivElement | null];
+};
+
+const CTA_TRAIL_ASSETS = [
+  "/assets/cta-trail/trail-12.png",
+  "/assets/cta-trail/trail-03.png",
+  "/assets/cta-trail/trail-17.png",
+  "/assets/cta-trail/trail-08.png",
+  "/assets/cta-trail/trail-01.png",
+  "/assets/cta-trail/trail-15.png",
+  "/assets/cta-trail/trail-06.png",
+  "/assets/cta-trail/trail-19.png",
+  "/assets/cta-trail/trail-10.png",
+  "/assets/cta-trail/trail-04.png",
+  "/assets/cta-trail/trail-14.png",
+  "/assets/cta-trail/trail-07.png",
+  "/assets/cta-trail/trail-18.png",
+  "/assets/cta-trail/trail-02.png",
+  "/assets/cta-trail/trail-11.png",
+  "/assets/cta-trail/trail-05.png",
+  "/assets/cta-trail/trail-16.png",
+  "/assets/cta-trail/trail-09.png",
+  "/assets/cta-trail/trail-13.png",
+] as const;
+
+function getRailLoopWidth(track: HTMLDivElement | null, itemCount: number) {
+  if (!track || itemCount === 0) return 0;
+  const first = track.children[0] as HTMLElement | undefined;
+  const nextSetFirst = track.children[itemCount] as HTMLElement | undefined;
+  if (first && nextSetFirst) {
+    const width = nextSetFirst.offsetLeft - first.offsetLeft;
+    if (width > 0) return width;
+  }
+  return track.scrollWidth / 3;
+}
+
+function normalizeRailScroll(viewport: HTMLDivElement, track: HTMLDivElement, itemCount: number) {
+  const loopWidth = getRailLoopWidth(track, itemCount);
+  if (!loopWidth) return 0;
+  const before = viewport.scrollLeft;
+  const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+  const edge = 1;
+  let normalized = before;
+  // Keep a copy on either side of the viewport so both directions stay endless.
+  if (before <= edge) normalized = before + loopWidth;
+  else if (before >= maxScroll - edge) normalized = before - loopWidth;
+  if (Math.abs(normalized - before) > 0.01) viewport.scrollLeft = normalized;
+  return normalized - before;
+}
 
 const modeDetails = {
   Reference: {
     title: "Add multiple references",
     hint: "Image · Video · Audio · up to 50 references",
-    settings: ["10s", "720P", "9:16", "1 Output"],
     url: "https://wizstar.com/tools/ai_video_generator?tab=reference2video&model=seedance2.5",
-    cta: "Open Reference to Video",
-  },
-  Keyframe: {
-    title: "Define the first and final moment",
-    hint: "First frame required · End frame optional",
-    settings: ["15s", "720P", "Frame ratio", "1 Output"],
-    url: "https://wizstar.com/tools/ai_video_generator?tab=keyframe2video&model=seedance2.5",
-    cta: "Open Keyframe to Video",
-  },
-  Text: {
-    title: "Direct the scene in words",
-    hint: "Subject · camera · motion · pacing",
-    settings: ["15s", "720P", "9:16", "1 Output"],
-    url: "https://wizstar.com/tools/ai_video_generator?tab=text2video&model=seedance2.5",
-    cta: "Open Text to Video",
+    cta: "Generate with Wizstar",
   },
 } as const;
 
@@ -40,17 +89,9 @@ export function RevealObserver() {
 }
 
 export function HeroWorkspace() {
-  const [mode, setMode] = useState<keyof typeof modeDetails>("Reference");
   const [referenceFiles, setReferenceFiles] = useState<File[]>([]);
-  const [firstFrame, setFirstFrame] = useState<File | null>(null);
-  const [endFrame, setEndFrame] = useState<File | null>(null);
   const [prompt, setPrompt] = useState("");
-  const currentMode = modeDetails[mode];
-
-  const changeMode = (nextMode: keyof typeof modeDetails) => {
-    setMode(nextMode);
-    setPrompt("");
-  };
+  const currentMode = modeDetails.Reference;
 
   const chooseReferences = (event: ChangeEvent<HTMLInputElement>) => {
     setReferenceFiles(Array.from(event.target.files ?? []).slice(0, 50));
@@ -58,7 +99,7 @@ export function HeroWorkspace() {
 
   const continueToWizstar = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    window.location.assign(currentMode.url);
+    window.location.assign("https://wizstar.com/home");
   };
 
   const moveHeroLight = (event: PointerEvent<HTMLDivElement>) => {
@@ -70,61 +111,265 @@ export function HeroWorkspace() {
   return (
     <div className="hero-workspace page-width" onPointerMove={moveHeroLight} data-reveal>
       <form className="creator" aria-label="Seedance 2.5 AI video generator setup" onSubmit={continueToWizstar}>
-        <div className="mode-tabs" aria-label="Seedance 2.5 generation modes">
-          {(Object.keys(modeDetails) as Array<keyof typeof modeDetails>).map((item) => (
-            <button
-              className={mode === item ? "active" : ""}
-              type="button"
-              key={item}
-              aria-pressed={mode === item}
-              onClick={() => changeMode(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
         <div className="model-select">
           <img className="model-mark" src="/assets/seedance-model-mark.svg" alt="" />
           <div><small>Model</small><strong>Seedance 2.5</strong></div>
-          <span className="select-chevron" aria-hidden="true" />
         </div>
-        {mode === "Reference" && (
-          <label className={`upload-box interactive-upload ${referenceFiles.length ? "has-files" : ""}`} key={mode}>
-            <input type="file" accept="image/*,video/*,audio/*" multiple onChange={chooseReferences} />
-            <b>{referenceFiles.length ? `${referenceFiles.length}/50` : "＋"}</b>
-            <span>{referenceFiles.length ? "Multiple references selected" : currentMode.title}</span>
-            <small>{referenceFiles.length ? referenceFiles.slice(0, 2).map((file) => file.name).join(" · ") : currentMode.hint}</small>
-          </label>
-        )}
-        {mode === "Keyframe" && (
-          <div className="upload-box keyframe-upload" key={mode}>
-            <label>
-              <input type="file" accept="image/*" onChange={(event) => setFirstFrame(event.target.files?.[0] ?? null)} />
-              <b>{firstFrame ? "✓" : "＋"}</b><span>First Frame</span><small>{firstFrame?.name ?? "Required"}</small>
-            </label>
-            <label>
-              <input type="file" accept="image/*" onChange={(event) => setEndFrame(event.target.files?.[0] ?? null)} />
-              <b>{endFrame ? "✓" : "＋"}</b><span>Last Frame</span><small>{endFrame?.name ?? "Optional"}</small>
-            </label>
-          </div>
-        )}
-        {mode === "Text" && (
-          <div className="upload-box text-start" key={mode}>
-            <b>✦</b><span>{currentMode.title}</span><small>{currentMode.hint}</small>
-          </div>
-        )}
+        <label className={`upload-box interactive-upload ${referenceFiles.length ? "has-files" : ""}`}>
+          <input type="file" accept="image/*,video/*,audio/*" multiple onChange={chooseReferences} />
+          <b>{referenceFiles.length ? `${referenceFiles.length}/50` : "＋"}</b>
+          <span>{referenceFiles.length ? "Multiple references selected" : currentMode.title}</span>
+          <small>{referenceFiles.length ? referenceFiles.slice(0, 2).map((file) => file.name).join(" · ") : currentMode.hint}</small>
+        </label>
         <div className="prompt-box">
           <textarea aria-label="Video prompt" maxLength={2000} value={prompt} onChange={(event) => setPrompt(event.target.value)} placeholder="Direct the subject, camera, action, and pacing..." />
           <small>{prompt.length} / 2000</small>
         </div>
-        <div className="settings">{currentMode.settings.map((setting) => <span key={setting}>{setting}</span>)}</div>
         <button className="generate" type="submit">{currentMode.cta}</button>
-        <small className="handoff-note">Set up the brief here, then continue in Wizstar to generate.</small>
       </form>
 
       <div className="hero-media" aria-label="Seedance 2.5 featured cinematic multi-scene video reel">
-        <video src="/assets/seedance-showcase-01.mp4" muted loop autoPlay playsInline preload="auto" />
+        <SoundVideo src="/assets/seedance-showcase-01.mp4" alt="Seedance 2.5 featured cinematic multi-scene video reel" autoPlay />
       </div>
+    </div>
+  );
+}
+
+export function ShowcaseVideo({ src, alt }: { src: string; alt: string }) {
+  return <SoundVideo src={src} alt={alt} />;
+}
+
+export function SoundVideo({ src, alt, controls = false, autoPlay = true }: { src: string; alt: string; controls?: boolean; autoPlay?: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+  const pointerToggleRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !autoPlay) return;
+    const start = () => { if (video.paused) void video.play().catch(() => undefined); };
+    start();
+    video.addEventListener("loadeddata", start);
+    video.addEventListener("canplay", start);
+    return () => {
+      video.removeEventListener("loadeddata", start);
+      video.removeEventListener("canplay", start);
+    };
+  }, [autoPlay, src]);
+
+  const toggleSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    video.defaultMuted = nextMuted;
+    video.volume = 1;
+    setMuted(nextMuted);
+    void video.play().catch(() => undefined);
+  };
+
+  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    pointerToggleRef.current = true;
+    toggleSound();
+  };
+
+  const handlePointerUp = (event: PointerEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    window.setTimeout(() => { pointerToggleRef.current = false; }, 0);
+  };
+
+  const handleClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (pointerToggleRef.current) return;
+    toggleSound();
+  };
+
+  return <div className="sound-video">
+    <video ref={videoRef} src={src} aria-label={alt} muted={muted} loop playsInline autoPlay={autoPlay} controls={controls} preload="metadata" />
+    <button className={`sound-toggle${muted ? " is-muted" : ""}`} type="button" onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onClick={handleClick} aria-pressed={!muted} aria-label={muted ? "Play video sound" : "Mute video sound"} title={muted ? "Play sound" : "Mute sound"}>
+      {muted ? (
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9.5v5h3.2l4.3 3.4V6.1L7.2 9.5H4Z" /><path d="m17 9 4 6m0-6-4 6" /></svg>
+      ) : (
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9.5v5h3.2l4.3 3.4V6.1L7.2 9.5H4Z" /><path d="M15.2 9.2a4.2 4.2 0 0 1 0 5.6M17.8 6.7a7.8 7.8 0 0 1 0 10.6" /></svg>
+      )}
+    </button>
+  </div>;
+}
+
+export function DurationCountdown() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setSeconds((current) => current >= 30 ? 0 : current + 1);
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return <span className="duration-countdown" aria-label={`${seconds} seconds elapsed`}>
+    00:{String(seconds).padStart(2, "0")}
+  </span>;
+}
+
+function ShowcaseRailRow({ items, index, syncRef, reverse = false }: { items: readonly ShowcaseItem[]; index: 0 | 1; syncRef: MutableRefObject<RailSyncState>; reverse?: boolean }) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef({ active: false, x: 0, scroll: 0 });
+  const pauseUntilRef = useRef(0);
+  const hoverRef = useRef(false);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!viewport || !track || items.length === 0) return;
+    syncRef.current.rows[index] = viewport;
+
+    let frame = 0;
+    let last = performance.now();
+    const loopWidth = getRailLoopWidth(track, items.length);
+    if (loopWidth > 0) viewport.scrollLeft = loopWidth;
+    syncRef.current.lastScroll[index] = viewport.scrollLeft;
+    const tick = (now: number) => {
+      const loopWidth = getRailLoopWidth(track, items.length);
+      const shouldMove = !dragRef.current.active && !hoverRef.current && now >= pauseUntilRef.current && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (shouldMove && loopWidth > 0) {
+        const delta = (now - last) * 0.035;
+        viewport.scrollLeft += reverse ? -delta : delta;
+      }
+      const wrappedBy = normalizeRailScroll(viewport, track, items.length);
+      if (wrappedBy && dragRef.current.active) dragRef.current.scroll += wrappedBy;
+      last = now;
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [index, items.length, reverse, syncRef]);
+
+  const releaseSync = () => {
+    window.setTimeout(() => {
+      if (syncRef.current.activeIndex === index) syncRef.current.activeIndex = null;
+    }, 700);
+  };
+
+  const startDrag = (event: PointerEvent<HTMLDivElement>) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    syncRef.current.activeIndex = index;
+    syncRef.current.lastScroll[index] = viewport.scrollLeft;
+    if (event.pointerType === "touch") return;
+    dragRef.current = { active: true, x: event.clientX, scroll: viewport.scrollLeft };
+    viewport.setPointerCapture(event.pointerId);
+    viewport.classList.add("is-dragging");
+  };
+
+  const moveDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (!dragRef.current.active) return;
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    viewport.scrollLeft = dragRef.current.scroll - (event.clientX - dragRef.current.x);
+  };
+
+  const endDrag = () => {
+    if (dragRef.current.active) {
+      dragRef.current.active = false;
+      viewportRef.current?.classList.remove("is-dragging");
+    }
+    if (syncRef.current.activeIndex !== index) return;
+    pauseUntilRef.current = performance.now() + 1800;
+    releaseSync();
+  };
+
+  const syncRows = () => {
+    const viewport = viewportRef.current;
+    if (!viewport || syncRef.current.activeIndex !== index) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const wrappedBy = normalizeRailScroll(viewport, track, items.length);
+    if (wrappedBy && dragRef.current.active) dragRef.current.scroll += wrappedBy;
+    const current = viewport.scrollLeft;
+    const loopWidth = getRailLoopWidth(track, items.length);
+    let delta = current - syncRef.current.lastScroll[index];
+    if (loopWidth > 0) {
+      if (delta > loopWidth / 2) delta -= loopWidth;
+      if (delta < -loopWidth / 2) delta += loopWidth;
+    }
+    syncRef.current.lastScroll[index] = current;
+    if (Math.abs(delta) < 0.01) return;
+    const other = syncRef.current.rows[index === 0 ? 1 : 0];
+    if (other) other.scrollLeft -= delta;
+  };
+
+  // Duplicate only this row's set so the two rails never show the same video at once.
+  const visibleItems = items.length === 0 ? [] : [...items];
+  const loopItems = [...visibleItems, ...visibleItems, ...visibleItems];
+  return (
+    <div
+      ref={viewportRef}
+      className={`creation-row${reverse ? " creation-row-reverse" : ""}`}
+      aria-label={reverse ? "Seedance 2.5 work showcase second row" : "Seedance 2.5 work showcase first row"}
+      onPointerDown={startDrag}
+      onPointerMove={moveDrag}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onPointerLeave={endDrag}
+      onScroll={syncRows}
+      onWheel={() => {
+        syncRef.current.activeIndex = index;
+        pauseUntilRef.current = performance.now() + 1200;
+        window.requestAnimationFrame(() => {
+          const viewport = viewportRef.current;
+          const track = trackRef.current;
+          if (!viewport || !track) return;
+          normalizeRailScroll(viewport, track, items.length);
+          syncRef.current.lastScroll[index] = viewport.scrollLeft;
+        });
+        releaseSync();
+      }}
+    >
+      <div className="creation-track" ref={trackRef}>
+        {loopItems.map((item, index) => (
+          <article
+            className={`showcase-card tone-${item.tone}`}
+            key={`${item.src}-${index}`}
+            onPointerEnter={(event) => {
+              if (event.pointerType !== "touch") hoverRef.current = true;
+            }}
+            onPointerLeave={(event) => {
+              if (event.pointerType !== "touch") {
+                hoverRef.current = false;
+                pauseUntilRef.current = performance.now() + 250;
+              }
+            }}
+            onFocus={() => { hoverRef.current = true; }}
+            onBlur={() => { hoverRef.current = false; }}
+          >
+            <div className="showcase-visual">
+              <ShowcaseVideo src={item.src} alt={item.alt} />
+              <span>{item.eyebrow}</span>
+            </div>
+            <div className="showcase-copy">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ShowcaseRail({ items }: { items: readonly ShowcaseItem[] }) {
+  const syncRef = useRef<RailSyncState>({ activeIndex: null, lastScroll: [0, 0], rows: [null, null] });
+  const splitAt = Math.ceil(items.length / 2);
+  const firstRowItems = items.slice(0, splitAt);
+  const secondRowItems = items.slice(splitAt);
+  return (
+    <div className="creation-marquee" aria-label="Seedance 2.5 work showcase" data-reveal>
+      <ShowcaseRailRow items={firstRowItems} index={0} syncRef={syncRef} />
+      <ShowcaseRailRow items={[...secondRowItems].reverse()} index={1} syncRef={syncRef} reverse />
     </div>
   );
 }
@@ -142,13 +387,12 @@ export function FinalCta() {
     const target = event.currentTarget;
     const bounds = target.getBoundingClientRect();
     const frame = document.createElement("span");
-    const frameAssets = ["/assets/wizstar-seedance-generator.png", "/assets/wizstar-home-agents.png"];
     const index = trailIndex.current++;
     frame.className = "cta-trail-frame";
     frame.setAttribute("aria-hidden", "true");
     frame.style.left = `${event.clientX - bounds.left}px`;
     frame.style.top = `${event.clientY - bounds.top}px`;
-    frame.style.backgroundImage = `url(${frameAssets[index % frameAssets.length]})`;
+    frame.style.backgroundImage = `url(${CTA_TRAIL_ASSETS[index % CTA_TRAIL_ASSETS.length]})`;
     frame.style.setProperty("--trail-rotate", `${[-7, 5, -3, 8][index % 4]}deg`);
     target.appendChild(frame);
     window.setTimeout(() => frame.remove(), 1050);

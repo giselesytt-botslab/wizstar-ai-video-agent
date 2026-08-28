@@ -23,6 +23,8 @@ Open `http://localhost:3000`.
 - `docs/PRODUCT_FACTS.md` — verified claims and boundaries
 - `docs/PAGE_BLUEPRINT.md` — non-removable OpenArt-based section structure
 - `docs/ASSET_INVENTORY.md` — asset status
+- `docs/PRODUCT_HANDOFF.md` — product preview, editing map, and official-site integration notes
+- `docs/PROJECT_MEMORY.md` — complete current-state record for source editing and future transfer
 - `HANDOFF.md` — teammate handoff checklist
 - `CHANGELOG.md` — human-readable history
 
@@ -34,4 +36,4 @@ Open `http://localhost:3000`.
 4. Use focused commits, such as `feat(hero): add approved launch video`.
 5. Never commit API keys or put them in frontend code.
 
-The current version is a complete responsive framework. Labelled visual areas are intentional placeholders until approved Seedance 2.5 media arrives. CTAs open the real Wizstar tool; no generation API is connected.
+The current version is a complete responsive page with local showcase videos, Blog covers, working interactions, and real Wizstar CTA destinations. CTAs open the real Wizstar tools; no generation API is connected in this page.
