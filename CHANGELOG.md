@@ -1,0 +1,44 @@
+# Changelog
+
+- Reworked the page around one primary SEO theme with dedicated H2 sections and anchors for 30-second video with audio, Reference to Video, Keyframe to Video, and Text to Video. Updated the verified product facts and FAQ to confirm sound generation across all three modes.
+
+## 2026-08-26
+
+- Grouped the nine verified keyword candidates under one Seedance 2.5 AI Video Generator intent and strengthened the weak `image to video` and `multiple references` coverage without keyword stuffing.
+- Upgraded the Hero setup from a visual-only shell to a working local interaction: up to 50 reference files, separate first/last frame selection, an editable prompt, and an honest handoff to the production Wizstar generator.
+- Reworked the page around the single core topic “Seedance 2.5 AI Video Generator” while preserving the full OpenArt-inspired chapter order and established Wizstar visual system.
+- Replaced reference-derived language with original, fact-checked Wizstar copy covering Reference, Keyframe, Text, Agent, duration, reference-count, format, and output workflows.
+- Split interactive Hero behavior into a small client component so the primary landing-page content remains server rendered.
+- Added eight fully visible factual FAQs and matching FAQPage, WebApplication, and BreadcrumbList structured data.
+- Added canonical, Open Graph, Twitter, robots, and sitemap metadata plus the production route `/ai-model/seedance-2-5`.
+- Protected preview deployments with `noindex, nofollow`; production indexing requires an explicit environment switch.
+- Replaced stale starter tests with rendered-HTML and product-claim boundary tests.
+
+## 2026-08-25
+
+- Created the local landing-page project.
+- Added the supplied Wizstar background.
+- Built the OpenArt-inspired, Wizstar-specific framework.
+- Added verified workflow copy and safe API wording.
+- Added collaboration, fact, and asset tracking files.
+- Rebuilt the page after direct visual comparison with OpenArt: centered hero copy, generator on the left, media on the right, alternating feature rows, and reference-matched section order.
+- Replaced the temporary code-drawn mark with the official Wizstar logo used by the teammate page.
+- Added owner-supplied Wizstar product screenshots for the how-to framework.
+- Locked the OpenArt-based page blueprint and restored every required chapter, including Expert Blog and Loved by Creators.
+- Started an optional interaction redesign on `feature/future-interactions`, protected by the `baseline-openart-framework-v1` rollback tag.
+- Added live Hero mode switching, pointer-responsive lighting, dual-direction creation marquees, stacked feature chapters, scroll reveals, hover motion, and reduced-motion support.
+- Audited the teammate page, OpenArt reference, and Wizstar generator side by side; aligned the header logo size, official gradient, pill sign-in button, navigation chevrons, and Seedance model mark with Wizstar's current brand UI.
+- Reframed the Community chapter as a product-owned work showcase, with six factual creation scenarios and a cinematic two-direction gallery that does not imply user submissions.
+- Rewrote the complete customer-facing page in a Wizstar-specific, director-first voice; removed reference-derived headings, replaced pending feature and FAQ slots with verified product content, and added a copy-voice handoff guide.
+- Rebuilt the Hero title as a concise two-beat brand statement using Geist typography, a metallic first line, an animated Wizstar cyan-blue-purple gradient, and responsive mobile scaling.
+- Corrected the Hero to a prominent horizontal headline beginning with “Seedance 2.5,” using the teammate page's restrained 44px/600 static Wizstar gradient treatment.
+- Added a cinematic future-polish layer with spatial aura, perspective grid, slow headline spectrum, product-spec capsules, luminous workspace framing, and a restrained media scan effect.
+- Enlarged the Seedance 2.5 Hero headline and removed its decorative gradient underline after owner review.
+- Shortened the Hero title to “Seedance 2.5 — AI Video Generator” and widened its title area so the full enlarged headline remains visible.
+- Adapted three interaction ideas from the supplied studio reference: edge-faded work marquees, layered premium CTA shadows, and a final-CTA cursor trail built only from existing Wizstar product screenshots.
+- Restored an unmistakable dedicated Seedance 2.5 core-features chapter with an original headline, four verified capability highlights, and the existing five detailed product-advantage stories beneath it.
+- Rebuilt the header as a floating translucent glass navigation bar and replaced the sparse footer with the teammate page's complete Wizstar brand, social, Product, Solution, Company, and Resources structure.
+- Integrated the glass navigation into the top page edge to match the teammate layout: static in normal flow, full-width glass backdrop, constrained inner content, and no floating radius or outer gap.
+- Removed the redundant Hero capability capsules so the headline, summary, and generator read as one cleaner opening sequence.
+- Tightened the Hero rhythm after capsule removal by moving the generator workspace 20px closer to the summary.
+- Slightly reduced the vertical spacing between major page chapters while preserving their internal layouts.
