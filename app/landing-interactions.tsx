@@ -72,11 +72,11 @@ const PROMPT_GUIDES = [
 ] as const;
 
 function ModelIcon({ name }: { name: VideoModel["name"] }) {
-  return name.startsWith("Seedance") ? (
-    <img className="model-logo" src="/assets/seedance-model-mark.svg" alt="" aria-hidden="true" />
-  ) : (
-    <span className="model-mark-icon" aria-hidden="true" />
-  );
+  const src = name.startsWith("Seedance")
+    ? "/assets/seedance-model-mark.svg"
+    : "/assets/model-logo-kling.png";
+
+  return <img className="model-logo" src={src} alt="" aria-hidden="true" />;
 }
 
 function TypingGuide() {
@@ -157,7 +157,6 @@ export function HeroWorkspace() {
   const selectedModel = VIDEO_MODELS.find((item) => item.name === model) ?? VIDEO_MODELS[2];
   const chooseReferences = (event: ChangeEvent<HTMLInputElement>) => setReferenceFiles(Array.from(event.target.files ?? []).slice(0, 50));
   const continueToWizstar = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); window.location.assign("https://wizstar.com/home"); };
-  const collageSources = ["/assets/showcase-architecture.mp4", "/assets/user-videos/surreal-world.mp4", "/assets/showcase-perfume-ad.mp4", "/assets/showcase-character-consistency.mp4", "/assets/showcase-food-making.mp4"];
 
   useEffect(() => {
     const closeMenus = (event: globalThis.PointerEvent) => {
@@ -167,8 +166,7 @@ export function HeroWorkspace() {
     return () => document.removeEventListener("pointerdown", closeMenus);
   }, []);
 
-  return <div className="hero-workspace page-width">
-    <div className="hero-collage" aria-label="AI video agent video examples">{collageSources.map((src, index) => <video key={src} className={`collage-card collage-${["one", "two", "three", "four", "five"][index]}`} src={src} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />)}</div>
+  return <div className="hero-workspace hero-workspace-solo page-width">
     <form className="creator" aria-label="Wizstar AI video agent setup" onSubmit={continueToWizstar}>
       {prompt ? null : <TypingGuide />}
       <textarea aria-label="Video prompt" value={prompt} maxLength={2000} onChange={(event) => setPrompt(event.target.value)} />
@@ -212,8 +210,10 @@ export function ShowcaseVideo({ src, alt }: { src: string; alt: string }) {
   return <SoundVideo src={src} alt={alt} />;
 }
 
-export function SoundVideo({ src, alt, controls = false, autoPlay = true }: { src: string; alt: string; controls?: boolean; autoPlay?: boolean }) {
+export function SoundVideo({ src, alt, controls = false, autoPlay = true, audioGain = 1 }: { src: string; alt: string; controls?: boolean; autoPlay?: boolean; audioGain?: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
   const [muted, setMuted] = useState(true);
   const pointerToggleRef = useRef(false);
 
@@ -230,6 +230,28 @@ export function SoundVideo({ src, alt, controls = false, autoPlay = true }: { sr
     };
   }, [autoPlay, src]);
 
+  useEffect(() => () => {
+    const audioContext = audioContextRef.current;
+    if (audioContext && audioContext.state !== "closed") void audioContext.close();
+  }, []);
+
+  const setAmplifiedVolume = (video: HTMLVideoElement, nextMuted: boolean) => {
+    let audioContext = audioContextRef.current;
+    let gainNode = gainNodeRef.current;
+
+    if (!audioContext || !gainNode) {
+      audioContext = new AudioContext();
+      const source = audioContext.createMediaElementSource(video);
+      gainNode = audioContext.createGain();
+      source.connect(gainNode).connect(audioContext.destination);
+      audioContextRef.current = audioContext;
+      gainNodeRef.current = gainNode;
+    }
+
+    gainNode.gain.setValueAtTime(nextMuted ? 0 : audioGain, audioContext.currentTime);
+    if (audioContext.state === "suspended") void audioContext.resume();
+  };
+
   const toggleSound = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -237,6 +259,7 @@ export function SoundVideo({ src, alt, controls = false, autoPlay = true }: { sr
     video.muted = nextMuted;
     video.defaultMuted = nextMuted;
     video.volume = 1;
+    if (audioGain !== 1) setAmplifiedVolume(video, nextMuted);
     setMuted(nextMuted);
     void video.play().catch(() => undefined);
   };

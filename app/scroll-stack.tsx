@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import Lenis from "lenis";
 
 type ScrollStackItemProps = {
@@ -25,7 +25,7 @@ type ScrollStackProps = {
   itemScale?: number;
   itemStackDistance?: number;
   stackPosition?: string;
-  scaleEndPosition?: string;
+  collapseDistance?: string;
   baseScale?: number;
   scaleDuration?: number;
   rotationAmount?: number;
@@ -68,7 +68,7 @@ export default function ScrollStack({
   itemScale = 0.03,
   itemStackDistance = 30,
   stackPosition = "20%",
-  scaleEndPosition = "10%",
+  collapseDistance = "20%",
   baseScale = 0.85,
   rotationAmount = 0,
   blurAmount = 0,
@@ -78,7 +78,9 @@ export default function ScrollStack({
   const scrollerRef = useRef<HTMLDivElement>(null);
   const onStackCompleteRef = useRef(onStackComplete);
 
-  onStackCompleteRef.current = onStackComplete;
+  useEffect(() => {
+    onStackCompleteRef.current = onStackComplete;
+  }, [onStackComplete]);
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
@@ -167,8 +169,9 @@ export default function ScrollStack({
       }
 
       const stackPositionPx = parsePosition(stackPosition, containerHeight);
-      const scaleEndPositionPx = parsePosition(scaleEndPosition, containerHeight);
-      const pinEnd = endTop - containerHeight / 2;
+      const collapseDistancePx = parsePosition(collapseDistance, containerHeight);
+      const releaseOffsetPx = useWindowScroll ? Math.min(220, containerHeight * 0.25) : 0;
+      const pinEnd = endTop - containerHeight / 2 - releaseOffsetPx;
       let topCardIndex = 0;
 
       for (let index = 0; index < cards.length; index += 1) {
@@ -179,10 +182,13 @@ export default function ScrollStack({
       cards.forEach((card, index) => {
         const cardTop = cardTops[index];
         const pinStart = cardTop - stackPositionPx - itemStackDistance * index;
-        const scaleEnd = cardTop - scaleEndPositionPx;
-        const scaleRange = Math.max(1, scaleEnd - pinStart);
-        const scaleProgress = Math.max(0, Math.min(1, (scrollTop - pinStart) / scaleRange));
-        const stackedTop = stackPositionPx + itemStackDistance * index;
+        const nextPinStart = index < cards.length - 1
+          ? cardTops[index + 1] - stackPositionPx - itemStackDistance * (index + 1)
+          : Number.POSITIVE_INFINITY;
+        const collapseStart = Math.max(pinStart, nextPinStart - collapseDistancePx);
+        const scaleProgress = index < cards.length - 1
+          ? Math.max(0, Math.min(1, (scrollTop - collapseStart) / Math.max(1, nextPinStart - collapseStart)))
+          : 0;
         const targetScale = baseScale + index * itemScale;
         const scale = 1 - scaleProgress * (1 - targetScale);
 
@@ -288,12 +294,12 @@ export default function ScrollStack({
   }, [
     baseScale,
     blurAmount,
+    collapseDistance,
     itemDistance,
     itemScale,
     itemStackDistance,
     mode,
     rotationAmount,
-    scaleEndPosition,
     stackPosition,
     useWindowScroll,
   ]);
