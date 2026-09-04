@@ -48,6 +48,8 @@ type VideoModel = {
   isLocked?: boolean;
 };
 
+type Resolution = "720P" | "1080P" | "4K";
+
 const VIDEO_MODELS: readonly VideoModel[] = [
   {
     name: "Seedance 2.0",
@@ -150,11 +152,13 @@ export function RevealObserver() {
 export function HeroWorkspace() {
   const [referenceFiles, setReferenceFiles] = useState<File[]>([]);
   const [prompt, setPrompt] = useState("");
-  const [openMenu, setOpenMenu] = useState<"model" | "output" | null>(null);
+  const [openMenu, setOpenMenu] = useState<"model" | "aspect" | "resolution" | null>(null);
   const [model, setModel] = useState<(typeof VIDEO_MODELS)[number]["name"]>("Seedance 2.5");
   const [aspectRatio, setAspectRatio] = useState<"9:16" | "16:9">("16:9");
+  const [resolution, setResolution] = useState<Resolution>("720P");
   const controlsRef = useRef<HTMLDivElement>(null);
   const selectedModel = VIDEO_MODELS.find((item) => item.name === model) ?? VIDEO_MODELS[2];
+  const availableResolutions: readonly Resolution[] = model === "Seedance 2.5" ? ["720P"] : ["720P", "1080P", "4K"];
   const chooseReferences = (event: ChangeEvent<HTMLInputElement>) => setReferenceFiles(Array.from(event.target.files ?? []).slice(0, 50));
   const continueToWizstar = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); window.location.assign("https://wizstar.com/home"); };
 
@@ -180,24 +184,31 @@ export function HeroWorkspace() {
             <span className="select-chevron" />
           </button>
           {openMenu === "model" ? <div className="model-menu" role="listbox" aria-label="Video model">
-            {VIDEO_MODELS.map((item) => <button className={item.name === model ? "is-selected" : ""} key={item.name} type="button" role="option" aria-selected={item.name === model} onClick={() => { setModel(item.name); setOpenMenu(null); }}>
+            {VIDEO_MODELS.map((item) => <button className={item.name === model ? "is-selected" : ""} key={item.name} type="button" role="option" aria-selected={item.name === model} onClick={() => { setModel(item.name); if (item.name === "Seedance 2.5") setResolution("720P"); setOpenMenu(null); }}>
               <span className="model-option-title"><span><ModelIcon name={item.name} />{item.name}</span>{item.isNew ? <span className="model-new">New</span> : null}</span>
               <small>{item.description}</small>
             </button>)}
           </div> : null}
         </div>
         <div className="output-picker">
-          <button className="creator-settings" type="button" onClick={() => setOpenMenu((value) => value === "output" ? null : "output")} aria-expanded={openMenu === "output"} aria-haspopup="dialog">
-            <span className="output-icon" aria-hidden="true" />
-            <span>{aspectRatio}</span><b>|</b><span>720P</span><span className="select-chevron" />
+          <button className="creator-settings creator-aspect-settings" type="button" onClick={() => setOpenMenu((value) => value === "aspect" ? null : "aspect")} aria-label="Aspect ratio" aria-expanded={openMenu === "aspect"} aria-haspopup="dialog">
+            <span className={`output-icon output-icon-${aspectRatio.replace(":", "-")}`} aria-hidden="true" />
+            <span>{aspectRatio}</span><span className="select-chevron" />
           </button>
-          {openMenu === "output" ? <div className="output-menu" role="dialog" aria-label="Output settings">
+          <button className="creator-settings creator-resolution-settings" type="button" onClick={() => setOpenMenu((value) => value === "resolution" ? null : "resolution")} aria-label="Resolution" aria-expanded={openMenu === "resolution"} aria-haspopup="dialog">
+            <span>{resolution}</span><span className="select-chevron" />
+          </button>
+          {openMenu === "aspect" ? <div className="output-menu" role="dialog" aria-label="Aspect ratio settings">
             <span className="output-label">Aspect ratio</span>
             <div className="ratio-options">
               {(["9:16", "16:9"] as const).map((ratio) => <button className={ratio === aspectRatio ? "is-selected" : ""} key={ratio} type="button" aria-pressed={ratio === aspectRatio} onClick={() => setAspectRatio(ratio)}><i className={`ratio-shape ratio-${ratio.replace(":", "-")}`} aria-hidden="true" />{ratio}</button>)}
             </div>
+          </div> : null}
+          {openMenu === "resolution" ? <div className="output-menu resolution-menu" role="dialog" aria-label="Resolution settings">
             <span className="output-label">Resolution</span>
-            <div className="resolution-value">720P</div>
+            <div className={`resolution-options resolution-count-${availableResolutions.length}`}>
+              {availableResolutions.map((option) => <button className={option === resolution ? "is-selected" : ""} key={option} type="button" aria-pressed={option === resolution} onClick={() => { setResolution(option); setOpenMenu(null); }}>{option}</button>)}
+            </div>
           </div> : null}
         </div>
         <button className="generate" type="submit">Create Video</button>

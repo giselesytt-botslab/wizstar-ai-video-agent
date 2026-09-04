@@ -5,10 +5,10 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 type GooeyNavItem = { label: string; href: string };
 
 const items: GooeyNavItem[] = [
-  { label: "Video Creation", href: "https://wizstar.com/home" },
-  { label: "Marketing & Ads", href: "https://wizstar.com/home" },
-  { label: "Script to Video", href: "https://wizstar.com/home" },
-  { label: "Product & Ecommerce", href: "https://wizstar.com/home" },
+  { label: "Marketing & Commerce", href: "https://wizstar.com/home" },
+  { label: "Social & Creative", href: "https://wizstar.com/home" },
+  { label: "Film & Storytelling", href: "https://wizstar.com/home" },
+  { label: "Education & Explainers", href: "https://wizstar.com/home" },
 ];
 
 type GooeyNavProps = {
@@ -122,7 +122,7 @@ export function GooeyNav({
         <ul ref={navRef}>
           {items.map((item, index) => (
             <li key={item.label} className={activeIndex === index ? "active" : ""} onMouseEnter={(event) => activate(event.currentTarget, index)}>
-              <a href={item.href} onClick={(event) => handleClick(event, index)}>{item.label}</a>
+              <a href={item.href} onClick={(event) => handleClick(event, index)}>{item.label}<span className="gooey-nav-arrow" aria-hidden="true">&nbsp;↗</span></a>
             </li>
           ))}
         </ul>

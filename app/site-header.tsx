@@ -8,39 +8,39 @@ const productGroups = [
   {
     title: "AI Video Agent",
     links: [
-       ["Agent E-commerce", "https://wizstar.com/home", ""],
-       ["Agent Creative", "https://wizstar.com/home", ""],
+       ["Agent E-commerce", "https://wizstar.com/agent?mode=ecommerce", ""],
+       ["Agent Creative", "https://wizstar.com/agent?mode=general", ""],
     ],
   },
   {
     title: "AI Drama",
     links: [
-       ["Novel to Script", "https://wizstar.com/home", ""],
-       ["Localize Script", "https://wizstar.com/home", ""],
+       ["Novel to Script", "https://wizstar.com/drama?mode=conversion", ""],
+       ["Localize Script", "https://wizstar.com/drama?mode=translation", ""],
     ],
   },
   {
     title: "AI Creative Tools",
     links: [
-       ["AI Avatar (Turbo)", "https://wizstar.com/home", "Hot · Make any avatar or photo speak naturally with synced lips, voice, and expressions."],
-       ["AI Video Generator", "https://wizstar.com/home", "Hot · Turn text or images into cinematic videos with Seedance 2.5."],
-       ["Viral Video Recreation", "https://wizstar.com/home", ""],
-       ["AI Product Video", "https://wizstar.com/home", ""],
-       ["AI Image Generator", "https://wizstar.com/home", ""],
-       ["AI Video Translation", "https://wizstar.com/home", ""],
-       ["AI Avatar", "https://wizstar.com/home", ""],
+       ["AI Avatar (Turbo)", "https://wizstar.com/official/ai-avatar", "Hot · Make any avatar or photo speak naturally with synced lips, voice, and expressions."],
+       ["AI Video Generator", "https://wizstar.com/official/video-generator", "Hot · Turn text or images into cinematic videos with Seedance 2.5."],
+       ["Viral Video Recreation", "https://wizstar.com/tools/viral_video_recreation", ""],
+       ["AI Product Video", "https://wizstar.com/tools/ai_product_video", ""],
+       ["AI Image Generator", "https://wizstar.com/image?mode=general", ""],
+       ["AI Video Translation", "https://wizstar.com/tools/ai_video_translation", ""],
+       ["AI Avatar", "https://wizstar.com/tools/ai_avatar", ""],
     ],
   },
 ] as const;
 
 const enterpriseGroups = [
-   { title: "Key Functions", links: [["AI Video", "https://wizstar.com/home"], ["AI Livestream", "https://wizstar.com/home"], ["Interactive AI Avatar", "https://wizstar.com/home"]] },
-   { title: "Team", links: [["Sales", "https://wizstar.com/home"], ["E-Commerce", "https://wizstar.com/home"]] },
-   { title: "Industries", links: [["Marketing", "https://wizstar.com/home"], ["Real Estate", "https://wizstar.com/home"]] },
+   { title: "Key Functions", links: [["AI Video", "https://wizstar.com/official/enterprise"], ["AI Livestream", "https://wizstar.com/official/enterprise"], ["Interactive AI Avatar", "https://wizstar.com/official/enterprise"]] },
+   { title: "Team", links: [["Sales", "https://wizstar.com/official/enterprise/sales"], ["E-Commerce", "https://wizstar.com/official/enterprise/e-commerce"]] },
+   { title: "Industries", links: [["Marketing", "https://wizstar.com/official/enterprise/marketing"], ["Real Estate", "https://wizstar.com/official/enterprise/real-estate-property"]] },
 ] as const;
 
 const resourceLinks = [
-   ["Blog", "https://wizstar.com/home", "Tips, insights, and industry stories from Wizstar."],
+   ["Blog", "https://wizstar.com/blog", "Tips, insights, and industry stories from Wizstar."],
 ] as const;
 
 function ArrowIcon() {
@@ -77,7 +77,7 @@ export function SiteHeader() {
 
   return (
     <header className="site-header" ref={headerRef}>
-       <a className="brand" href="https://wizstar.com/home" aria-label="Wizstar home">
+       <a className="brand" href="https://wizstar.com/" aria-label="Wizstar home">
         <img src="/assets/wizstar-logo.png" alt="Wizstar" />
       </a>
 
@@ -114,7 +114,7 @@ export function SiteHeader() {
 
         <div className="nav-menu-wrap">
           <div className="enterprise-trigger-row">
-             <a className="enterprise-direct" href="https://wizstar.com/home">Enterprise</a>
+             <a className="enterprise-direct" href="https://wizstar.com/official/enterprise">Enterprise</a>
             <button type="button" className="enterprise-menu-button" aria-label="Enterprise menu" aria-expanded={openMenu === "enterprise"} aria-controls="enterprise-menu" onClick={() => toggleMenu("enterprise")}>
               <small className="nav-chevron" aria-hidden="true" />
             </button>
@@ -144,11 +144,11 @@ export function SiteHeader() {
           </div>
         </div>
 
-         <a className="nav-direct-link" href="https://wizstar.com/home">Pricing</a>
-         <a className="nav-direct-link" href="https://wizstar.com/home">API</a>
+         <a className="nav-direct-link" href="https://wizstar.com/official/pricing">Pricing</a>
+         <a className="nav-direct-link" href="https://wizstar.com/official/api">API</a>
       </nav>
 
-       <a className="sign-in" href="https://wizstar.com/home">Sign in</a>
+       <a className="sign-in" href="https://wizstar.com/?login=1">Sign in</a>
     </header>
   );
 }

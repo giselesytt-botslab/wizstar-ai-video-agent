@@ -36,5 +36,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable}`}>{children}</body></html>;
+  return <html lang="en"><body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable}`}><script src="/wizstar-shell.js"></script>{children}</body></html>;
 }

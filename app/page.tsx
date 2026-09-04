@@ -1,7 +1,6 @@
 import { FinalCta, HeroWorkspace, RevealObserver, ShowcaseRail, SoundVideo } from "./landing-interactions";
 import { PromotionLoop } from "./promotion-loop";
 import { ScrollStack, ScrollStackItem } from "./scroll-stack";
-import { SiteHeader } from "./site-header";
 import { GooeyNav } from "./gooey-nav";
 
 const homeUrl = "https://wizstar.com/home";
@@ -17,6 +16,59 @@ const workShowcases = [
   { eyebrow: "Character continuity", title: "Keep Your Character Consistent Across Every Scene", description: "Carry one dancer, costume, and visual identity from a modern stage to cliffs, a medieval court, and a battlefield. The AI video agent plans seamless scene changes around continuous movement, so the story feels like one performance.", tags: ["Character consistency", "Multi-scene continuity"], tone: "violet", media: "video", src: "/assets/showcase-character-consistency.mp4", alt: "One ballet dancer kept consistent across modern, coastal, medieval, and battlefield scenes", credit: "Wizstar AI Video Agent showcase" },
   { eyebrow: "Process-led content", title: "Show a multi-step process with clear action", description: "From a recipe to a tutorial, the agent connects hand-object actions, transitions, and close-ups into an easy-to-follow edit.", tags: ["Process video", "Action continuity"], tone: "magenta", media: "video", src: "/assets/showcase-food-making.mp4", alt: "A food-making process shown as a connected instructional video", credit: "Wizstar AI Video Agent showcase" },
   { eyebrow: "Social commerce", title: "Adapt one product idea for the channel", description: "Generate a vertical product story with a strong opening, concise copy, and a rhythm designed for social feeds and paid ads.", tags: ["Social ads", "Vertical video"], tone: "cyan", media: "video", src: "/assets/user-videos/lipstick-commerce.mp4", alt: "A vertical lipstick product video for social commerce", credit: "Wizstar AI Video Agent showcase" },
+] as const;
+
+const modelRoster = [
+  {
+    name: "Seedance 2.5",
+    logo: "/assets/model-logo-seedance.png",
+    strength: "30s cinematic shots",
+  },
+  {
+    name: "MiniMax H3",
+    logo: "/assets/model-logo-minimax.png",
+    strength: "High-resolution output",
+  },
+  {
+    name: "Kling 3.0 Omni",
+    logo: "/assets/model-logo-kling.png",
+    strength: "Realistic motion",
+  },
+  {
+    name: "GPT Image 2",
+    logo: "/assets/model-logo-openai.png",
+    strength: "Precise image generation",
+  },
+  {
+    name: "More Models",
+    mark: "+",
+    strength: "More creative options",
+  },
+  {
+    name: "Nano Banana 2",
+    logo: "/assets/model-logo-nano-banana.png",
+    strength: "Fast visual concepts",
+  },
+  {
+    name: "Nano Banana Pro",
+    logo: "/assets/model-logo-nano-banana.png",
+    strength: "Polished image detail",
+  },
+  {
+    name: "Nano Banana 2 Lite",
+    logo: "/assets/model-logo-nano-banana.png",
+    strength: "Lightweight iteration",
+  },
+  {
+    name: "Seedance 2.0",
+    logo: "/assets/model-logo-seedance.png",
+    strength: "Connected video scenes",
+  },
+  {
+    name: "Seedance 1.5",
+    logo: "/assets/model-logo-seedance.png",
+    strength: "Reliable video motion",
+  },
 ] as const;
 
 const videoModels = [
@@ -51,13 +103,6 @@ const ModelRevealTitle = ({ children }: { children: string }) => (
     {children.split(" ").map((word, index, words) => <span key={`${word}-${index}`} style={{ animationDelay: `${index * 100}ms` }}>{word}{index < words.length - 1 ? " " : null}</span>)}
   </h2>
 );
-
-const footerColumns = [
-  { title: "Product", links: [["AI Video Agent", homeUrl], ["AI Video Generator", homeUrl], ["AI Product Video", homeUrl], ["AI Image Generator", homeUrl], ["AI Video Translation", homeUrl], ["E-commerce Agent", homeUrl], ["Video workflows", homeUrl], ["Novel to Script", homeUrl], ["Script Translation", homeUrl]] },
-  { title: "Solution", links: [["Sales", homeUrl], ["Marketing", homeUrl], ["Social Ads", homeUrl], ["Learning & Development", homeUrl], ["Localization", homeUrl], ["E-Commerce", homeUrl], ["Real Estate", homeUrl], ["Financial Services", homeUrl]] },
-  { title: "Company", links: [["For Enterprise", homeUrl], ["Contact Sales", homeUrl], ["API", homeUrl], ["Pricing", homeUrl], ["Terms", homeUrl], ["Privacy", homeUrl]] },
-  { title: "Resources", links: [["Blog", homeUrl], ["Content Partner Program", homeUrl]] },
-] as const;
 
 const faqItems = [
   { question: "What is the Wizstar AI Video Agent?", answer: "The Wizstar AI Video Agent is an end-to-end creative workspace for turning a brief into a finished video. Start with a prompt, script, product, or reference image, and the agent helps connect planning, scene creation, voice and sound direction, editing, and revisions. You stay in control of the creative direction while the agent coordinates the production steps." },
@@ -109,14 +154,14 @@ export default function Home() {
         <PromotionLoop text="Limited-time member offer · Annual plans save up to 56% · Top-up credits 20% off · 10+ top models included" />
         <a className="promotion-cta" href={billingUrl}>View plans <Arrow /></a>
       </div>
-      <SiteHeader />
+      <wizstar-navbar></wizstar-navbar>
 
       <section className="hero">
         <div className="hero-stage-shell hero-stage-shell-solo">
           <div className="hero-stage">
             <div className="hero-heading page-width" data-reveal>
-              <h1><span>AI VIDEO </span><strong>AGENT</strong></h1>
-              <p>Wizstar's Creative Agent turns ideas, scripts, products, and references into connected video stories by planning, producing, and refining the work in one workflow.</p>
+              <h1><span>Wizstar</span><strong>Meet Your AI Video Agent</strong></h1>
+              <p>From your first idea to the final cut, plan, create, and refine your entire video in one seamless workflow.</p>
             </div>
             <HeroWorkspace />
           </div>
@@ -127,56 +172,50 @@ export default function Home() {
         <GooeyNav />
       </div>
 
-      <section className="community page-width" id="showcase">
-        <div className="section-heading" data-reveal>
-          <span className="section-kicker">AI Video Agent Workflows</span>
-          <h2>From a creative direction to a finished video</h2>
-          <p>Explore the jobs an AI video agent can coordinate, from story planning and text to video through product campaigns, social ads, and multi-shot continuity.</p>
-          <a href={homeUrl}>Start a video workflow <Arrow /></a>
-        </div>
-        <ShowcaseRail items={workShowcases} />
-      </section>
-
       <section className="features page-width" id="features">
-        <div className="section-heading centered feature-heading capability-heading" data-reveal><h2>Key Features of the Wizstar AI Video Agent</h2><p>Plan, generate, and refine complete videos in one AI-powered workflow, from the first brief and script to connected scenes, voice, editing, and channel-ready delivery.</p></div>
+        <div className="section-heading centered feature-heading capability-heading" data-reveal><span className="section-kicker">Wizstar AI Video Agent</span><h2>Create Smarter with an AI Video Agent</h2><p>Wizstar plans the work, brings leading AI models into one workflow, and keeps your best assets ready to reuse, so you can move from idea to final cut without managing every step yourself.</p></div>
 
         <article className="capability-overview" data-reveal>
           <figure className="capability-overview-media text-to-video-demo"><SoundVideo src="/assets/text-to-video.mp4" alt="Wizstar AI video agent creating a video from a text prompt" /></figure>
-          <div className="capability-overview-copy"><span>Text to Video</span><h3>Turn Text into Video</h3><p>Describe your idea, story, product, or campaign in plain language. Wizstar's AI video agent can develop the direction, structure the script, plan connected scenes, and coordinate generation, voice, and editing to turn your text into a complete video draft.</p><a href={homeUrl}>Create a Video from Text <Arrow /></a></div>
+          <div className="capability-overview-copy"><h3>Turn One Idea into a Cinematic Video</h3><p>Skip the prompt engineering. Describe what you want in your own words, and the Video Agent breaks your idea into actionable steps, handles the entire creative process, and brings it all together into a polished, cinematic video.</p><a href={homeUrl}>Create with AI Video Agent <Arrow /></a></div>
         </article>
 
-        <article className="capability-overview capability-overview-reverse" data-reveal>
-          <div className="capability-overview-copy"><span>Image to Video</span><h3>Turn Images into Video</h3><p>Upload a product photo, character image, or visual reference and describe how it should move. Wizstar's AI video agent can interpret the subject, plan the action and camera direction, and carry visual details into a polished video sequence.</p><a href={homeUrl}>Create a Video from Images <Arrow /></a></div>
-          <figure className="capability-overview-media image-to-video-demo" aria-label="Three source images transformed into a generated video">
-            <div className="image-to-video-inputs">
-              <span>Input images</span>
-              <div>
-                <img src="/assets/image-to-video-input-01.png" alt="Female android character reference for image to video" />
-                <img src="/assets/image-to-video-input-02.png" alt="Armored robot character reference for image to video" />
-                <img src="/assets/image-to-video-input-03.png" alt="Ruined futuristic battlefield reference for image to video" />
-              </div>
+        <article className="capability-overview capability-overview-reverse model-roster-overview" data-reveal>
+          <div className="capability-overview-copy"><h3>Top AI Models. All in Wizstar.</h3><p>Access the latest AI video models and choose the right one for every creative task. Make the most of each model&apos;s unique strengths to create stunning visuals, natural motion, and seamless storytelling—bringing every idea to life with greater depth and impact.</p><a href={homeUrl}>Explore Top AI Models <Arrow /></a></div>
+          <figure className="capability-overview-media model-roster-demo" aria-label="Leading AI video models available in Wizstar">
+            <div className="model-roster-topline"><span>WIZSTAR MODEL LIBRARY</span><b>TOP MODELS · ALL IN ONE PLACE</b></div>
+            <div className="model-roster-grid">
+              {modelRoster.map((model) => <div className="model-roster-item" key={model.name}>
+                {"logo" in model ? <img src={model.logo} alt="" aria-hidden="true" /> : <span className="model-roster-mark" aria-hidden="true">{model.mark}</span>}
+                <div><strong>{model.name}</strong><span>{model.strength}</span></div>
+              </div>)}
             </div>
-            <div className="image-to-video-flow" aria-hidden="true"><i /><b>→</b><i /></div>
-            <div className="image-to-video-output">
-              <span>Output video</span>
-              <SoundVideo src="/assets/image-to-video-output.mp4" alt="Generated image to video sequence using the supplied character and environment references" />
-            </div>
+            <div className="model-roster-footer"><span>One workflow</span><i aria-hidden="true" /><span>Every creative direction</span><i aria-hidden="true" /><span>Wizstar</span></div>
           </figure>
         </article>
 
         <article className="capability-overview" data-reveal>
           <figure className="capability-overview-media video-restyle-demo"><SoundVideo src="/assets/video-style-transform.mp4" alt="A live-action video transformed into animated and handcrafted yarn visual styles" audioGain={1.1} /></figure>
-          <div className="capability-overview-copy"><span>Video Restyling</span><h3>Transform One Video into Multiple Styles</h3><p>Start with a live-action clip and ask Wizstar's AI video agent to reinterpret it as animation, a handcrafted yarn look, or another visual direction. The subject and movement stay recognizable while the visual style changes.</p><a href={homeUrl}>Restyle a Video <Arrow /></a></div>
+          <div className="capability-overview-copy"><span>One-Stop Video Workflow</span><h3>Everything You Need, From Script to Final Cut</h3><p>Write scripts, build storyboards, generate scenes, add voice and sound, edit, refine, and finalize your video—all in one place, without jumping between tools or breaking your creative flow.</p><a href={homeUrl}>Start Your Video <Arrow /></a></div>
         </article>
 
         <article className="capability-overview capability-overview-reverse lip-sync-overview" id="dialogue-lip-sync" data-reveal>
-          <div className="capability-overview-copy"><span>Dialogue Lip Sync</span><h3>Match Dialogue with Natural Lip Sync</h3><p>Add spoken dialogue to a character-led video. Wizstar's AI video agent keeps mouth movements aligned with each line so the performance feels intentional and the character stays expressive on camera.</p><a href={homeUrl}>Create a Lip-Synced Video <Arrow /></a></div>
+          <div className="capability-overview-copy"><h3>Reusable Asset Library</h3><p>Save characters, products, scenes, visual styles, and finished clips once, then reuse them across new projects to create faster and stay consistent.</p><a href={homeUrl}>Reuse Your Assets <Arrow /></a></div>
           <figure className="capability-overview-media lip-sync-demo"><SoundVideo src="/assets/lip-sync-dialogue.mp4" alt="Animated reporter speaking with mouth movements synchronized to the dialogue" audioGain={1.1} /></figure>
         </article>
 
+        <section className="community" id="showcase">
+          <div className="section-heading" data-reveal>
+            <h2>From a creative direction to a finished video</h2>
+            <p>Explore the jobs an AI video agent can coordinate, from story planning and text to video through product campaigns, social ads, and multi-shot continuity.</p>
+            <a href={homeUrl}>Start a video workflow <Arrow /></a>
+          </div>
+          <ShowcaseRail items={workShowcases} />
+        </section>
+
         <div className="section-heading centered feature-heading video-types-heading" data-reveal>
-          <h2>What You Can Create with an AI Video Agent</h2>
-          <p>Create story videos, marketing campaigns, social ads, product videos, and ecommerce content from a brief, script, or visual references.</p>
+          <h2>How Creators Are Using Wizstar&apos;s AI Video Agent</h2>
+          <p>Use the same guided workflow for marketing campaigns, product ads, animated stories, educational videos, and cinematic short dramas.</p>
         </div>
 
         <ScrollStack
@@ -210,6 +249,27 @@ export default function Home() {
           <div className="feature-copy"><span className="feature-number">05</span><h3>Create Cinematic AI Short Dramas, Scene by Scene</h3><p>Build a short-form drama from one story beat, with character dialogue, reaction shots, world-building, and a cinematic payoff. Wizstar's end-to-end AI video generator can plan the script, scene order, visual continuity, sound, and edit, from a command-center warning to a spacecraft's final approach.</p><a href={homeUrl}>Create an AI Short Drama <Arrow /></a></div>
         </article></ScrollStackItem>
         </ScrollStack>
+
+        <section className="agent-steps" id="agent-steps" aria-labelledby="agent-steps-title">
+          <div className="section-heading centered agent-steps-heading" data-reveal>
+            <h2 id="agent-steps-title">Create with Wizstar&apos;s AI Video Agent in Three Steps</h2>
+            <p>Start with an idea, let the Agent build the plan, and shape the final video with every creative decision connected.</p>
+          </div>
+          <div className="agent-steps-grid">
+            <article className="agent-step" data-reveal>
+              <div className="agent-step-image"><img src="/assets/agent-steps/step-01.jpg" alt="Wizstar AI Video Agent workspace ready for a creative brief" /></div>
+              <div className="agent-step-copy"><span>Step 01</span><h3>Start with an Idea</h3><p>Describe what you want in plain language, then add scripts, products, characters, or reference images. The Agent turns your direction into a clear creative brief.</p></div>
+            </article>
+            <article className="agent-step" data-reveal>
+              <div className="agent-step-image"><img src="/assets/agent-steps/step-02.jpg" alt="A planned sequence of connected scenes and camera moments" /></div>
+              <div className="agent-step-copy"><span>Step 02</span><h3>Let the Agent Plan the Video</h3><p>Your Agent maps the story, suggests scenes, selects the right model, and organizes visuals, voice, pacing, and format before generation starts.</p></div>
+            </article>
+            <article className="agent-step" data-reveal>
+              <div className="agent-step-image"><img src="/assets/agent-steps/step-03.jpg" alt="A generated video result ready for review and refinement" /></div>
+              <div className="agent-step-copy"><span>Step 03</span><h3>Generate, Review, and Refine</h3><p>Create a polished first cut, review the result, and keep refining the details with the Agent until the video is ready to share.</p></div>
+            </article>
+          </div>
+        </section>
       </section>
 
       <section className="model-showcase" id="video-models" data-reveal>
@@ -226,7 +286,7 @@ export default function Home() {
         <div className="model-showcase-overlay" />
         <div className="model-showcase-content page-width">
           <span className="model-showcase-badge liquid-glass">Multiple AI Models</span>
-          <ModelRevealTitle>Choose the Right AI Video Model for Every Story</ModelRevealTitle>
+          <ModelRevealTitle>Top AI Models Powering Wizstar&apos;s Video Agent</ModelRevealTitle>
           <p className="model-showcase-intro">Wizstar brings four AI video models into one workflow, so you can match each brief with the kind of motion, continuity, and shot length it needs.</p>
           <div className="model-showcase-grid">
             {videoModels.map((model) => <article className="model-showcase-card liquid-glass" key={model.name}>
@@ -242,14 +302,14 @@ export default function Home() {
       <section className="testimonials" id="production-priorities">
         <div className="page-width"><div className="section-heading centered testimonials-heading" data-reveal><span className="section-kicker">Creator voices</span><h2>What Wizstar Creators Say</h2><p>Production perspectives on planning connected scenes, sound, and revisions with an AI video agent.</p></div></div>
         <div className="quote-track" aria-label="AI video production priorities">
-          <article><span aria-hidden="true">&ldquo;</span><p>The campaign goal, audience, message, and channel stay visible while the concept becomes a script and storyboard.</p><small>Brief to plan</small></article>
-          <article><span aria-hidden="true">&ldquo;</span><p>Characters, products, references, visual rules, and scene intent remain available as shots are developed.</p><small>Plan to scenes</small></article>
-          <article><span aria-hidden="true">&ldquo;</span><p>Voice direction, pacing, transitions, and scene order come together in a first cut that can be reviewed.</p><small>Scenes to edit</small></article>
-          <article><span aria-hidden="true">&ldquo;</span><p>Feedback becomes targeted revisions and channel-ready versions without losing the original creative direction.</p><small>Review to delivery</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>The campaign goal, audience, message, and channel stay visible while the concept becomes a script and storyboard.</p><small>Brief to plan</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>Characters, products, references, visual rules, and scene intent remain available as shots are developed.</p><small>Plan to scenes</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>Voice direction, pacing, transitions, and scene order come together in a first cut that can be reviewed.</p><small>Scenes to edit</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>Feedback becomes targeted revisions and channel-ready versions without losing the original creative direction.</p><small>Review to delivery</small></article>
+          <article><span aria-hidden="true">&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
+          <article><span aria-hidden="true">&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
+          <article><span aria-hidden="true">&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
+          <article><span aria-hidden="true">&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
+          <article aria-hidden="true"><span>&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
+          <article aria-hidden="true"><span>&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
+          <article aria-hidden="true"><span>&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
+          <article aria-hidden="true"><span>&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
         </div>
       </section>
 
@@ -260,21 +320,23 @@ export default function Home() {
 
       <FinalCta />
 
+      <wizstar-footer></wizstar-footer>
+      {/*
       <footer className="site-footer">
         <div className="footer-inner">
           <div className="footer-brand">
-            <a className="brand" href={homeUrl} aria-label="Wizstar home"><img src="/assets/wizstar-logo.png" alt="Wizstar" /></a>
+            <a className="brand" href="https://wizstar.com/" aria-label="Wizstar home"><img src="/assets/wizstar-logo.png" alt="Wizstar" /></a>
             <p>The AI creation platform that turns ideas into polished visuals in minutes.</p>
             <div className="socials" aria-label="Wizstar social channels">
-               <a href={homeUrl} aria-label="X"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z" /></svg></a>
-               <a href={homeUrl} aria-label="YouTube"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21.58 7.19a2.73 2.73 0 0 0-1.92-1.93C17.97 4.8 12 4.8 12 4.8s-5.97 0-7.66.46a2.73 2.73 0 0 0-1.92 1.93A28.43 28.43 0 0 0 2 12a28.43 28.43 0 0 0 .42 4.81 2.73 2.73 0 0 0 1.92 1.93c1.69.46 7.66.46 7.66.46s5.97 0 7.66-.46a2.73 2.73 0 0 0 1.92-1.93A28.43 28.43 0 0 0 22 12a28.43 28.43 0 0 0-.42-4.81ZM10 15.2V8.8l5.2 3.2L10 15.2Z" /></svg></a>
-               <a href={homeUrl} aria-label="TikTok"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16.72 3c.34 2.02 1.51 3.22 3.47 3.35v3.02a7.3 7.3 0 0 1-3.42-1.02v6.39c0 3.24-1.97 5.26-5.14 5.26A4.85 4.85 0 0 1 6.7 15.2a4.87 4.87 0 0 1 5.66-4.77v3.09a2.06 2.06 0 0 0-2.67 1.97 2.02 2.02 0 0 0 2.07 1.98c1.17 0 1.94-.7 1.94-2.18V3h3.02Z" /></svg></a>
-               <a href={homeUrl} aria-label="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.95 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg></a>
+               <a href="https://x.com/WizstarAI" aria-label="X"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z" /></svg></a>
+               <a href="https://www.youtube.com/@Wizstar_official" aria-label="YouTube"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21.58 7.19a2.73 2.73 0 0 0-1.92-1.93C17.97 4.8 12 4.8 12 4.8s-5.97 0-7.66.46a2.73 2.73 0 0 0-1.92 1.93A28.43 28.43 0 0 0 2 12a28.43 28.43 0 0 0 .42 4.81 2.73 2.73 0 0 0 1.92 1.93c1.69.46 7.66.46 7.66.46s5.97 0 7.66-.46a2.73 2.73 0 0 0 1.92-1.93A28.43 28.43 0 0 0 22 12a28.43 28.43 0 0 0-.42-4.81ZM10 15.2V8.8l5.2 3.2L10 15.2Z" /></svg></a>
+               <a href="https://www.tiktok.com/@wizstar_ai" aria-label="TikTok"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16.72 3c.34 2.02 1.51 3.22 3.47 3.35v3.02a7.3 7.3 0 0 1-3.42-1.02v6.39c0 3.24-1.97 5.26-5.14 5.26A4.85 4.85 0 0 1 6.7 15.2a4.87 4.87 0 0 1 5.66-4.77v3.09a2.06 2.06 0 0 0-2.67 1.97 2.02 2.02 0 0 0 2.07 1.98c1.17 0 1.94-.7 1.94-2.18V3h3.02Z" /></svg></a>
+               <a href="https://www.instagram.com/wizstarai/" aria-label="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.95 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 0 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg></a>
             </div>
           </div>
           <nav className="footer-nav" aria-label="Footer navigation">{footerColumns.map((column) => <div key={column.title}><h3>{column.title}</h3>{column.links.map(([label, href]) => <a href={href} key={label}>{label}</a>)}</div>)}</nav>
         </div>
-      </footer>
+      </footer> */}
     </main>
   );
 }
