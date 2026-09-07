@@ -201,7 +201,7 @@ export default function Home() {
 
         <article className="capability-overview capability-overview-reverse lip-sync-overview" id="dialogue-lip-sync" data-reveal>
           <div className="capability-overview-copy"><h3>Reusable Asset Library</h3><p>Save characters, products, scenes, visual styles, and finished clips once, then reuse them across new projects to create faster and stay consistent.</p><a href={homeUrl}>Reuse Your Assets <Arrow /></a></div>
-          <figure className="capability-overview-media lip-sync-demo"><SoundVideo src="/assets/lip-sync-dialogue.mp4" alt="Animated reporter speaking with mouth movements synchronized to the dialogue" audioGain={1.1} /></figure>
+          <figure className="capability-overview-media lip-sync-demo"><SoundVideo src="/assets/reusable-asset-library.mp4" alt="Reusable creative assets organized in the Wizstar asset library" audioGain={1.1} /></figure>
         </article>
 
         <section className="community" id="showcase">

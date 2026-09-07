@@ -91,7 +91,7 @@ export default function ScrollStack({
     if (!cards.length || !endElement) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobileLayout = window.matchMedia("(max-width: 900px)").matches;
+    const mobileLayout = window.matchMedia("(max-width: 680px)").matches;
     const transforms = new Map<number, CardTransform>();
     let cardTops: number[] = [];
     let cardHeights: number[] = [];
@@ -170,20 +170,26 @@ export default function ScrollStack({
 
       const stackPositionPx = parsePosition(stackPosition, containerHeight);
       const collapseDistancePx = parsePosition(collapseDistance, containerHeight);
+      const tallestCard = Math.max(...cardHeights);
+      const availableStackOffset = Math.max(0, containerHeight - stackPositionPx - tallestCard - 16);
+      const stackDistancePx = Math.min(
+        itemStackDistance,
+        availableStackOffset / Math.max(1, cards.length - 1),
+      );
       const releaseOffsetPx = useWindowScroll ? Math.min(220, containerHeight * 0.25) : 0;
       const pinEnd = endTop - containerHeight / 2 - releaseOffsetPx;
       let topCardIndex = 0;
 
       for (let index = 0; index < cards.length; index += 1) {
-        const trigger = cardTops[index] - stackPositionPx - itemStackDistance * index;
+        const trigger = cardTops[index] - stackPositionPx - stackDistancePx * index;
         if (scrollTop >= trigger) topCardIndex = index;
       }
 
       cards.forEach((card, index) => {
         const cardTop = cardTops[index];
-        const pinStart = cardTop - stackPositionPx - itemStackDistance * index;
+        const pinStart = cardTop - stackPositionPx - stackDistancePx * index;
         const nextPinStart = index < cards.length - 1
-          ? cardTops[index + 1] - stackPositionPx - itemStackDistance * (index + 1)
+          ? cardTops[index + 1] - stackPositionPx - stackDistancePx * (index + 1)
           : Number.POSITIVE_INFINITY;
         const collapseStart = Math.max(pinStart, nextPinStart - collapseDistancePx);
         const scaleProgress = index < cards.length - 1
@@ -194,9 +200,9 @@ export default function ScrollStack({
 
         let translateY = 0;
         if (scrollTop >= pinStart && scrollTop <= pinEnd) {
-          translateY = scrollTop - cardTop + stackPositionPx + itemStackDistance * index;
+          translateY = scrollTop - cardTop + stackPositionPx + stackDistancePx * index;
         } else if (scrollTop > pinEnd) {
-          translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * index;
+          translateY = pinEnd - cardTop + stackPositionPx + stackDistancePx * index;
         }
 
         const blur = blurAmount > 0 && index < topCardIndex
@@ -211,7 +217,7 @@ export default function ScrollStack({
         });
       });
 
-      const lastStart = cardTops[cards.length - 1] - stackPositionPx - itemStackDistance * (cards.length - 1);
+      const lastStart = cardTops[cards.length - 1] - stackPositionPx - stackDistancePx * (cards.length - 1);
       const complete = scrollTop >= lastStart && scrollTop <= pinEnd;
       if (complete && !stackComplete) onStackCompleteRef.current?.();
       stackComplete = complete;

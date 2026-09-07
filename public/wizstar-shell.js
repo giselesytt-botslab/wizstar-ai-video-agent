@@ -621,11 +621,35 @@ Error generating stack: `+i.message+`
     background: var(--colorBgModuleHover);
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 820px) and (max-width: 1023px) {
     .links {
-        display: none;
+        display: flex;
+        gap: var(--spacing12);
+        margin-left: var(--spacing24);
     }
 
+    .navLink {
+        font-size: var(--fontSizeXs);
+    }
+
+    .actions {
+        gap: var(--spacing8);
+    }
+
+    .weakPill,
+    .signIn {
+        min-height: var(--spacing36);
+        padding: 0 var(--spacing12);
+        font-size: var(--fontSizeXs);
+    }
+
+    .outlinePill {
+        display: none;
+    }
+}
+
+@media (max-width: 819px) {
+    .links,
     .outlinePill {
         display: none;
     }
@@ -640,7 +664,7 @@ Error generating stack: `+i.message+`
     position: relative;
     overflow: hidden;
     padding: 0 0 calc(var(--spacing40) * 2);
-    background: var(--colorBgPage);
+    background: linear-gradient(180deg, #0a0b0f 0%, var(--colorBgPage) 180px);
     color: var(--colorTextPrimary);
 }
 
