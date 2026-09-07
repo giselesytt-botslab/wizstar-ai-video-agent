@@ -301,15 +301,17 @@ export default function Home() {
 
       <section className="testimonials" id="production-priorities">
         <div className="page-width"><div className="section-heading centered testimonials-heading" data-reveal><span className="section-kicker">Creator voices</span><h2>What Wizstar Creators Say</h2><p>Production perspectives on planning connected scenes, sound, and revisions with an AI video agent.</p></div></div>
-        <div className="quote-track" aria-label="AI video production priorities">
-          <article><span aria-hidden="true">&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
-          <article><span aria-hidden="true">&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
-          <article><span aria-hidden="true">&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
-          <article><span aria-hidden="true">&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
-          <article aria-hidden="true"><span>&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
+        <div className="quote-marquee">
+          <div className="quote-track" aria-label="AI video production priorities">
+            <article><span aria-hidden="true">&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
+            <article><span aria-hidden="true">&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
+            <article><span aria-hidden="true">&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
+            <article><span aria-hidden="true">&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
+          </div>
         </div>
       </section>
 

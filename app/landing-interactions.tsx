@@ -507,7 +507,7 @@ export function FinalCta() {
       <div className="final-cta-content page-width" data-reveal>
         <h2>Turn one direction into a finished video</h2>
         <p>Bring a brief, script, product, or reference to Wizstar and let the AI video agent carry the work from plan to publish-ready result.</p>
-        <a href="https://wizstar.com/home">Open AI Video Agent <span aria-hidden="true">→</span></a>
+        <a href="https://wizstar.com/home">Open AI Video Agent</a>
       </div>
     </section>
   );
