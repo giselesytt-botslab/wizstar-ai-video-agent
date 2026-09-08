@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { LocaleBridge } from "./locale-bridge";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -12,7 +13,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "AI Video Agent for Complete Video Creation | Wizstar",
   description: "Wizstar AI Video Agent turns ideas, briefs, products, scripts, and references into complete video workflows with scenes, voice, edits, and publish-ready outputs. Start in Wizstar.",
-  alternates: { canonical: "/official/ai-video-agent" },
+  alternates: {
+    canonical: "/official/ai-video-agent",
+    languages: {
+      en: "/official/ai-video-agent",
+      es: "/es/official/ai-video-agent",
+      "zh-CN": "/zh-CN/official/ai-video-agent",
+      "zh-TW": "/zh-TW/official/ai-video-agent",
+    },
+  },
   robots: {
     index: allowIndexing,
     follow: allowIndexing,
@@ -36,5 +45,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable}`}><script src="/wizstar-shell.js"></script>{children}</body></html>;
+  return <html lang="en" suppressHydrationWarning><body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable}`}><script src="/wizstar-shell.js"></script><LocaleBridge />{children}</body></html>;
 }

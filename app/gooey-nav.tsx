@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { translateText, type Locale } from "./i18n";
 
 type GooeyNavItem = { label: string; href: string };
 
@@ -12,6 +13,7 @@ const items: GooeyNavItem[] = [
 ];
 
 type GooeyNavProps = {
+  locale?: Locale;
   particleCount?: number;
   particleDistances?: [number, number];
   particleR?: number;
@@ -22,6 +24,7 @@ type GooeyNavProps = {
 };
 
 export function GooeyNav({
+  locale = "en",
   particleCount = 18,
   particleDistances = [82, 16],
   particleR = 100,
@@ -30,6 +33,7 @@ export function GooeyNav({
   timeVariance = 300,
   colors = [1, 2, 3, 1, 2, 3, 1, 4],
 }: GooeyNavProps) {
+  const tr = (text: string) => translateText(locale, text);
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
   const filterRef = useRef<HTMLSpanElement>(null);
@@ -117,12 +121,12 @@ export function GooeyNav({
   }, [activeIndex]);
 
   return (
-    <div className="gooey-nav-container" ref={containerRef} aria-label="Choose an AI video workflow">
+    <div className="gooey-nav-container" ref={containerRef} aria-label={tr("Choose an AI video workflow")}>
       <nav>
         <ul ref={navRef}>
           {items.map((item, index) => (
             <li key={item.label} className={activeIndex === index ? "active" : ""} onMouseEnter={(event) => activate(event.currentTarget, index)}>
-              <a href={item.href} onClick={(event) => handleClick(event, index)}>{item.label}<span className="gooey-nav-arrow" aria-hidden="true">&nbsp;↗</span></a>
+              <a href={item.href} onClick={(event) => handleClick(event, index)}>{tr(item.label)}<span className="gooey-nav-arrow" aria-hidden="true">&nbsp;↗</span></a>
             </li>
           ))}
         </ul>

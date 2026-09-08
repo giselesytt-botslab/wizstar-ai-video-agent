@@ -2,6 +2,7 @@ import { FinalCta, HeroWorkspace, RevealObserver, ShowcaseRail, SoundVideo } fro
 import { PromotionLoop } from "./promotion-loop";
 import { ScrollStack, ScrollStackItem } from "./scroll-stack";
 import { GooeyNav } from "./gooey-nav";
+import { isLocale, translateText, translations, type Locale } from "./i18n";
 
 const homeUrl = "https://wizstar.com/home";
 const billingUrl = "https://wizstar.com/billing";
@@ -143,79 +144,99 @@ const faqSchema = {
 
 const safeJsonLd = (value: object) => JSON.stringify(value).replace(/</g, "\\u003c");
 
-export default function Home() {
+export default function Home({ locale = "en" }: { locale?: Locale }) {
+  const copy = translations[isLocale(locale) ? locale : "en"];
+  const tr = (text: string) => translateText(isLocale(locale) ? locale : "en", text);
+  const activeLocale = isLocale(locale) ? locale : "en";
+  const capability = (index: number) => copy.capabilities[index];
+  const localizedShowcases = workShowcases.map((item) => ({ ...item, eyebrow: tr(item.eyebrow), title: tr(item.title), description: tr(item.description), tags: item.tags.map(tr), alt: tr(item.alt) })) as typeof workShowcases;
+  const localizedRoster = modelRoster.map((model) => ({ ...model, name: model.name === "More Models" ? tr(model.name) : model.name, strength: tr(model.strength) }));
+  const localizedModels = videoModels.map((model) => ({ ...model, strength: tr(model.strength), description: tr(model.description) }));
+  const localizedSoftwareSchema = { ...softwareApplicationSchema, description: tr("Turn briefs, scripts, products, and references into connected video workflows with Wizstar's AI video agent.") };
+  const localizedBreadcrumbSchema = { ...breadcrumbSchema, itemListElement: [{ "@type": "ListItem", position: 1, name: "Wizstar", item: homeUrl }, { "@type": "ListItem", position: 2, name: tr("AI Video Agent"), item: canonicalUrl }] };
+  const localizedFaqSchema = { ...faqSchema, mainEntity: faqItems.map((item) => ({ "@type": "Question", name: tr(item.question), acceptedAnswer: { "@type": "Answer", text: tr(item.answer) } })) };
   return (
     <main>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(softwareApplicationSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localizedSoftwareSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localizedBreadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localizedFaqSchema) }} />
       <RevealObserver />
       <div className="promotion-bar">
-        <PromotionLoop text="Limited-time member offer · Annual plans save up to 56% · Top-up credits 20% off · 10+ top models included" />
-        <a className="promotion-cta" href={billingUrl}>View plans <Arrow /></a>
+        <PromotionLoop text={tr("Limited-time member offer · Annual plans save up to 56% · Top-up credits 20% off · 10+ top models included")} />
+        <a className="promotion-cta" href={billingUrl}>{tr("View plans")} <Arrow /></a>
       </div>
-      <wizstar-navbar></wizstar-navbar>
+      <wizstar-navbar suppressHydrationWarning></wizstar-navbar>
 
       <section className="hero">
         <div className="hero-stage-shell hero-stage-shell-solo">
           <div className="hero-stage">
             <div className="hero-heading page-width" data-reveal>
-              <h1><span>Wizstar</span><strong>Meet Your AI Video Agent</strong></h1>
-              <p>From your first idea to the final cut, plan, create, and refine your entire video in one seamless workflow.</p>
+              <h1><span>Wizstar</span><strong>{copy.heroTitle}</strong></h1>
+              <p>{copy.heroDescription}</p>
             </div>
-            <HeroWorkspace />
+            <HeroWorkspace locale={isLocale(locale) ? locale : "en"} />
           </div>
         </div>
       </section>
 
       <div className="hero-workflow-nav page-width">
-        <GooeyNav />
+        <GooeyNav locale={activeLocale} />
       </div>
 
       <section className="features page-width" id="features">
-        <div className="section-heading centered feature-heading capability-heading" data-reveal><span className="section-kicker">Wizstar AI Video Agent</span><h2>Create Smarter with an AI Video Agent</h2><p>Wizstar plans the work, brings leading AI models into one workflow, and keeps your best assets ready to reuse, so you can move from idea to final cut without managing every step yourself.</p></div>
+        <div className="section-heading centered feature-heading capability-heading" data-reveal><span className="section-kicker">{tr("Wizstar AI Video Agent")}</span><h2>{copy.featureTitle}</h2><p>{copy.featureDescription}</p></div>
 
         <article className="capability-overview" data-reveal>
-          <figure className="capability-overview-media text-to-video-demo"><SoundVideo src="/assets/text-to-video.mp4" alt="Wizstar AI video agent creating a video from a text prompt" /></figure>
-          <div className="capability-overview-copy"><h3>Turn One Idea into a Cinematic Video</h3><p>Skip the prompt engineering. Describe what you want in your own words, and the Video Agent breaks your idea into actionable steps, handles the entire creative process, and brings it all together into a polished, cinematic video.</p><a href={homeUrl}>Create with AI Video Agent <Arrow /></a></div>
+          <figure className="capability-overview-media text-to-video-demo"><SoundVideo src="/assets/text-to-video.mp4" locale={activeLocale} alt={tr("Wizstar Video Agent turning a rough idea into a production-ready creative plan")} /></figure>
+          <div className="capability-overview-copy"><h3>{capability(0).title}</h3><p>{capability(0).description}</p><a href={homeUrl}>{capability(0).action} <Arrow /></a></div>
         </article>
 
         <article className="capability-overview capability-overview-reverse model-roster-overview" data-reveal>
-          <div className="capability-overview-copy"><h3>Top AI Models. All in Wizstar.</h3><p>Access the latest AI video models and choose the right one for every creative task. Make the most of each model&apos;s unique strengths to create stunning visuals, natural motion, and seamless storytelling—bringing every idea to life with greater depth and impact.</p><a href={homeUrl}>Explore Top AI Models <Arrow /></a></div>
-          <figure className="capability-overview-media model-roster-demo" aria-label="Leading AI video models available in Wizstar">
-            <div className="model-roster-topline"><span>WIZSTAR MODEL LIBRARY</span><b>TOP MODELS · ALL IN ONE PLACE</b></div>
+          <div className="capability-overview-copy"><h3>{capability(1).title}</h3><p>{capability(1).description}</p><a href={homeUrl}>{capability(1).action} <Arrow /></a></div>
+          <figure className="capability-overview-media model-roster-demo" aria-label={tr("The latest AI video models available in one Wizstar workflow")}>
+            <div className="model-roster-topline"><span>{tr("WIZSTAR MODEL LIBRARY")}</span><b>{tr("TOP MODELS · ALL IN ONE PLACE")}</b></div>
             <div className="model-roster-grid">
-              {modelRoster.map((model) => <div className="model-roster-item" key={model.name}>
+              {localizedRoster.map((model) => <div className="model-roster-item" key={model.name}>
                 {"logo" in model ? <img src={model.logo} alt="" aria-hidden="true" /> : <span className="model-roster-mark" aria-hidden="true">{model.mark}</span>}
                 <div><strong>{model.name}</strong><span>{model.strength}</span></div>
               </div>)}
             </div>
-            <div className="model-roster-footer"><span>One workflow</span><i aria-hidden="true" /><span>Every creative direction</span><i aria-hidden="true" /><span>Wizstar</span></div>
+            <div className="model-roster-footer"><span>{tr("One workflow")}</span><i aria-hidden="true" /><span>{tr("Every creative direction")}</span><i aria-hidden="true" /><span>Wizstar</span></div>
           </figure>
         </article>
 
         <article className="capability-overview" data-reveal>
-          <figure className="capability-overview-media video-restyle-demo"><SoundVideo src="/assets/video-style-transform.mp4" alt="A live-action video transformed into animated and handcrafted yarn visual styles" audioGain={1.1} /></figure>
-          <div className="capability-overview-copy"><span>One-Stop Video Workflow</span><h3>Everything You Need, From Script to Final Cut</h3><p>Write scripts, build storyboards, generate scenes, add voice and sound, edit, refine, and finalize your video—all in one place, without jumping between tools or breaking your creative flow.</p><a href={homeUrl}>Start Your Video <Arrow /></a></div>
+          <figure className="capability-overview-media video-restyle-demo"><SoundVideo src="/assets/video-style-transform.mp4" locale={activeLocale} alt={tr("A live-action video transformed into animated and handcrafted yarn visual styles")} audioGain={1.1} /></figure>
+          <div className="capability-overview-copy"><h3>{capability(2).title}</h3><p>{capability(2).description}</p><a href={homeUrl}>{capability(2).action} <Arrow /></a></div>
         </article>
 
         <article className="capability-overview capability-overview-reverse lip-sync-overview" id="dialogue-lip-sync" data-reveal>
-          <div className="capability-overview-copy"><h3>Reusable Asset Library</h3><p>Save characters, products, scenes, visual styles, and finished clips once, then reuse them across new projects to create faster and stay consistent.</p><a href={homeUrl}>Reuse Your Assets <Arrow /></a></div>
-          <figure className="capability-overview-media lip-sync-demo"><SoundVideo src="/assets/reusable-asset-library.mp4" alt="Reusable creative assets organized in the Wizstar asset library" audioGain={1.1} /></figure>
+          <div className="capability-overview-copy"><h3>{capability(3).title}</h3><p>{capability(3).description}</p><a href={homeUrl}>{capability(3).action} <Arrow /></a></div>
+          <figure className="capability-overview-media lip-sync-demo"><SoundVideo src="/assets/reusable-asset-library.mp4" locale={activeLocale} alt={tr("Wizstar translating and dubbing a video with natural lip sync")} audioGain={1.1} /></figure>
+        </article>
+
+        <article className="capability-overview character-consistency-overview" id="character-consistency" data-reveal>
+          <figure className="capability-overview-media character-consistency-demo"><SoundVideo src="/assets/character-consistency.mp4" locale={activeLocale} alt={tr("Wizstar keeping a character and visual style consistent across multiple shots")} /></figure>
+          <div className="capability-overview-copy"><h3>{capability(4).title}</h3><p>{capability(4).description}</p><a href={homeUrl}>{capability(4).action} <Arrow /></a></div>
+        </article>
+
+        <article className="capability-overview capability-overview-reverse four-k-overview" id="four-k-output" data-reveal>
+          <div className="capability-overview-copy"><h3>{capability(5).title}</h3><p>{capability(5).description}</p><a href={homeUrl}>{capability(5).action} <Arrow /></a></div>
+          <figure className="capability-overview-media four-k-demo"><SoundVideo src="/assets/fast-motion-4k.mp4" locale={activeLocale} alt={tr("Wizstar producing crisp 4K video ready for large screens and multiple channels")} /></figure>
         </article>
 
         <section className="community" id="showcase">
           <div className="section-heading" data-reveal>
-            <h2>From a creative direction to a finished video</h2>
-            <p>Explore the jobs an AI video agent can coordinate, from story planning and text to video through product campaigns, social ads, and multi-shot continuity.</p>
-            <a href={homeUrl}>Start a video workflow <Arrow /></a>
+            <h2>{tr("From a creative direction to a finished video")}</h2>
+            <p>{tr("Explore the jobs an AI video agent can coordinate, from story planning and text to video through product campaigns, social ads, and multi-shot continuity.")}</p>
+            <a href={homeUrl}>{tr("Start a video workflow")} <Arrow /></a>
           </div>
-          <ShowcaseRail items={workShowcases} />
+          <ShowcaseRail items={localizedShowcases} locale={activeLocale} />
         </section>
 
         <div className="section-heading centered feature-heading video-types-heading" data-reveal>
-          <h2>How Creators Are Using Wizstar&apos;s AI Video Agent</h2>
-          <p>Use the same guided workflow for marketing campaigns, product ads, animated stories, educational videos, and cinematic short dramas.</p>
+          <h2>{tr("How Creators Are Using Wizstar's AI Video Agent")}</h2>
+          <p>{tr("Use the same guided workflow for marketing campaigns, product ads, animated stories, educational videos, and cinematic short dramas.")}</p>
         </div>
 
         <ScrollStack
@@ -229,44 +250,44 @@ export default function Home() {
           itemScale={0.025}
         >
         <ScrollStackItem><article className="feature-row" id="end-to-end-video" data-reveal>
-          <div className="feature-media"><SoundVideo src="/assets/futuristic-mouse-marketing-ad.mp4" alt="A futuristic technology advertisement for a gaming mouse created as an AI marketing video" /></div>
-          <div className="feature-copy"><span className="feature-number">01</span><h2>AI Video Agent for Marketing Campaigns</h2><p>Turn a product brief into a polished campaign video with a clear hook, product-focused shots, cinematic motion, and channel-ready pacing. Wizstar's Creative Agent can shape the concept, script, visual direction, and edit into a high-impact ad like this futuristic gaming mouse launch.</p><a href={homeUrl}>Create a Marketing Video <Arrow /></a></div>
+          <div className="feature-media"><SoundVideo src="/assets/futuristic-mouse-marketing-ad.mp4" locale={activeLocale} alt={tr("A futuristic technology advertisement for a gaming mouse created as an AI marketing video")} /></div>
+          <div className="feature-copy"><span className="feature-number">01</span><h2>{tr("AI Video Agent for Marketing Campaigns")}</h2><p>{tr("Turn a product brief into a polished campaign video with a clear hook, product-focused shots, cinematic motion, and channel-ready pacing. Wizstar's Creative Agent can shape the concept, script, visual direction, and edit into a high-impact ad like this futuristic gaming mouse launch.")}</p><a href={homeUrl}>{tr("Create a Marketing Video")} <Arrow /></a></div>
         </article></ScrollStackItem>
         <ScrollStackItem><article className="feature-row reverse" id="reference-to-video" data-reveal>
-          <div className="feature-media"><SoundVideo src="/assets/model-eyeshadow-product-ad.mp4" alt="A model demonstrating the finished look in an eyeshadow palette video advertisement" /></div>
-          <div className="feature-copy"><span className="feature-number">02</span><h2>Turn Product Shots into Model-Led Video Ads</h2><p>Show the product and the finished look in one polished story. Wizstar's AI agent for video creation can coordinate eyeshadow palette close-ups, model shots, color-focused transitions, pacing, and sound so beauty shoppers can see the effect before they buy.</p><a href={homeUrl}>Create a Beauty Product Ad <Arrow /></a></div>
+          <div className="feature-media"><SoundVideo src="/assets/model-eyeshadow-product-ad.mp4" locale={activeLocale} alt={tr("A model demonstrating the finished look in an eyeshadow palette video advertisement")} /></div>
+          <div className="feature-copy"><span className="feature-number">02</span><h2>{tr("Turn Product Shots into Model-Led Video Ads")}</h2><p>{tr("Show the product and the finished look in one polished story. Wizstar's AI agent for video creation can coordinate eyeshadow palette close-ups, model shots, color-focused transitions, pacing, and sound so beauty shoppers can see the effect before they buy.")}</p><a href={homeUrl}>{tr("Create a Beauty Product Ad")} <Arrow /></a></div>
         </article></ScrollStackItem>
         <ScrollStackItem><article className="feature-row" id="keyframe-to-video" data-reveal>
-          <div className="feature-media"><SoundVideo src="/assets/cartoon-rabbit-story-video.mp4" alt="A handcrafted cartoon rabbit floating with a dandelion before curling up inside a flowered teacup" /></div>
-          <div className="feature-copy"><span className="feature-number">03</span><h2>Create Character-Led Animated Stories</h2><p>Turn a simple character idea or short script into a warm, expressive animated sequence. Wizstar's script-to-video AI agent can plan character actions, camera beats, a whimsical visual world, and scene-to-scene continuity for branded mascots, family content, and social storytelling.</p><a href={homeUrl}>Create an Animated Story <Arrow /></a></div>
+          <div className="feature-media"><SoundVideo src="/assets/cartoon-rabbit-story-video.mp4" locale={activeLocale} alt={tr("A handcrafted cartoon rabbit floating with a dandelion before curling up inside a flowered teacup")} /></div>
+          <div className="feature-copy"><span className="feature-number">03</span><h2>{tr("Create Character-Led Animated Stories")}</h2><p>{tr("Turn a simple character idea or short script into a warm, expressive animated sequence. Wizstar's script-to-video AI agent can plan character actions, camera beats, a whimsical visual world, and scene-to-scene continuity for branded mascots, family content, and social storytelling.")}</p><a href={homeUrl}>{tr("Create an Animated Story")} <Arrow /></a></div>
         </article></ScrollStackItem>
         <ScrollStackItem><article className="feature-row reverse" id="text-to-video" data-reveal>
-          <div className="feature-media"><SoundVideo src="/assets/newton-educational-explainer.mp4" alt="Isaac Newton explaining gravity through the story of an apple falling from a tree" /></div>
-          <div className="feature-copy"><span className="feature-number">04</span><h2>Turn Lessons into Engaging Explainer Videos</h2><p>Bring an abstract idea to life with a familiar character, a clear setting, and a memorable visual example. Wizstar's AI video production agent can turn a lesson outline into narrated scenes, demonstrations, character performance, and a paced edit, like Newton explaining gravity through the falling apple.</p><a href={homeUrl}>Create an Educational Video <Arrow /></a></div>
+          <div className="feature-media"><SoundVideo src="/assets/newton-educational-explainer.mp4" locale={activeLocale} alt={tr("Isaac Newton explaining gravity through the story of an apple falling from a tree")} /></div>
+          <div className="feature-copy"><span className="feature-number">04</span><h2>{tr("Turn Lessons into Engaging Explainer Videos")}</h2><p>{tr("Bring an abstract idea to life with a familiar character, a clear setting, and a memorable visual example. Wizstar's AI video production agent can turn a lesson outline into narrated scenes, demonstrations, character performance, and a paced edit, like Newton explaining gravity through the falling apple.")}</p><a href={homeUrl}>{tr("Create an Educational Video")} <Arrow /></a></div>
         </article></ScrollStackItem>
         <ScrollStackItem><article className="feature-row" id="workflow-automation" data-reveal>
-          <div className="feature-media"><SoundVideo src="/assets/ai-short-drama-scene.mp4" alt="A science-fiction short drama scene following a commander and a spacecraft on final approach to a futuristic city" /></div>
-          <div className="feature-copy"><span className="feature-number">05</span><h3>Create Cinematic AI Short Dramas, Scene by Scene</h3><p>Build a short-form drama from one story beat, with character dialogue, reaction shots, world-building, and a cinematic payoff. Wizstar's end-to-end AI video generator can plan the script, scene order, visual continuity, sound, and edit, from a command-center warning to a spacecraft's final approach.</p><a href={homeUrl}>Create an AI Short Drama <Arrow /></a></div>
+          <div className="feature-media"><SoundVideo src="/assets/ai-short-drama-scene.mp4" locale={activeLocale} alt={tr("A science-fiction short drama scene following a commander and a spacecraft on final approach to a futuristic city")} /></div>
+          <div className="feature-copy"><span className="feature-number">05</span><h3>{tr("Create Cinematic AI Short Dramas, Scene by Scene")}</h3><p>{tr("Build a short-form drama from one story beat, with character dialogue, reaction shots, world-building, and a cinematic payoff. Wizstar's end-to-end AI video generator can plan the script, scene order, visual continuity, sound, and edit, from a command-center warning to a spacecraft's final approach.")}</p><a href={homeUrl}>{tr("Create an AI Short Drama")} <Arrow /></a></div>
         </article></ScrollStackItem>
         </ScrollStack>
 
         <section className="agent-steps" id="agent-steps" aria-labelledby="agent-steps-title">
           <div className="section-heading centered agent-steps-heading" data-reveal>
-            <h2 id="agent-steps-title">Create with Wizstar&apos;s AI Video Agent in Three Steps</h2>
-            <p>Start with an idea, let the Agent build the plan, and shape the final video with every creative decision connected.</p>
+            <h2 id="agent-steps-title">{tr("Create with Wizstar's AI Video Agent in Three Steps")}</h2>
+            <p>{tr("Start with an idea, let the Agent build the plan, and shape the final video with every creative decision connected.")}</p>
           </div>
           <div className="agent-steps-grid">
             <article className="agent-step" data-reveal>
-              <div className="agent-step-image"><img src="/assets/agent-steps/step-01.jpg" alt="Wizstar AI Video Agent workspace ready for a creative brief" /></div>
-              <div className="agent-step-copy"><span>Step 01</span><h3>Start with an Idea</h3><p>Describe what you want in plain language, then add scripts, products, characters, or reference images. The Agent turns your direction into a clear creative brief.</p></div>
+              <div className="agent-step-image"><img src="/assets/agent-steps/step-01.jpg" alt={tr("Wizstar AI Video Agent workspace ready for a creative brief")} /></div>
+              <div className="agent-step-copy"><span>{tr("Step 01")}</span><h3>{tr("Start with an Idea")}</h3><p>{tr("Describe what you want in plain language, then add scripts, products, characters, or reference images. The Agent turns your direction into a clear creative brief.")}</p></div>
             </article>
             <article className="agent-step" data-reveal>
-              <div className="agent-step-image"><img src="/assets/agent-steps/step-02.jpg" alt="A planned sequence of connected scenes and camera moments" /></div>
-              <div className="agent-step-copy"><span>Step 02</span><h3>Let the Agent Plan the Video</h3><p>Your Agent maps the story, suggests scenes, selects the right model, and organizes visuals, voice, pacing, and format before generation starts.</p></div>
+              <div className="agent-step-image"><img src="/assets/agent-steps/step-02.jpg" alt={tr("A planned sequence of connected scenes and camera moments")} /></div>
+              <div className="agent-step-copy"><span>{tr("Step 02")}</span><h3>{tr("Let the Agent Plan the Video")}</h3><p>{tr("Your Agent maps the story, suggests scenes, selects the right model, and organizes visuals, voice, pacing, and format before generation starts.")}</p></div>
             </article>
             <article className="agent-step" data-reveal>
-              <div className="agent-step-image"><img src="/assets/agent-steps/step-03.jpg" alt="A generated video result ready for review and refinement" /></div>
-              <div className="agent-step-copy"><span>Step 03</span><h3>Generate, Review, and Refine</h3><p>Create a polished first cut, review the result, and keep refining the details with the Agent until the video is ready to share.</p></div>
+              <div className="agent-step-image"><img src="/assets/agent-steps/step-03.jpg" alt={tr("A generated video result ready for review and refinement")} /></div>
+              <div className="agent-step-copy"><span>{tr("Step 03")}</span><h3>{tr("Generate, Review, and Refine")}</h3><p>{tr("Create a polished first cut, review the result, and keep refining the details with the Agent until the video is ready to share.")}</p></div>
             </article>
           </div>
         </section>
@@ -285,44 +306,44 @@ export default function Home() {
         />
         <div className="model-showcase-overlay" />
         <div className="model-showcase-content page-width">
-          <span className="model-showcase-badge liquid-glass">Multiple AI Models</span>
-          <ModelRevealTitle>Top AI Models Powering Wizstar&apos;s Video Agent</ModelRevealTitle>
-          <p className="model-showcase-intro">Wizstar brings four AI video models into one workflow, so you can match each brief with the kind of motion, continuity, and shot length it needs.</p>
+          <span className="model-showcase-badge liquid-glass">{tr("Multiple AI Models")}</span>
+          <ModelRevealTitle>{tr("Top AI Models Powering Wizstar's Video Agent")}</ModelRevealTitle>
+          <p className="model-showcase-intro">{tr("Wizstar brings four AI video models into one workflow, so you can match each brief with the kind of motion, continuity, and shot length it needs.")}</p>
           <div className="model-showcase-grid">
-            {videoModels.map((model) => <article className="model-showcase-card liquid-glass" key={model.name}>
+            {localizedModels.map((model) => <article className="model-showcase-card liquid-glass" key={model.name}>
               <div><strong className="liquid-glass"><img src={model.logo} alt="" aria-hidden="true" />{model.name}</strong></div>
               <h3>{model.strength}</h3>
               <p>{model.description}</p>
             </article>)}
           </div>
-          <a className="model-showcase-cta" href={homeUrl}>Explore Video Models <Arrow /></a>
+          <a className="model-showcase-cta" href={homeUrl}>{tr("Explore Video Models")} <Arrow /></a>
         </div>
       </section>
 
       <section className="testimonials" id="production-priorities">
-        <div className="page-width"><div className="section-heading centered testimonials-heading" data-reveal><span className="section-kicker">Creator voices</span><h2>What Wizstar Creators Say</h2><p>Production perspectives on planning connected scenes, sound, and revisions with an AI video agent.</p></div></div>
+        <div className="page-width"><div className="section-heading centered testimonials-heading" data-reveal><span className="section-kicker">{tr("Creator voices")}</span><h2>{tr("What Wizstar Creators Say")}</h2><p>{tr("Production perspectives on planning connected scenes, sound, and revisions with an AI video agent.")}</p></div></div>
         <div className="quote-marquee">
-          <div className="quote-track" aria-label="AI video production priorities">
-            <article><span aria-hidden="true">&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
-            <article><span aria-hidden="true">&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
-            <article><span aria-hidden="true">&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
-            <article><span aria-hidden="true">&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
-            <article aria-hidden="true"><span>&ldquo;</span><p>I can start with a rough brief and get a clear shot plan before I open the editor.</p><small>Maya R. · Creative producer</small></article>
-            <article aria-hidden="true"><span>&ldquo;</span><p>Keeping the references, characters, and visual rules together makes revisions much easier.</p><small>Jordan K. · Brand designer</small></article>
-            <article aria-hidden="true"><span>&ldquo;</span><p>I can try different models for different shots without rebuilding the whole project from scratch.</p><small>Chris T. · Independent filmmaker</small></article>
-            <article aria-hidden="true"><span>&ldquo;</span><p>The agent gives me a strong first cut, then I can steer the details until the story feels right.</p><small>Taylor S. · Marketing lead</small></article>
+          <div className="quote-track" aria-label={tr("AI video production priorities")}>
+            <article><span aria-hidden="true">&ldquo;</span><p>{tr("I can start with a rough brief and get a clear shot plan before I open the editor.")}</p><small>{tr("Maya R. · Creative producer")}</small></article>
+            <article><span aria-hidden="true">&ldquo;</span><p>{tr("Keeping the references, characters, and visual rules together makes revisions much easier.")}</p><small>{tr("Jordan K. · Brand designer")}</small></article>
+            <article><span aria-hidden="true">&ldquo;</span><p>{tr("I can try different models for different shots without rebuilding the whole project from scratch.")}</p><small>{tr("Chris T. · Independent filmmaker")}</small></article>
+            <article><span aria-hidden="true">&ldquo;</span><p>{tr("The agent gives me a strong first cut, then I can steer the details until the story feels right.")}</p><small>{tr("Taylor S. · Marketing lead")}</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>{tr("I can start with a rough brief and get a clear shot plan before I open the editor.")}</p><small>{tr("Maya R. · Creative producer")}</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>{tr("Keeping the references, characters, and visual rules together makes revisions much easier.")}</p><small>{tr("Jordan K. · Brand designer")}</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>{tr("I can try different models for different shots without rebuilding the whole project from scratch.")}</p><small>{tr("Chris T. · Independent filmmaker")}</small></article>
+            <article aria-hidden="true"><span>&ldquo;</span><p>{tr("The agent gives me a strong first cut, then I can steer the details until the story feels right.")}</p><small>{tr("Taylor S. · Marketing lead")}</small></article>
           </div>
         </div>
       </section>
 
       <section className="faq page-width" id="faq">
-        <div className="section-heading centered" data-reveal><span className="section-kicker">Wizstar AI Video Agent</span><h2>Questions and Answers</h2></div>
-        <div className="faq-list">{faqItems.map((item) => <details className="faq-item" key={item.question}><summary><span>{item.question}</span></summary><p>{item.answer}</p></details>)}</div>
+        <div className="section-heading centered" data-reveal><span className="section-kicker">{tr("Wizstar AI Video Agent")}</span><h2>{tr("Questions and Answers")}</h2></div>
+        <div className="faq-list">{faqItems.map((item) => <details className="faq-item" key={item.question}><summary><span>{tr(item.question)}</span></summary><p>{tr(item.answer)}</p></details>)}</div>
       </section>
 
-      <FinalCta />
+      <FinalCta locale={isLocale(locale) ? locale : "en"} />
 
-      <wizstar-footer></wizstar-footer>
+      <wizstar-footer suppressHydrationWarning></wizstar-footer>
       {/*
       <footer className="site-footer">
         <div className="footer-inner">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent } from "react";
+import { translateText, type Locale } from "./i18n";
 
 export type ShowcaseItem = {
   eyebrow: string;
@@ -81,11 +82,11 @@ function ModelIcon({ name }: { name: VideoModel["name"] }) {
   return <img className="model-logo" src={src} alt="" aria-hidden="true" />;
 }
 
-function TypingGuide() {
+function TypingGuide({ locale = "en" }: { locale?: Locale }) {
   const [guideIndex, setGuideIndex] = useState(0);
   const [text, setText] = useState("");
   const [deleting, setDeleting] = useState(false);
-  const guide = PROMPT_GUIDES[guideIndex];
+  const guide = translateText(locale, PROMPT_GUIDES[guideIndex]);
 
   useEffect(() => {
     let delay = deleting ? 22 : 38;
@@ -149,7 +150,8 @@ export function RevealObserver() {
   return null;
 }
 
-export function HeroWorkspace() {
+export function HeroWorkspace({ locale = "en" }: { locale?: Locale }) {
+  const tr = (text: string) => translateText(locale, text);
   const [referenceFiles, setReferenceFiles] = useState<File[]>([]);
   const [prompt, setPrompt] = useState("");
   const [openMenu, setOpenMenu] = useState<"model" | "aspect" | "resolution" | null>(null);
@@ -171,57 +173,57 @@ export function HeroWorkspace() {
   }, []);
 
   return <div className="hero-workspace hero-workspace-solo page-width">
-    <form className="creator" aria-label="Wizstar AI video agent setup" onSubmit={continueToWizstar}>
-      {prompt ? null : <TypingGuide />}
-      <textarea aria-label="Video prompt" value={prompt} maxLength={2000} onChange={(event) => setPrompt(event.target.value)} />
+    <form className="creator" aria-label={tr("Wizstar AI video agent setup")} onSubmit={continueToWizstar}>
+      {prompt ? null : <TypingGuide locale={locale} />}
+      <textarea aria-label={tr("Video prompt")} value={prompt} maxLength={2000} onChange={(event) => setPrompt(event.target.value)} />
       <div className="creator-toolbar" ref={controlsRef}>
-        <label className="upload-control" title="Add image, video, or audio references"><input type="file" accept="image/*,video/*,audio/*" multiple onChange={chooseReferences} /><span aria-hidden="true">+</span><small>{referenceFiles.length ? `${referenceFiles.length} refs` : "Add reference"}</small></label>
+        <label className="upload-control" title={tr("Add image, video, or audio references")}><input type="file" accept="image/*,video/*,audio/*" multiple onChange={chooseReferences} /><span aria-hidden="true">+</span><small>{referenceFiles.length ? `${referenceFiles.length} ${tr("refs")}` : tr("Add reference")}</small></label>
         <div className="model-picker">
           <button type="button" onClick={() => setOpenMenu((value) => value === "model" ? null : "model")} aria-expanded={openMenu === "model"} aria-haspopup="listbox">
             <ModelIcon name={model} />
             <span>{model}</span>
-            {selectedModel.isNew ? <span className="model-new">New</span> : null}
+            {selectedModel.isNew ? <span className="model-new">{tr("New")}</span> : null}
             <span className="select-chevron" />
           </button>
-          {openMenu === "model" ? <div className="model-menu" role="listbox" aria-label="Video model">
+          {openMenu === "model" ? <div className="model-menu" role="listbox" aria-label={tr("Video model")}>
             {VIDEO_MODELS.map((item) => <button className={item.name === model ? "is-selected" : ""} key={item.name} type="button" role="option" aria-selected={item.name === model} onClick={() => { setModel(item.name); if (item.name === "Seedance 2.5") setResolution("720P"); setOpenMenu(null); }}>
-              <span className="model-option-title"><span><ModelIcon name={item.name} />{item.name}</span>{item.isNew ? <span className="model-new">New</span> : null}</span>
-              <small>{item.description}</small>
+              <span className="model-option-title"><span><ModelIcon name={item.name} />{item.name}</span>{item.isNew ? <span className="model-new">{tr("New")}</span> : null}</span>
+              <small>{tr(item.description)}</small>
             </button>)}
           </div> : null}
         </div>
         <div className="output-picker">
-          <button className="creator-settings creator-aspect-settings" type="button" onClick={() => setOpenMenu((value) => value === "aspect" ? null : "aspect")} aria-label="Aspect ratio" aria-expanded={openMenu === "aspect"} aria-haspopup="dialog">
+          <button className="creator-settings creator-aspect-settings" type="button" onClick={() => setOpenMenu((value) => value === "aspect" ? null : "aspect")} aria-label={tr("Aspect ratio")} aria-expanded={openMenu === "aspect"} aria-haspopup="dialog">
             <span className={`output-icon output-icon-${aspectRatio.replace(":", "-")}`} aria-hidden="true" />
             <span>{aspectRatio}</span><span className="select-chevron" />
           </button>
-          <button className="creator-settings creator-resolution-settings" type="button" onClick={() => setOpenMenu((value) => value === "resolution" ? null : "resolution")} aria-label="Resolution" aria-expanded={openMenu === "resolution"} aria-haspopup="dialog">
+          <button className="creator-settings creator-resolution-settings" type="button" onClick={() => setOpenMenu((value) => value === "resolution" ? null : "resolution")} aria-label={tr("Resolution")} aria-expanded={openMenu === "resolution"} aria-haspopup="dialog">
             <span>{resolution}</span><span className="select-chevron" />
           </button>
-          {openMenu === "aspect" ? <div className="output-menu" role="dialog" aria-label="Aspect ratio settings">
-            <span className="output-label">Aspect ratio</span>
+          {openMenu === "aspect" ? <div className="output-menu" role="dialog" aria-label={tr("Aspect ratio settings")}>
+            <span className="output-label">{tr("Aspect ratio")}</span>
             <div className="ratio-options">
               {(["9:16", "16:9"] as const).map((ratio) => <button className={ratio === aspectRatio ? "is-selected" : ""} key={ratio} type="button" aria-pressed={ratio === aspectRatio} onClick={() => setAspectRatio(ratio)}><i className={`ratio-shape ratio-${ratio.replace(":", "-")}`} aria-hidden="true" />{ratio}</button>)}
             </div>
           </div> : null}
-          {openMenu === "resolution" ? <div className="output-menu resolution-menu" role="dialog" aria-label="Resolution settings">
-            <span className="output-label">Resolution</span>
+          {openMenu === "resolution" ? <div className="output-menu resolution-menu" role="dialog" aria-label={tr("Resolution settings")}>
+            <span className="output-label">{tr("Resolution")}</span>
             <div className={`resolution-options resolution-count-${availableResolutions.length}`}>
               {availableResolutions.map((option) => <button className={option === resolution ? "is-selected" : ""} key={option} type="button" aria-pressed={option === resolution} onClick={() => { setResolution(option); setOpenMenu(null); }}>{option}</button>)}
             </div>
           </div> : null}
         </div>
-        <button className="generate" type="submit">Create Video</button>
+        <button className="generate" type="submit">{tr("Create Video")}</button>
       </div>
     </form>
   </div>;
 }
 
-export function ShowcaseVideo({ src, alt }: { src: string; alt: string }) {
-  return <SoundVideo src={src} alt={alt} />;
+export function ShowcaseVideo({ src, alt, locale = "en" }: { src: string; alt: string; locale?: Locale }) {
+  return <SoundVideo src={src} alt={alt} locale={locale} />;
 }
 
-export function SoundVideo({ src, alt, controls = false, autoPlay = true, audioGain = 1 }: { src: string; alt: string; controls?: boolean; autoPlay?: boolean; audioGain?: number }) {
+export function SoundVideo({ src, alt, locale = "en", controls = false, autoPlay = true, audioGain = 1 }: { src: string; alt: string; locale?: Locale; controls?: boolean; autoPlay?: boolean; audioGain?: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -295,7 +297,7 @@ export function SoundVideo({ src, alt, controls = false, autoPlay = true, audioG
 
   return <div className="sound-video">
     <video ref={videoRef} src={src} aria-label={alt} muted={muted} loop playsInline autoPlay={autoPlay} controls={controls} preload="metadata" />
-    <button className={`sound-toggle${muted ? " is-muted" : ""}`} type="button" onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onClick={handleClick} aria-pressed={!muted} aria-label={muted ? "Play video sound" : "Mute video sound"} title={muted ? "Play sound" : "Mute sound"}>
+    <button className={`sound-toggle${muted ? " is-muted" : ""}`} type="button" onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onClick={handleClick} aria-pressed={!muted} aria-label={translateText(locale, muted ? "Play video sound" : "Mute video sound")} title={translateText(locale, muted ? "Play sound" : "Mute sound")}>
       {muted ? (
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9.5v5h3.2l4.3 3.4V6.1L7.2 9.5H4Z" /><path d="m17 9 4 6m0-6-4 6" /></svg>
       ) : (
@@ -305,7 +307,7 @@ export function SoundVideo({ src, alt, controls = false, autoPlay = true, audioG
   </div>;
 }
 
-export function DurationCountdown() {
+export function DurationCountdown({ locale = "en" }: { locale?: Locale }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
@@ -315,12 +317,12 @@ export function DurationCountdown() {
     return () => window.clearInterval(timer);
   }, []);
 
-  return <span className="duration-countdown" aria-label={`${seconds} seconds elapsed`}>
+  return <span className="duration-countdown" aria-label={`${seconds} ${translateText(locale, "seconds elapsed")}`}>
     00:{String(seconds).padStart(2, "0")}
   </span>;
 }
 
-function ShowcaseRailRow({ items, index, syncRef, reverse = false }: { items: readonly ShowcaseItem[]; index: 0 | 1; syncRef: MutableRefObject<RailSyncState>; reverse?: boolean }) {
+function ShowcaseRailRow({ items, index, syncRef, reverse = false, locale = "en" }: { items: readonly ShowcaseItem[]; index: 0 | 1; syncRef: MutableRefObject<RailSyncState>; reverse?: boolean; locale?: Locale }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, x: 0, scroll: 0 });
@@ -415,7 +417,7 @@ function ShowcaseRailRow({ items, index, syncRef, reverse = false }: { items: re
     <div
       ref={viewportRef}
       className={`creation-row${reverse ? " creation-row-reverse" : ""}`}
-      aria-label={reverse ? "AI Video Agent work showcase second row" : "AI Video Agent work showcase first row"}
+      aria-label={translateText(locale, reverse ? "AI Video Agent work showcase second row" : "AI Video Agent work showcase first row")}
       onPointerDown={startDrag}
       onPointerMove={moveDrag}
       onPointerUp={endDrag}
@@ -453,13 +455,13 @@ function ShowcaseRailRow({ items, index, syncRef, reverse = false }: { items: re
             onBlur={() => { hoverRef.current = false; }}
           >
             <div className="showcase-visual">
-              <ShowcaseVideo src={item.src} alt={item.alt} />
-              <span>{item.eyebrow}</span>
+              <ShowcaseVideo src={item.src} alt={item.alt} locale={locale} />
+              <span>{translateText(locale, item.eyebrow)}</span>
             </div>
             <div className="showcase-copy">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
-              <div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              <div>{item.tags.map((tag) => <span key={tag}>{translateText(locale, tag)}</span>)}</div>
             </div>
           </article>
         ))}
@@ -468,17 +470,17 @@ function ShowcaseRailRow({ items, index, syncRef, reverse = false }: { items: re
   );
 }
 
-export function ShowcaseRail({ items }: { items: readonly ShowcaseItem[] }) {
+export function ShowcaseRail({ items, locale = "en" }: { items: readonly ShowcaseItem[]; locale?: Locale }) {
   const syncRef = useRef<RailSyncState>({ activeIndex: null, lastScroll: [0, 0], rows: [null, null] });
   const firstRowItems = items.slice(0, 4);
   return (
-    <div className="creation-marquee" aria-label="AI video agent work showcase" data-reveal>
-      <ShowcaseRailRow items={firstRowItems} index={0} syncRef={syncRef} />
+    <div className="creation-marquee" aria-label={translateText(locale, "AI video agent work showcase")} data-reveal>
+      <ShowcaseRailRow items={firstRowItems} index={0} syncRef={syncRef} locale={locale} />
     </div>
   );
 }
 
-export function FinalCta() {
+export function FinalCta({ locale = "en" }: { locale?: Locale }) {
   const trailLastFrame = useRef(0);
   const trailIndex = useRef(0);
 
@@ -505,9 +507,9 @@ export function FinalCta() {
   return (
     <section className="final-cta" onPointerMove={spawnCtaFrame}>
       <div className="final-cta-content page-width" data-reveal>
-        <h2>Turn one direction into a finished video</h2>
-        <p>Bring a brief, script, product, or reference to Wizstar and let the AI video agent carry the work from plan to publish-ready result.</p>
-        <a href="https://wizstar.com/home">Open AI Video Agent</a>
+        <h2>{translateText(locale, "Turn one direction into a finished video")}</h2>
+        <p>{translateText(locale, "Bring a brief, script, product, or reference to Wizstar and let the AI video agent carry the work from plan to publish-ready result.")}</p>
+        <a href="https://wizstar.com/home">{translateText(locale, "Open AI Video Agent")}</a>
       </div>
     </section>
   );
